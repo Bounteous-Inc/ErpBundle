@@ -1,0 +1,117 @@
+demacmedia_erp_accounts:
+    resource:   "@DemacMediaErpBundle/Controller/ErpAccountsController.php"
+    type:       annotation
+    prefix:     /erp/accounts
+
+demacmedia_erp_orders:
+    resource:   "@DemacMediaErpBundle/Controller/ErpOrdersController.php"
+    type:       annotation
+    prefix:     /erp/orders
+
+demacmedia_erp_orders_items:
+    resource:   "@DemacMediaErpBundle/Controller/ErpOrderItemsController.php"
+    type:       annotation
+    prefix:     /erp/orderitems
+
+#
+# REST actions for Physical Store Accounts
+# ----------------------------------------------------------------------------------------------------------------------
+demacmedia_api_erp_get_accounts:
+    pattern: api/rest/{version}/erp/accounts.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestAccounts:cget, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_create_account:
+    pattern: api/rest/{version}/erp/accounts.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestAccounts:post, _format: json, version: latest }
+    requirements:
+        _method: POST
+
+demacmedia_api_erp_get_account:
+    pattern: api/rest/{version}/erp/accounts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestAccounts:get, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_update_account:
+    pattern: api/rest/{version}/erp/accounts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestAccounts:put, _format: json, version: latest }
+    requirements:
+        _method: PUT
+
+demacmedia_api_erp_delete_account:
+    pattern: api/rest/{version}/erp/accounts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestAccounts:delete, _format: json, version: latest }
+    requirements:
+        _method: DELETE
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+#
+# REST actions for Physical Store Orders
+# ----------------------------------------------------------------------------------------------------------------------
+demacmedia_api_erp_get_orders:
+    pattern: api/rest/{version}/erp/orders.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:cget, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_create_order:
+    pattern: api/rest/{version}/erp/orders.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:post, _format: json, version: latest }
+    requirements:
+        _method: POST
+
+demacmedia_api_erp_get_order:
+    pattern: api/rest/{version}/erp/orders/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:get, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_update_order:
+    pattern: api/rest/{version}/erp/orders/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:put, _format: json, version: latest }
+    requirements:
+        _method: PUT
+
+demacmedia_api_erp_delete_order:
+    pattern: api/rest/{version}/erp/orders/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:delete, _format: json, version: latest }
+    requirements:
+        _method: DELETE
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+#
+# REST actions for Physical Store Order Items
+# ----------------------------------------------------------------------------------------------------------------------
+demacmedia_api_erp_get_ordersitems:
+    pattern: api/rest/{version}/erp/orderitems.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:cget, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_create_orderitems:
+    pattern: api/rest/{version}/erp/orderitems.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:post, _format: json, version: latest }
+    requirements:
+        _method: POST
+
+demacmedia_api_erp_get_orderitems:
+    pattern: api/rest/{version}/erp/orderitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:get, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_update_orderitems:
+    pattern: api/rest/{version}/erp/orderitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:put, _format: json, version: latest }
+    requirements:
+        _method: PUT
+
+demacmedia_api_erp_delete_orderitems:
+    pattern: api/rest/{version}/erp/orderitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:delete, _format: json, version: latest }
+    requirements:
+        _method: DELETE

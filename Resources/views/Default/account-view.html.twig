@@ -1,0 +1,168 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+
+{% set pageTitle = 'demacmedia_erp.accounts.entity.label'|trans %}
+{% set params = { 'custno': custno, 'entity': entity } %}
+
+{% block stats %}
+    {% include 'OroWorkflowBundle:Widget:steps.html.twig' with { 'entity': entity } %}
+{% endblock %}
+
+{% block pageHeader %}
+    {% include 'DemacMediaErpBundle:Default:headerStats.html.twig' with { 'entity': entity } %}
+{% endblock %}
+
+{% block content_data %}
+<div id="contactView" class="navbar navbar-static scrollspy-nav">
+    <div class="navbar-inner">
+        <div class="container-fluid" style="width: auto;">
+            <ul class="nav">
+                <li class="active"><a href="#">General Information</a></li>
+                <li class=""><a href="#physical-store-orders">Physical Store Orders</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="form-horizontal">
+    <div class="responsive-cell">
+        <div class="row-fluid form-horizontal">
+                <div class="responsive-block span6">
+                    <div class="control-group">
+                        <label class="control-label">Customer Number:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.custno|default('N/A') }}</div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Company:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.company|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Contact Name:</label>
+                        <div class="controls">
+                            <div class="control-label"><strong>{{ entity.contactname|default('N/A') }}</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Title:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.title|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Address1:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.address1|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Address2:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.address2|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">City:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.city|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Address State:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.addrstate|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Zip:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.zip|default('N/A') }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="responsive-block span6">
+                    <div class="control-group">
+                        <label class="control-label">Country:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.country|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Phone:</label>
+                        <div class="controls">
+                            <div class="control-label"><a href="tel:{{ entity.phone }}">{{ entity.phone|default('N/A') }}</a></div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Phone2:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.phone2|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Source:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.source|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Type:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.type|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">email:</label>
+                        <div class="controls">
+                            <div class="control-label"><a href="mailto:{{ entity.email }}">{{ entity.email|default('N/A')|lower }}</a></div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Comment:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.custmemo|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Url:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.url|default('N/A') }}</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <br />
+</div>
+
+<div class="responsive-section responsive-big responsive-section-no-blocks" style="margin-left: 15px;">
+    <h4 class="scrollspy-title">Physical Store Orders for: <strong>{{ entity.contactname|default('N/A')|upper }}</strong></h4>
+    <div id="physical-store-orders" class="scrollspy-nav-target"></div>
+    <div class="row-fluid">
+        <div class="form-horizontal">
+            <div class="responsive-cell responsive-cell-no-blocks">
+                {% set gridName = 'erp-orders-specific-grid' %}
+                {% set gridFilters = { 'custno': custno } %}
+                {{ dataGrid.renderGrid(gridName, gridFilters) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content_data %}

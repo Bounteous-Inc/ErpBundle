@@ -1,0 +1,24 @@
+{
+  "name": "DemacMedia/ErpBundle",
+  "description": "Accounts, Orders and OrderItems from ERP",
+  "homepage": "https://github.com/DemacMedia/ErpBundle.git",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "name": "Demac Media",
+      "homepage": "https://github.com/DemacMedia/"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "DemacMedia\\Bundle\\ErpBundle": "src/"
+    }
+  },
+  "target-dir": "src/DemacMedia/Bundle/ErpBundle",
+  "require": {
+    "php": ">=5.4.4",
+    "oro/platform": "1.*",
+    "oro/crm": "1.*"
+  },
+  "minimum-stability": "stable"
+}

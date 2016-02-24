@@ -1,0 +1,2 @@
+bundles:
+    - { name: DemacMedia\Bundle\ErpBundle\DemacMediaErpBundle, priority: 50 }

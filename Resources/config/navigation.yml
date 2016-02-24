@@ -1,0 +1,30 @@
+oro_menu_config:
+   items:
+       erp_tab:
+           label: 'Web Stores'
+           uri: '#'
+
+       shortcut_accounts_item:
+           label: 'WebStore Accounts'
+           route: demacmedia_erp_accounts
+
+       shortcut_orders_item:
+           label: 'WebStore Orders'
+           route: demacmedia_erp_orders
+ 
+   tree:
+       application_menu:
+           children:
+               sales_tab:
+                   children:
+                       shortcut_orders_item: ~
+               customers_tab:
+                   children:
+                       shortcut_accounts_item: ~
+               erp_tab:
+                   children:
+                       shortcut_accounts_item: ~
+                       shortcut_orders_item: ~
+oro_titles:
+    demacmedia_erp_accounts: "WebStore Accounts"
+    demacmedia_erp_orders: "WebStore Orders"

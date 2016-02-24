@@ -1,0 +1,157 @@
+parameters:
+    demacmedia_erp_accounts.form.type.accounts.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpAccountsType
+    demacmedia_erp_accounts.form.type.accounts_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpAccountsApiType
+    demacmedia_erp_accounts.form.handler.accounts.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpAccountsHandler
+    demacmedia_erp_accounts.form.handler.accounts_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpAccountsApiHandler
+
+    demacmedia_erp_orders.form.type.orders.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrdersType
+    demacmedia_erp_orders.form.type.orders_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrdersApiType
+    demacmedia_erp_orders.form.handler.orders.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrdersHandler
+    demacmedia_erp_orders.form.handler.orders_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrdersApiHandler
+
+    demacmedia_erp_orderitems.form.type.orderitems.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrderItemsType
+    demacmedia_erp_orderitems.form.type.orderitems_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrderItemsApiType
+    demacmedia_erp_orderitems.form.handler.orderitems.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrderItemsHandler
+    demacmedia_erp_orderitems.form.handler.orderitems_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrderItemsApiHandler
+
+services:
+    # ACCOUNTS
+    demacmedia_erp_accounts.form.type.accounts:
+        class: %demacmedia_erp_accounts.form.type.accounts.class%
+        tags:
+            - { name: form.type, alias: demacmedia_erp_accounts }
+
+    demacmedia_erp_accounts.form.type.accounts_api:
+        class: %demacmedia_erp_accounts.form.type.accounts_api.class%
+        arguments:
+            - @oro_entity_config.config_manager
+        tags:
+            - { name: form.type, alias: demacmedia_erp_accounts_api }
+
+    demacmedia_erp_accounts.form.accounts:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - 'demacmedia_erp_accounts'
+            - 'demacmedia_erp_accounts'
+
+    demacmedia_erp_accounts.form.accounts.api:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - ~
+            - 'demacmedia_erp_accounts_api'
+
+    demacmedia_erp_accounts.form.handler.accounts:
+        class: %demacmedia_erp_accounts.form.handler.accounts.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_accounts.form.accounts
+            - @request
+            - @doctrine.orm.entity_manager
+
+    demacmedia_erp_accounts.form.handler.accounts_api:
+        class: %demacmedia_erp_accounts.form.handler.accounts_api.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_accounts.form.accounts.api
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_entity_config.config_manager
+
+
+
+    # ORDERS:
+    demacmedia_erp_orders.form.type.orders:
+        class: %demacmedia_erp_orders.form.type.orders.class%
+        tags:
+            - { name: form.type, alias: demacmedia_erp_orders }
+
+    demacmedia_erp_orders.form.type.orders_api:
+        class: %demacmedia_erp_orders.form.type.orders_api.class%
+        arguments:
+            - @oro_entity_config.config_manager
+        tags:
+            - { name: form.type, alias: demacmedia_erp_orders_api }
+
+    demacmedia_erp_orders.form.orders:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - 'demacmedia_erp_orders'
+            - 'demacmedia_erp_orders'
+
+    demacmedia_erp_orders.form.orders.api:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - ~
+            - 'demacmedia_erp_orders_api'
+
+    demacmedia_erp_orders.form.handler.orders:
+        class: %demacmedia_erp_orders.form.handler.orders.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_orders.form.orders
+            - @request
+            - @doctrine.orm.entity_manager
+
+    demacmedia_erp_orders.form.handler.orders_api:
+        class: %demacmedia_erp_orders.form.handler.orders_api.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_orders.form.orders.api
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_entity_config.config_manager
+
+
+    # ORDERITEMS:
+    demacmedia_erp_orderitems.form.type.orderitems:
+        class: %demacmedia_erp_orderitems.form.type.orderitems.class%
+        tags:
+            - { name: form.type, alias: demacmedia_erp_orderitems }
+
+    demacmedia_erp_orderitems.form.type.orderitems_api:
+        class: %demacmedia_erp_orderitems.form.type.orderitems_api.class%
+        arguments:
+            - @oro_entity_config.config_manager
+        tags:
+            - { name: form.type, alias: demacmedia_erp_orderitems_api }
+
+    demacmedia_erp_orderitems.form.orderitems:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - 'demacmedia_erp_orderitems'
+            - 'demacmedia_erp_orderitems'
+
+    demacmedia_erp_orderitems.form.orderitems.api:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - ~
+            - 'demacmedia_erp_orderitems_api'
+
+    demacmedia_erp_orderitems.form.handler.orderitems:
+        class: %demacmedia_erp_orderitems.form.handler.orderitems.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_orderitems.form.orderitems
+            - @request
+            - @doctrine.orm.entity_manager
+
+    demacmedia_erp_orderitems.form.handler.orderitems_api:
+        class: %demacmedia_erp_orderitems.form.handler.orderitems_api.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_orderitems.form.orderitems.api
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_entity_config.config_manager

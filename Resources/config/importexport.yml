@@ -1,0 +1,29 @@
+parameters:
+    oro_erp_accounts.importexport.template_fixture.user.class:    Oro\Bundle\ErpBundle\ImportExport\TemplateFixture\AccountsFixture
+
+services:
+    oro_erp_accounts.importexport.data_converter:
+        parent: oro_importexport.data_converter.configurable
+
+    oro_erp_accounts.importexport.template_fixture.data_converter:
+        parent: oro_importexport.data_converter.template_fixture.configurable
+
+    # Export processor
+    oro_erp_accounts.importexport.processor.export:
+        parent: oro_importexport.processor.export_abstract
+        calls:
+            - [setDataConverter, [@oro_erp_accounts.importexport.data_converter]]
+        tags:
+            - { name: oro_importexport.processor, type: export, entity: %oro_erp_accounts.entity.class%, alias: oro_erp_accounts }
+
+    oro_erp_accounts.importexport.processor.export_template:
+        parent: oro_importexport.processor.export_abstract
+        calls:
+            - [setDataConverter, [@oro_erp_accounts.importexport.template_fixture.data_converter]]
+        tags:
+            - { name: oro_importexport.processor, type: export_template, entity: %oro_erp_accounts.entity.class%, alias: oro_erp_accounts }
+
+    oro_erp_accounts.importexport.template_fixture.user:
+        class: %oro_erp_accounts.importexport.template_fixture.user.class%
+        tags:
+            - { name: oro_importexport.template_fixture }

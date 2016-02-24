@@ -1,0 +1,33 @@
+
+<div class="clearfix customer-info well-small">
+    <div class="visual">
+        <img alt="{{ entity.contactname }}" src="/bundles/oroui/img/info-user.png">
+    </div>
+    <div class="customer-content pull-left">
+        <div class="clearfix">
+            <div class="sub-title"><a href="{{ path('demacmedia_erp_accounts') }}">Physical Store Accounts</a></div>
+            <span class="separator">/</span>
+            <h1 class="user-name">{{ entity.contactname|capitalize }}</h1>
+        </div>
+
+        <div class="clearfix">
+            <ul class="inline">
+                <li>
+                    {{ 'oro.ui.created_at'|trans }}:
+                    {{ entity.created ? entity.created|oro_format_datetime : 'N/A'|trans }}
+                    {% if entity.contactname %}
+                        {{ entity.contactname|escape }}
+                    {% endif %}
+                </li>
+                <li>
+                    {{ 'oro.ui.updated_at'|trans }}:
+                    {{ entity.updated ? entity.updated|oro_format_datetime : 'N/A'|trans }}
+                    {% if entity.contactname %}
+                        {{ entity.contactname|escape }}
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+</div>
