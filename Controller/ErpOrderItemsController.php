@@ -24,13 +24,13 @@ class ErpOrderItemsController extends Controller
 
 
     /**
-     * @Route("/view/{invno}", name="demacmedia_erp_order_items")
+     * @Route("/view/{originalOrderId}", name="demacmedia_erp_order_items")
      */
-    public function viewAction($invno, OroErpOrderItems $entity)
+    public function viewAction($originalOrderId, OroErpOrderItems $entity)
     {
         return $this->render('DemacMediaErpBundle:Default:account-view.html.twig', [
             'entity' => $entity,
-            'invno' => $invno
+            'originalOrderId' => $originalOrderId
         ]);
     }
 

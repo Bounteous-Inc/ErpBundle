@@ -47,7 +47,7 @@ class OroErpAccounts
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ConfigField(
      *      defaultValues={
@@ -61,240 +61,68 @@ class OroErpAccounts
      */
     protected $id;
 
+
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="custno", type="string", length=32, nullable=true)
+     * @ORM\Column(name="account_original_id", type="integer")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Customer Number",
-     *              "plural_label"="Customers Number",
-     *              "description"="Customer Number"
+     *              "label"="Account Original ID",
+     *              "plural_label"="Account Original ID",
+     *              "description"="Account Original ID"
      *          }
      *      }
      * )
      */
-    protected $custno;
+    protected $accountOriginalId;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="company", type="string", length=100, nullable=true)
+     * @ORM\Column(name="first_name", type="string")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Company",
-     *              "plural_label"="Companies",
-     *              "description"="Company"
+     *              "label"="First Name",
+     *              "plural_label"="First Names",
+     *              "description"="First Name"
      *          }
      *      }
      * )
      */
-    protected $company;
+    protected $firstName;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contactname", type="string")
+     * @ORM\Column(name="last_name", type="string")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="ContactName",
-     *              "plural_label"="Contacts Name",
-     *              "description"="Contact Name"
+     *              "label"="Last Name",
+     *              "plural_label"="Last Names",
+     *              "description"="Last Name"
      *          }
      *      }
      * )
      */
-    protected $contactname;
+    protected $lastName;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=32, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Title",
-     *              "plural_label"="Titles",
-     *              "description"="Title"
-     *          }
-     *      }
-     * )
-     */
-    protected $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address1", type="string", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Address 1",
-     *              "plural_label"="Addresses",
-     *              "description"="Address 1"
-     *          }
-     *      }
-     * )
-     */
-    protected $address1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address2", type="string", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Address 2",
-     *              "plural_label"="Addresses",
-     *              "description"="Address 2"
-     *          }
-     *      }
-     * )
-     */
-    protected $address2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=64)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="City",
-     *              "plural_label"="Cities",
-     *              "description"="City"
-     *          }
-     *      }
-     * )
-     */
-    protected $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="addrstate", type="string", length=2, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="State",
-     *              "plural_label"="States",
-     *              "description"="Address State"
-     *          }
-     *      }
-     * )
-     */
-    protected $addrstate;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="zip", type="string", length=10, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Zip",
-     *              "plural_label"="Zip",
-     *              "description"="Zip"
-     *          }
-     *      }
-     * )
-     */
-    protected $zip;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=64, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Country",
-     *              "plural_label"="Countries",
-     *              "description"="Country"
-     *          }
-     *      }
-     * )
-     */
-    protected $country;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=32)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Phone",
-     *              "plural_label"="Phones",
-     *              "description"="Phone"
-     *          }
-     *      }
-     * )
-     */
-    protected $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone2", type="string", length=32, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Phone 2",
-     *              "plural_label"="Phones",
-     *              "description"="Phone 2"
-     *          }
-     *      }
-     * )
-     */
-    protected $phone2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="source", type="string", length=32, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Source",
-     *              "plural_label"="Sources",
-     *              "description"="Source"
-     *          }
-     *      }
-     * )
-     */
-    protected $source;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=16, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Type",
-     *              "plural_label"="Types",
-     *              "description"="Type"
-     *          }
-     *      }
-     * )
-     */
-    protected $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", nullable=true)
+     * @ORM\Column(name="email", type="string")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
      *              "label"="Email",
      *              "plural_label"="Emails",
-     *              "description"="Email"
+     *              "description"="Emails"
      *          }
      *      }
      * )
@@ -305,51 +133,19 @@ class OroErpAccounts
     /**
      * @var string
      *
-     * @ORM\Column(name="salesrep", type="string", nullable=true)
+     * @ORM\Column(name="original_email", type="string")
+     * @ORM\Id
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="salesrep",
-     *              "plural_label"="salesrep",
-     *              "description"="salesrep"
+     *              "label"="Original Email",
+     *              "plural_label"="Original Emails",
+     *              "description"="Original Emails"
      *          }
      *      }
      * )
      */
-    protected $salesrep;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="custmemo", type="text", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Comment",
-     *              "plural_label"="Comments",
-     *              "description"="Comment"
-     *          }
-     *      }
-     * )
-     */
-    protected $custmemo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Url",
-     *              "plural_label"="Urls",
-     *              "description"="Url"
-     *          }
-     *      }
-     * )
-     */
-    protected $url;
+    protected $originalEmail;
 
     /**
      * @var \DateTime
@@ -367,6 +163,7 @@ class OroErpAccounts
      */
     protected $created;
 
+
     /**
      * @var \DateTime
      *
@@ -382,6 +179,58 @@ class OroErpAccounts
      * )
      */
     protected $updated;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Account Created At",
+     *              "plural_label"="Account Created At",
+     *              "description"="Account Created At"
+     *          }
+     *      }
+     * )
+     */
+    protected $createdAt;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Account Updated At",
+     *              "plural_label"="Account Updated At",
+     *              "description"="Account Updated At"
+     *          }
+     *      }
+     * )
+     */
+    protected $updatedAt;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website_id", type="string", length=64)
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Website ID",
+     *              "plural_label"="Websites ID",
+     *              "description"="Website ID"
+     *          }
+     *      }
+     * )
+     */
+    protected $websiteId;
+
 
     /**
      * @var User
@@ -401,6 +250,7 @@ class OroErpAccounts
      * )
      */
     protected $owner;
+
 
     /**
      * @var Organization
@@ -457,7 +307,6 @@ class OroErpAccounts
 
 
 
-
     /**
      * @return int
      */
@@ -472,280 +321,54 @@ class OroErpAccounts
     public function setId($id)
     {
         $this->id = $id;
+    }
 
-        return $this;
+    /**
+     * @return int
+     */
+    public function getAccountOriginalId()
+    {
+        return $this->accountOriginalId;
+    }
+
+    /**
+     * @param int $accountOriginalId
+     */
+    public function setAccountOriginalId($accountOriginalId)
+    {
+        $this->accountOriginalId = $accountOriginalId;
     }
 
     /**
      * @return string
      */
-    public function getCustno()
+    public function getFirstName()
     {
-        return $this->custno;
+        return $this->firstName;
     }
 
     /**
-     * @param string $custno
+     * @param string $firstName
      */
-    public function setCustno($custno)
+    public function setFirstName($firstName)
     {
-        $this->custno = $custno;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param string $company
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
-
-        return $this;
+        $this->firstName = $firstName;
     }
 
     /**
      * @return string
      */
-    public function getContactname()
+    public function getLastName()
     {
-        return $this->contactname;
+        return $this->lastName;
     }
 
     /**
-     * @param string $contactname
+     * @param string $lastName
      */
-    public function setContactname($contactname)
+    public function setLastName($lastName)
     {
-        $this->contactname = $contactname;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSalesrep()
-    {
-        return $this->salesrep;
-    }
-
-    /**
-     * @param string $salesrep
-     */
-    public function setSalesrep($salesrep)
-    {
-        $this->salesrep = $salesrep;
-
-        return $this;
-    }
-
-
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress1()
-    {
-        return $this->address1;
-    }
-
-    /**
-     * @param string $address1
-     */
-    public function setAddress1($address1)
-    {
-        $this->address1 = $address1;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress2()
-    {
-        return $this->address2;
-    }
-
-    /**
-     * @param string $address2
-     */
-    public function setAddress2($address2)
-    {
-        $this->address2 = $address2;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string $city
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddrstate()
-    {
-        return $this->addrstate;
-    }
-
-    /**
-     * @param string $addrstate
-     */
-    public function setAddrstate($addrstate)
-    {
-        $this->addrstate = $addrstate;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getZip()
-    {
-        return $this->zip;
-    }
-
-    /**
-     * @param string $zip
-     */
-    public function setZip($zip)
-    {
-        $this->zip = $zip;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param string $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone2()
-    {
-        return $this->phone2;
-    }
-
-    /**
-     * @param string $phone2
-     */
-    public function setPhone2($phone2)
-    {
-        $this->phone2 = $phone2;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param string $source
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -762,44 +385,70 @@ class OroErpAccounts
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
     /**
      * @return string
      */
-    public function getCustmemo()
+    public function getOriginalEmail()
     {
-        return $this->custmemo;
+        return $this->originalEmail;
     }
 
     /**
-     * @param string $custmemo
+     * @param string $originalEmail
      */
-    public function setCustmemo($custmemo)
+    public function setOriginalEmail($originalEmail)
     {
-        $this->custmemo = $custmemo;
-
-        return $this;
+        $this->originalEmail = $originalEmail;
     }
 
     /**
      * @return string
      */
-    public function getUrl()
+    public function getWebsiteId()
     {
-        return $this->url;
+        return $this->websiteId;
     }
 
     /**
-     * @param string $url
+     * @param string $websiteId
      */
-    public function setUrl($url)
+    public function setWebsiteId($websiteId)
     {
-        $this->url = $url;
+        $this->websiteId = $websiteId;
+    }
 
-        return $this;
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -952,7 +601,7 @@ class OroErpAccounts
      */
     public function getName()
     {
-        return $this->contact;
+        return sprintf("% %", $this->firstName, $this->lastName);
     }
 
     /**

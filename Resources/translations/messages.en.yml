@@ -1,59 +1,45 @@
 demacmedia_erp:
     accounts:
-        entity.label:         'WebStore Account'
-        entity_plural.label:  'WebStore Accounts'
-        custno.label:         Custno
-        company.label:        Company
-        contactname.label:    'Contact Name'
-        title.label:          Title
-        address1.label:       'Address 1'
-        city.label:           City
-        country.label:        Country
-        phone.label:          Phone
-        source.label:         Source
-        new:                  'New Account'
-        updated.label:        'Updated'
-        email.label:          'Email'
+        entity.label: 'WebStore Account'
+        entity_plural.label: 'WebStore Accounts'
+        accountOriginalId.label: 'Account Original ID'
+        firstName.label: 'First Name'
+        lastName.label: 'Last Name'
+        email.label: 'E-mail'
+        originalEmail.label: 'Original Email'
+        websiteId.label: 'Website ID'
+        createdAt.label: 'Created at'
+        updatedAt.label: 'Updated at'
+        created.label: 'Imported'
+        updated.label: 'Imported'
 
     orders:
-        entity.label:         'WebStore Order'
-        entity_plural.label:  'WebStore Orders'
-        custno.label:         'Customer Number'
-        invno.label:          Invno
-        invdte.label:         'Inventory Date'
-        shipvia.label:        Shipvia
-        tax.label:            Tax
-        invamt.label:         invamt
-        new:                  'New Order'
-        updated.label:        'Updated'
-        invdate.label:        'Inventory Date'
-        oroid.label:          'ORO ID'
-        invamt.label:         'Amount Paid'
-        taxrate.label:        'Tax Rate'
+        entity.label: 'WebStore Order'
+        entity_plural.label: 'WebStore Orders'
+        originalOrderId.label: 'Original Order ID'
+        originalEmail.label: 'Original Email'
+        totalPaid.label: 'Total Paid'
+        websiteId.label: 'Website ID'
+        createdAt.label: 'Created at'
+        updatedAt.label: 'Updated at'
+        created.label: 'Imported'
+        updated.label: 'Imported'
+        imported.label: 'Imported'
+
 
     order_items:
-        entity.label:         'WebStore Items'
-        entity_plural.label:  'WebStore Items'
-        oroid.label:          'Oro-ID'
-        invno.label:          Invno
-        custno.label:         Custno
-        item.label:           SKU
-        descrip.label:        Description
-        taxrate.label:        Taxrate
-        cost.label:           Cost
-        price.label:          Price
-        qtyord.label:         Qtyord
-        qtyshp.label:         Qtyshp
-        extprice.label:       Extprice
-        invdte.label:         Invdte
-        terr.label:           Terr
-        salesmn.label:        Salesmn
-        taxdist.label:        Taxdist
-        serial.label:         Serial
-        jobcode.label:        Jobcode
-        datemod.label:        Datemode
-        iarclss.label:        Iarclss
-        arstat.label:         Arstat
-        invdate.label:        Invdate
-        updated.label:        Updated
-        created.label:        Created
+        entity.label: 'WebStore Items'
+        entity_plural.label: 'WebStore Items'
+        oroid.label: 'Oro ID'
+        id.label: 'ID'
+        originalOrderItemId.label: 'Order Item ID'
+        orderId.label: 'Order ID'
+        sku.label: 'SKU'
+        productName.label: 'Product Name'
+        productPrice.label: 'Product Price'
+        quantity.label: 'Quantity'
+        createdAt.label: 'Created at'
+        updatedAt.label: 'Updated at'
+        created.label: 'Imported'
+        updated.label: 'Imported'
+        imported.label: 'Imported'

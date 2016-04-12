@@ -6,6 +6,8 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 
@@ -58,105 +60,76 @@ class OroErpOrderItems
 
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="invno", type="string", length=32, nullable=true)
+     * @ORM\Column(name="original_order_item_id", type="integer")
+     *
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Inventory Number",
-     *              "plural_label"="Inventories Number",
-     *              "description"="Inventory Number"
+     *              "label"="Original Order Item ID",
+     *              "plural_label"="Original Order Item IDs",
+     *              "description"="Original Order Item ID"
      *          }
      *      }
      * )
      */
-    protected $invno;
+    protected $originalOrderItemId;
+
+
+    /**
+     * @var OroErpOrders
+     *
+     * @ORM\ManyToOne(targetEntity="DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="original_order_id", onDelete="SET NULL")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Original Email",
+     *              "plural_label"="Original Email",
+     *              "description"="Original Email"
+     *          }
+     *      }
+     * )
+     */
+    protected $orderId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="custno", type="string", length=32, nullable=true)
+     * @ORM\Column(name="sku", length=32, type="string")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Customer Number",
-     *              "plural_label"="Customers Number",
-     *              "description"="Customer Number"
+     *              "label"="Sku",
+     *              "plural_label"="Skus",
+     *              "description"="Sku"
      *          }
      *      }
      * )
      */
-    protected $custno;
+    protected $sku;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="item", type="string")
+     * @ORM\Column(name="product_name", type="string", nullable=true)
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Item SKU",
-     *              "plural_label"="Items SKU",
-     *              "description"="Item SKU"
+     *              "label"="Product Name",
+     *              "plural_label"="Product Names",
+     *              "description"="Product Name"
      *          }
      *      }
      * )
      */
-    protected $item;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descrip", type="string", length=32, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="descrip",
-     *              "plural_label"="descrip",
-     *              "description"="descrip"
-     *          }
-     *      }
-     * )
-     */
-    protected $descrip;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="taxrate", type="percent", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Tax Rate",
-     *              "plural_label"="Taxes Rate",
-     *              "description"="Tax Rate"
-     *          }
-     *      }
-     * )
-     */
-    protected $taxrate;
+    protected $productName;
 
     /**
      * @var double
      *
-     * @ORM\Column(name="cost", type="money", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Cost",
-     *              "plural_label"="Costs",
-     *              "description"="Cost"
-     *          }
-     *      }
-     * )
-     */
-    protected $cost;
-
-    /**
-     * @var double
-     *
-     * @ORM\Column(name="price", type="money", nullable=true)
+     * @ORM\Column(name="product_price", type="money")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
@@ -167,89 +140,55 @@ class OroErpOrderItems
      *      }
      * )
      */
-    protected $price;
-
+    protected $productPrice;
 
     /**
-     * @var double
+     * @var int
      *
-     * @ORM\Column(name="extprice", type="money", nullable=true)
+     * @ORM\Column(name="quantity", type="integer")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Ext Price",
-     *              "plural_label"="Ext Prices",
-     *              "description"="Ext Price"
+     *              "label"="Quantity",
+     *              "plural_label"="Quantities",
+     *              "description"="Quantity"
      *          }
      *      }
      * )
      */
-    protected $extprice;
-
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="qtyord", type="float", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Quantity of order",
-     *              "plural_label"="Quantities of orders",
-     *              "description"="Quantity of order"
-     *          }
-     *      }
-     * )
-     */
-    protected $qtyord;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="qtyshp", type="float", nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="Quantity of order shipped",
-     *              "plural_label"="Quantities of orders shipped",
-     *              "description"="Quantity of order shipped"
-     *          }
-     *      }
-     * )
-     */
-    protected $qtyshp;
+    protected $quantity;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="invdate", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Inventory Date",
-     *              "plural_label"="Inventories Date",
-     *              "description"="Inventory Date"
+     *              "label"="Created At",
+     *              "plural_label"="Created At",
+     *              "description"="Created At"
      *          }
      *      }
      * )
      */
-    protected $invdate;
+    protected $createdAt;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="ponum", type="string", length=32, nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Ponum",
-     *              "plural_label"="Ponum",
-     *              "description"="Ponum"
+     *              "label"="Updated At",
+     *              "plural_label"="Updated At",
+     *              "description"="Updated At"
      *          }
      *      }
      * )
      */
-    protected $ponum;
+    protected $updatedAt;
 
     /**
      * @var \DateTime
@@ -322,78 +261,6 @@ class OroErpOrderItems
      */
     protected $organization;
 
-
-
-
-
-
-    /**
-     * @return float
-     */
-    public function getQtyord()
-    {
-        return $this->qtyord;
-    }
-
-    /**
-     * @param float $qtyord
-     */
-    public function setQtyord($qtyord)
-    {
-        $this->qtyord = $qtyord;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCost()
-    {
-        return $this->cost;
-    }
-
-    /**
-     * @param float $cost
-     */
-    public function setCost($cost)
-    {
-        $this->cost = $cost;
-    }
-
-    /**
-     * @return float
-     */
-    public function getExtprice()
-    {
-        return $this->extprice;
-    }
-
-    /**
-     * @param float $extprice
-     */
-    public function setExtprice($extprice)
-    {
-        $this->extprice = $extprice;
-    }
-
-
-
-    /**
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-
     /**
      * @return int
      */
@@ -408,167 +275,134 @@ class OroErpOrderItems
     public function setId($id)
     {
         $this->id = $id;
+    }
 
-        return $this;
+    /**
+     * @return int
+     */
+    public function getOriginalOrderItemId()
+    {
+        return $this->originalOrderItemId;
+    }
+
+    /**
+     * @param int $originalOrderItemId
+     */
+    public function setOriginalOrderItemId($originalOrderItemId)
+    {
+        $this->originalOrderItemId = $originalOrderItemId;
+    }
+
+    /**
+     * @return \DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param \DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders $orderId
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
     }
 
     /**
      * @return string
      */
-    public function getItem()
+    public function getSku()
     {
-        return $this->item;
+        return $this->sku;
     }
 
     /**
-     * @param string $item
+     * @param string $sku
      */
-    public function setItem($item)
+    public function setSku($sku)
     {
-        $this->item = $item;
+        $this->sku = $sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+
+    /**
+     * @param string $productName
+     */
+    public function setProductName($productName)
+    {
+        $this->productName = $productName;
     }
 
     /**
      * @return float
      */
-    public function getQtyshp()
+    public function getProductPrice()
     {
-        return $this->qtyshp;
+        return $this->productPrice;
     }
 
     /**
-     * @param float $qtyshp
+     * @param float $productPrice
      */
-    public function setQtyshp($qtyshp)
+    public function setProductPrice($productPrice)
     {
-        $this->qtyshp = $qtyshp;
-    }
-
-
-
-    /**
-     * @return string
-     */
-    public function getDescrip()
-    {
-        return $this->descrip;
+        $this->productPrice = $productPrice;
     }
 
     /**
-     * @param string $descrip
+     * @return int
      */
-    public function setDescrip($descrip)
+    public function getQuantity()
     {
-        $this->descrip = $descrip;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getInvno()
-    {
-        return $this->invno;
+        return $this->quantity;
     }
 
     /**
-     * @param string $invno
+     * @param int $quantity
      */
-    public function setInvno($invno)
+    public function setQuantity($quantity)
     {
-        $this->invno = $invno;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustno()
-    {
-        return $this->custno;
-    }
-
-    /**
-     * @param string $custno
-     */
-    public function setCustno($custno)
-    {
-        $this->custno = $custno;
-
-        return $this;
+        $this->quantity = $quantity;
     }
 
     /**
      * @return \DateTime
      */
-    public function getInvdate()
+    public function getCreatedAt()
     {
-        return $this->invdate;
+        return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $invdate
+     * @param \DateTime $createdAt
      */
-    public function setInvdate($invdate)
+    public function setCreatedAt($createdAt)
     {
-        $this->invdate = $invdate;
-
-        return $this;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPonum()
+    public function getUpdatedAt()
     {
-        return $this->ponum;
+        return $this->updatedAt;
     }
 
     /**
-     * @param string $ponum
+     * @param \DateTime $updatedAt
      */
-    public function setPonum($ponum)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->ponum = $ponum;
-    }
-
-
-
-    /**
-     * @return float
-     */
-    public function getTaxrate()
-    {
-        return $this->taxrate;
-    }
-
-    /**
-     * @param float $taxrate
-     */
-    public function setTaxrate($taxrate)
-    {
-        $this->taxrate = $taxrate;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getInvamt()
-    {
-        return $this->invamt;
-    }
-
-    /**
-     * @param float $invamt
-     */
-    public function setInvamt($invamt)
-    {
-        $this->invamt = $invamt;
-
-        return $this;
+        $this->updatedAt = $updatedAt;
     }
 
     /**

@@ -5,40 +5,60 @@ datagrid:
             query:
                 select:
                     - erp_accounts.id
-                    - erp_accounts.custno
-                    - erp_accounts.contactname
-                    - erp_accounts.city
-                    - erp_accounts.country
-                    - erp_accounts.phone
+                    - erp_accounts.accountOriginalId
+                    - erp_accounts.firstName
+                    - erp_accounts.lastName
                     - erp_accounts.email
-                    - erp_accounts.updated
+                    - erp_accounts.originalEmail
+                    - erp_accounts.websiteId
+                    - erp_accounts.createdAt
+                    - erp_accounts.updatedAt
+                    - erp_accounts.created
                 from:
                     - { table: DemacMediaErpBundle:OroErpAccounts, alias: erp_accounts }
         columns:
-            custno:
-                label: demacmedia_erp.accounts.custno.label
-            contactname:
-                label: demacmedia_erp.accounts.contactname.label
-            city:
-                label: demacmedia_erp.accounts.city.label
-            country:
-                label: demacmedia_erp.accounts.country.label
-            phone:
-                label: demacmedia_erp.accounts.phone.label
+            accountOriginalId:
+                label: demacmedia_erp.accounts.accountOriginalId.label
+            firstName:
+                label: demacmedia_erp.accounts.firstName.label
+            lastName:
+                label: demacmedia_erp.accounts.lastName.label
             email:
                 label: demacmedia_erp.accounts.email.label
-            updated:
-                label: demacmedia_erp.accounts.updated.label
+            originalEmail:
+                label: demacmedia_erp.accounts.originalEmail.label
+            websiteId:
+                label: demacmedia_erp.accounts.websiteId.label
+            createdAt:
+                label: demacmedia_erp.accounts.createdAt.label
+                frontend_type:    datetime
+            updatedAt:
+                label: demacmedia_erp.accounts.updatedAt.label
+                frontend_type:    datetime
+            created:
+                label: demacmedia_erp.accounts.created.label
                 frontend_type:    datetime
 
         sorters:
             columns:
-                country:
-                    data_name: erp_accounts.country
-                city:
-                    data_name: erp_accounts.city
-                contactname:
-                    data_name: erp_accounts.contactname
+                accountOriginalId:
+                    data_name: erp_accounts.accountOriginalId
+                firstName:
+                    data_name: erp_accounts.firstName
+                lastName:
+                    data_name: erp_accounts.lastName
+                email:
+                    data_name: erp_accounts.email
+                originalEmail:
+                    data_name: erp_accounts.originalEmail
+                websiteId:
+                    data_name: erp_accounts.websiteId
+                createdAt:
+                    data_name: erp_accounts.createdAt
+                updatedAt:
+                    data_name: erp_accounts.updatedAt
+                created:
+                    data_name: erp_accounts.created
             default:
                 id: DESC
 
@@ -47,19 +67,9 @@ datagrid:
             view_link:
                 type:       url
                 route:      demacmedia_erp_accounts_view
-                params:     [ custno ]
+                params:     [ originalEmail ]
 
         actions:
-            update:
-                type:          navigate
-                label:         oro.grid.action.update
-                icon:          edit
-                link:          update_link
-            delete:
-                type:          navigate
-                label:         oro.grid.action.delete
-                icon:          trash
-                link:          delete_link
             view:
                 type:         navigate
                 label:        oro.grid.action.view
@@ -69,118 +79,33 @@ datagrid:
 
         filters:
             columns:
-                custno:
+                accountOriginalId:
+                    type: number
+                    data_name: erp_accounts.accountOriginalId
+                firstName:
                     type: string
-                    data_name: erp_accounts.custno
-                contactname:
+                    data_name: erp_accounts.firstName
+                lastName:
                     type: string
-                    data_name: erp_accounts.contactname
-                city:
-                    type: string
-                    data_name: erp_accounts.city
-                phone:
-                    type: string
-                    data_name: erp_accounts.phone
+                    data_name: erp_accounts.lastName
                 email:
                     type: string
                     data_name: erp_accounts.email
-                    options:
-                        operator_choices:
-                            - 'is equal to'
-                            - 'is empty'
-                            - 'is not empty'
-                updated:
-                    type: datetime
-                    data_name: erp_accounts.updated
-
-
-    # ORDERS FOR SPECIFIC ACCOUNT
-    ############################################################
-    erp-orders-specific-grid:
-        source:
-            type: orm
-            query:
-                select:
-                    - erp_orders.id
-                    - erp_orders.invno
-                    - erp_orders.custno
-                    - erp_orders.invdate
-                    - erp_orders.shipvia
-                    - erp_orders.updated
-                    - erp_orders.invamt
-                    - erp_orders.taxrate
-                from:
-                    - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
-                where:
-                    and:
-                        - erp_orders.custno = :custno_code
-            bind_parameters:
-                custno_code: custno
-
-        columns:
-            id:
-                label: demacmedia_erp.orders.oroid.label
-            invamt:
-                label: demacmedia_erp.orders.invamt.label
-                frontend_type: currency
-            taxrate:
-                label: demacmedia_erp.orders.taxrate.label
-            invno:
-                label: demacmedia_erp.orders.invno.label
-            custno:
-                label: demacmedia_erp.orders.custno.label
-            invdate:
-                label: demacmedia_erp.orders.invdate.label
-                frontend_type: datetime
-            shipvia:
-                label: demacmedia_erp.orders.shipvia.label
-            updated:
-                label: demacmedia_erp.orders.updated.label
-                frontend_type: datetime
-
-        sorters:
-            columns:
-                updated:
-                    data_name: erp_orders.updated
-                custno:
-                    data_name: erp_orders.custno
-            default:
-                id: DESC
-
-        properties:
-            id: ~
-            view_link:
-                type:       url
-                route:      demacmedia_erp_orders_view
-                params:     [ invno ]
-
-        actions:
-            view:
-                type:         navigate
-                label:        oro.grid.action.view
-                link:         view_link
-                icon:         eye-open
-                rowAction:    true
-
-        filters:
-            columns:
-                invamt:
-                    type: currency
-                    data_name: erp_orders.invamt
-                taxrate:
-                    type: percent
-                    data_name: erp_orders.taxrate
-                invno:
+                originalEmail:
                     type: string
-                    data_name: erp_orders.invno
-                shipvia:
+                    data_name: erp_accounts.originalEmail
+                websiteId:
                     type: string
-                    data_name: erp_orders.shipvia
-                updated:
+                    data_name: erp_accounts.websiteId
+                createdAt:
                     type: datetime
-                    data_name: erp_orders.updated
-
-
+                    data_name: erp_accounts.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_accounts.updatedAt
+                created:
+                    type: datetime
+                    data_name: erp_accounts.created
 
     # ORDERS
     ############################################################
@@ -190,172 +115,14 @@ datagrid:
             query:
                 select:
                     - erp_orders.id
-                    - erp_orders.invno
-                    - erp_orders.custno
-                    - erp_orders.invdate
-                    - erp_orders.shipvia
-                    - erp_orders.updated
-                    - erp_orders.invamt
-                    - erp_orders.taxrate
-                    - erp_accounts.contactname
-                from:
-                    - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
-                join:
-                    left:
-                        - { join: DemacMediaErpBundle:OroErpAccounts, alias: erp_accounts }
-                where:
-                    and:
-                        - erp_accounts.custno = erp_orders.custno
-
-        columns:
-            id:
-                label: demacmedia_erp.orders.oroid.label
-            invamt:
-                label: demacmedia_erp.orders.invamt.label
-                frontend_type: currency
-            taxrate:
-                label: demacmedia_erp.orders.taxrate.label
-            invno:
-                label: demacmedia_erp.orders.invno.label
-            contactname:
-                label: demacmedia_erp.accounts.contactname.label
-            invdate:
-                label: demacmedia_erp.orders.invdate.label
-                frontend_type: datetime
-            shipvia:
-                label: demacmedia_erp.orders.shipvia.label
-            updated:
-                label: demacmedia_erp.orders.updated.label
-                frontend_type: datetime
-
-        sorters:
-            columns:
-                updated:
-                    data_name: erp_orders.updated
-                contactname:
-                    data_name: erp_accounts.contactname
-            default:
-                id: DESC
-
-        properties:
-            id: ~
-            view_link:
-                type:       url
-                route:      demacmedia_erp_orders_view
-                params:     [ invno ]
-
-        actions:
-            view:
-                type:         navigate
-                label:        oro.grid.action.view
-                link:         view_link
-                icon:         eye-open
-                rowAction:    true
-
-        filters:
-            columns:
-                contactname:
-                    type: string
-                    data_name: erp_accounts.contactname
-                invamt:
-                    type: currency
-                    data_name: erp_orders.invamt
-                taxrate:
-                    type: percent
-                    data_name: erp_orders.taxrate
-                invno:
-                    type: string
-                    data_name: erp_orders.invno
-                shipvia:
-                    type: string
-                    data_name: erp_orders.shipvia
-                updated:
-                    type: datetime
-                    data_name: erp_orders.updated
-
-
-    erp-order-items-grid:
-        source:
-            type: orm
-            query:
-                select:
-                    - erp_order_items.id
-                    - erp_order_items.invno
-                    - erp_order_items.custno
-                    - erp_order_items.item
-                    - erp_order_items.descrip
-                    - erp_order_items.taxrate
-                    - erp_order_items.cost
-                    - erp_order_items.price
-                    - erp_order_items.qtyord
-                    - erp_order_items.invdate
-                    - erp_order_items.updated
-                    - erp_order_items.created
-                from:
-                    - { table: DemacMediaErpBundle:OroErpOrderItems, alias: erp_order_items }
-                where:
-                    and:
-                        - erp_order_items.invno = :invno_code
-            bind_parameters:
-                invno_code: invno
-
-        columns:
-            id:
-                label: demacmedia_erp.order_items.oroid.label
-            invno:
-                label: demacmedia_erp.order_items.invno.label
-            item:
-                label: demacmedia_erp.order_items.item.label
-            descrip:
-                label: demacmedia_erp.order_items.descrip.label
-            cost:
-                label: demacmedia_erp.order_items.cost.label
-                frontend_type: currency
-            price:
-                label: demacmedia_erp.order_items.price.label
-                frontend_type: currency
-            qtyord:
-                label: demacmedia_erp.order_items.qtyord.label
-            invdate:
-                label: demacmedia_erp.order_items.invdate.label
-                frontend_type: datetime
-            updated:
-                label: demacmedia_erp.order_items.updated.label
-                frontend_type: datetime
-
-        sorters:
-            columns:
-                updated:
-                    data_name: erp_order_items.updated
-            default:
-                id: DESC
-
-        filters:
-            columns:
-                updated:
-                    type: datetime
-                    data_name: erp_order_items.updated
-                item:
-                    type: string
-                    data_name: erp_order_items.item
-
-
-
-
-    erp-orders-from-account-grid:
-        source:
-            type: orm
-            query:
-                select:
-                    - erp_orders.id
-                    - erp_orders.invno
-                    - erp_orders.custno
-                    - erp_orders.invdate
-                    - erp_orders.shipvia
-                    - erp_orders.updated
-                    - erp_orders.invamt
-                    - erp_orders.taxrate
-                    - erp_accounts.contactname
+                    - erp_orders.originalOrderId
+                    - IDENTITY(erp_orders.originalEmail) as originalEmail
+                    - erp_orders.totalPaid
+                    - erp_orders.createdAt
+                    - erp_orders.updatedAt
+                    - erp_orders.created
+                    - erp_accounts.firstName
+                    - erp_accounts.lastName
                 from:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 join:
@@ -364,34 +131,48 @@ datagrid:
                             join: DemacMediaErpBundle:OroErpAccounts
                             alias: erp_accounts
                             conditionType: WITH
-                            condition: erp_accounts.custno = erp_orders.custno
-                where:
-                    and:
-                        - erp_accounts.account = :account
-            bind_parameters:
-                account: account
+                            condition: erp_accounts.originalEmail = erp_orders.originalEmail
 
         columns:
-            id:
-                label: demacmedia_erp.orders.oroid.label
-            invamt:
-                label: 'Total Paid'
+            originalOrderId:
+                label: demacmedia_erp.orders.originalOrderId.label
+            originalEmail:
+                label: demacmedia_erp.orders.originalEmail.label
+            totalPaid:
+                label: demacmedia_erp.orders.totalPaid.label
                 frontend_type: currency
-            invno:
-                label: 'Order Number'
-            invdate:
-                label: 'Order Date'
+            firstName:
+                label: demacmedia_erp.accounts.firstName.label
+            lastName:
+                label: demacmedia_erp.accounts.lastName.label
+            createdAt:
+                label: demacmedia_erp.orders.createdAt.label
                 frontend_type: datetime
-            shipvia:
-                label: demacmedia_erp.orders.shipvia.label
-            updated:
-                label: demacmedia_erp.orders.updated.label
+            updatedAt:
+                label: demacmedia_erp.orders.updatedAt.label
+                frontend_type: datetime
+            created:
+                label: demacmedia_erp.orders.created.label
                 frontend_type: datetime
 
         sorters:
             columns:
-                updated:
-                    data_name: erp_orders.updated
+                originalOrderId:
+                    data_name: erp_orders.originalOrderId
+                originalOrderId:
+                    data_name: erp_orders.originalEmail
+                totalPaid:
+                    data_name: erp_orders.totalPaid
+                firstName:
+                    data_name: erp_accounts.firstName
+                lastName:
+                    data_name: erp_accounts.lastName
+                createdAt:
+                    data_name: erp_orders.createdAt
+                updatedAt:
+                    data_name: erp_orders.updatedAt
+                created:
+                    data_name: erp_orders.created
             default:
                 id: DESC
 
@@ -400,7 +181,7 @@ datagrid:
             view_link:
                 type:       url
                 route:      demacmedia_erp_orders_view
-                params:     [ invno ]
+                params:     [ originalOrderId ]
 
         actions:
             view:
@@ -412,15 +193,226 @@ datagrid:
 
         filters:
             columns:
-                invamt:
+                originalOrderId:
+                    type: string
+                    data_name: erp_orders.originalOrderId
+                originalOrderId:
+                    type: string
+                    data_name: erp_orders.originalOrderId
+                totalPaid:
                     type: currency
-                    data_name: erp_orders.invamt
-                invno:
+                    data_name: erp_orders.totalPaid
+                firstName:
                     type: string
-                    data_name: erp_orders.invno
-                shipvia:
+                    data_name: erp_accounts.firstName
+                lastName:
                     type: string
-                    data_name: erp_orders.shipvia
+                    data_name: erp_accounts.lastName
+                createdAt:
+                    type: string
+                    data_name: erp_orders.createdAt
+                updatedAt:
+                    type: string
+                    data_name: erp_orders.updatedAt
+                created:
+                    type: datetime
+                    data_name: erp_orders.created
+
+    # ORDERS FOR SPECIFIC ACCOUNT
+    ############################################################
+    erp-orders-specific-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - erp_orders.id
+                    - erp_orders.originalOrderId
+                    - IDENTITY(erp_orders.originalEmail) as originalEmail
+                    - erp_orders.totalPaid
+                    - erp_orders.createdAt
+                    - erp_orders.updatedAt
+                    - erp_orders.created
+                from:
+                    - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
+                where:
+                    and:
+                        - IDENTITY(erp_orders.originalEmail) IN (:original_email)
+            bind_parameters:
+                original_email: original_email
+
+        columns:
+            originalOrderId:
+                label: demacmedia_erp.orders.originalOrderId.label
+            originalEmail:
+                label: demacmedia_erp.orders.originalEmail.label
+            totalPaid:
+                label: demacmedia_erp.orders.totalPaid.label
+                frontend_type: currency
+            createdAt:
+                label: demacmedia_erp.orders.createdAt.label
+                frontend_type: datetime
+            updatedAt:
+                label: demacmedia_erp.orders.updatedAt.label
+                frontend_type: datetime
+            created:
+                label: demacmedia_erp.orders.created.label
+                frontend_type: datetime
+
+        sorters:
+            columns:
+                originalOrderId:
+                    data_name: erp_orders.originalOrderId
+                originalEmail:
+                    data_name: erp_orders.originalEmail
+                totalPaid:
+                    data_name: erp_orders.totalPaid
+                createdAt:
+                    data_name: erp_orders.createdAt
+                updatedAt:
+                    data_name: erp_orders.updatedAt
+                created:
+                    data_name: erp_orders.created
+            default:
+                id: DESC
+
+        properties:
+            id: ~
+            view_link:
+                type:       url
+                route:      demacmedia_erp_orders_view
+                params:     [ originalOrderId ]
+
+        actions:
+            view:
+                type:         navigate
+                label:        oro.grid.action.view
+                link:         view_link
+                icon:         eye-open
+                rowAction:    true
+
+        filters:
+            columns:
+                originalOrderId:
+                    type: number
+                    data_name: erp_orders.originalOrderId
+                originalEmail:
+                    type: string
+                    data_name: erp_orders.originalEmail
+                totalPaid:
+                    type: currency
+                    data_name: erp_orders.totalPaid
+                createdAt:
+                    type: datetime
+                    data_name: erp_orders.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_orders.updatedAt
+                created:
+                    type: datetime
+                    data_name: erp_orders.created
+
+
+
+    erp-order-items-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - erp_order_items.id
+                    - erp_order_items.originalOrderItemId
+                    - IDENTITY(erp_order_items.orderId) as orderId
+                    - erp_order_items.sku
+                    - erp_order_items.productName
+                    - erp_order_items.productPrice
+                    - erp_order_items.quantity
+                    - erp_order_items.createdAt
+                    - erp_order_items.updatedAt
+                    - erp_order_items.updated
+                from:
+                    - { table: DemacMediaErpBundle:OroErpOrderItems, alias: erp_order_items }
+                where:
+                    and:
+                        - IDENTITY(erp_order_items.orderId) = :order_id
+            bind_parameters:
+                order_id: order_id
+
+        columns:
+            originalOrderItemId:
+                label: demacmedia_erp.order_items.originalOrderItemId.label
+            orderId:
+                label: demacmedia_erp.order_items.orderId.label
+            sku:
+                label: demacmedia_erp.order_items.sku.label
+            productName:
+                label: demacmedia_erp.order_items.productName.label
+                frontend_type: currency
+            productPrice:
+                label: demacmedia_erp.order_items.productPrice.label
+                frontend_type: currency
+            quantity:
+                label: demacmedia_erp.order_items.quantity.label
+            createdAt:
+                label: demacmedia_erp.order_items.createdAt.label
+                frontend_type: datetime
+            updatedAt:
+                label: demacmedia_erp.order_items.updatedAt.label
+                frontend_type: datetime
+            updated:
+                label: demacmedia_erp.order_items.updated.label
+                frontend_type: datetime
+
+        sorters:
+            columns:
+                originalOrderItemId:
+                    data_name: erp_order_items.originalOrderItemId
+                orderId:
+                    data_name: erp_order_items.orderId
+                sku:
+                    data_name: erp_order_items.sku
+                productName:
+                    data_name: erp_order_items.productName
+                productPrice:
+                    data_name: erp_order_items.productPrice
+                quantity:
+                    data_name: erp_order_items.quantity
+                createdAt:
+                    data_name: erp_order_items.createdAt
+                updatedAt:
+                    data_name: erp_order_items.updatedAt
+                updated:
+                    data_name: erp_order_items.updated
+
+            default:
+                id: DESC
+
+        filters:
+            columns:
+                originalOrderItemId:
+                    type: number
+                    data_name: erp_order_items.originalOrderItemId
+                orderId:
+                    type: number
+                    data_name: erp_order_items.orderId
+                sku:
+                    type: string
+                    data_name: erp_order_items.sku
+                productName:
+                    type: string
+                    data_name: erp_order_items.productName
+                productPrice:
+                    type: currency
+                    data_name: erp_order_items.productPrice
+                quantity:
+                    type: number
+                    data_name: erp_order_items.quantity
+                createdAt:
+                    type: datetime
+                    data_name: erp_order_items.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_order_items.updatedAt
                 updated:
                     type: datetime
-                    data_name: erp_orders.updated
+                    data_name: erp_order_items.updated
+
+

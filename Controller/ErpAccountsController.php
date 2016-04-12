@@ -21,14 +21,16 @@ class ErpAccountsController extends Controller
 
 
     /**
-     * @Route("/view/{custno}", name="demacmedia_erp_accounts_view")
+     * @Route("/view/{originalEmail}", name="demacmedia_erp_accounts_view")
      */
-    public function viewAction($custno, OroErpAccounts $entity)
+    public function viewAction($originalEmail, OroErpAccounts $entity)
     {
-        return $this->render('DemacMediaErpBundle:Default:account-view.html.twig', array(
-            'entity'       => $entity,
-            'custno'       => $custno
-        ));
+        // $relationNames = $this->getDoctrine()->getManager()->getClassMetadata('DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts');
+
+        return $this->render('DemacMediaErpBundle:Default:account-view.html.twig', [
+            'entity'        => $entity,
+            'originalEmail' => $originalEmail
+        ]);
     }
 
 

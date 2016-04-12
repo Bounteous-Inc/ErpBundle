@@ -2,14 +2,14 @@
 {% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 
 {% set pageTitle = 'demacmedia_erp.orders.entity.label'|trans %}
-{% set params = { 'invno': invno, 'entityAccounts': entityAccounts, 'entity': entity } %}
+{% set params = { 'originalOrderId': originalOrderId } %}
 
 {% block stats %}
     {% include 'OroWorkflowBundle:Widget:steps.html.twig' with { 'entity': entityAccounts } %}
 {% endblock %}
 
 {% block pageHeader %}
-    {% include 'DemacMediaPhysicalStoreBundle:Default:headerStats.html.twig' with { 'entity': entityAccounts } %}
+    {% include 'DemacMediaErpBundle:Default:headerStats.html.twig' with { 'entity': entityAccounts } %}
 {% endblock %}
 
 {% block content_data %}
@@ -18,7 +18,7 @@
         <div class="container-fluid" style="width: auto;">
             <ul class="nav">
                 <li class="active"><a href="#">General Information</a></li>
-                <li class=""><a href="#physical-store-orders">Physical Store Orders</a></li>
+                <li class=""><a href="#physical-store-orders">Web Store Orders</a></li>
             </ul>
         </div>
     </div>
@@ -35,123 +35,69 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Customer Number:</label>
+                    <label class="control-label">First Name:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.custno|default('N/A') }}</div>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Company:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.company|default('N/A') }}</div>
+                        <div class="control-label">{{ entityAccounts.firstName|escape|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Contact Name:</label>
+                    <label class="control-label">Last Name:</label>
                     <div class="controls">
-                        <div class="control-label"><strong>{{ entityAccounts.contactname|default('N/A') }}</strong></div>
+                        <div class="control-label">{{ entityAccounts.lastName|escape|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Title:</label>
+                    <label class="control-label">Original Email (key):</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.title|default('N/A') }}</div>
+                        <div class="control-label">{{ entityAccounts.originalEmail|escape|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Address1:</label>
+                    <label class="control-label">Email:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.address1|default('N/A') }}</div>
+                        <div class="control-label">{{ entityAccounts.email|escape|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Address2:</label>
+                    <label class="control-label">Website ID:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.address2|default('N/A') }}</div>
+                        <div class="control-label">{{ entityAccounts.websiteId|escape|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">City:</label>
+                    <label class="control-label">Created At:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.city|default('N/A') }}</div>
+                        <div class="control-label">
+                            {{ entityAccounts.createdAt ? entityAccounts.createdAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Address State:</label>
+                    <label class="control-label">Updated At:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.addrstate|default('N/A') }}</div>
+                        <div class="control-label">
+                            {{ entityAccounts.updatedAt ? entityAccounts.updatedAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Zip:</label>
+                    <label class="control-label">Imported At:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entityAccounts.zip|default('N/A') }}</div>
+                        <div class="control-label">
+                            {{ entityAccounts.created ? entityAccounts.created|oro_format_datetime : 'N/A'|trans }}
+                        </div>
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">Country:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.country|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Phone:</label>
-                    <div class="controls">
-                        <div class="control-label"><a href="tel:{{ entityAccounts.phone }}">{{ entityAccounts.phone|default('N/A') }}</a></div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Phone2:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.phone2|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Source:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.source|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Type:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.type|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">email:</label>
-                    <div class="controls">
-                        <div class="control-label"><a href="mailto:{{ entityAccounts.email }}">{{ entityAccounts.email|default('N/A')|lower }}</a></div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Comment:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.custmemo|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Url:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entityAccounts.url|default('N/A') }}</div>
-                    </div>
-                </div>
             </div>
+
 
             <!-- Right Column (Order Info) -->
             <div class="responsive-block span6">
@@ -160,101 +106,45 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">ORO-ID:</label>
+                    <label class="control-label">Order ID:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entity.id|default('N/A') }}</div>
+                        <div class="control-label">{{ originalOrderId|escape }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">INVNO:</label>
+                    <label class="control-label">Total Paid:</label>
                     <div class="controls">
-                        <div class="control-label">{{ entity.invno|default('N/A') }}</div>
+                        <div class="control-label">{{ entity.totalPaid|oro_format_currency|default('N/A') }}</div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">INVDATE:</label>
+                    <label class="control-label">Created At:</label>
                     <div class="controls">
                         <div class="control-label">
-                            {{ entity.invdate ? entity.invdate|oro_format_datetime : 'N/A'|trans }}
+                            {{ entity.createdAt ? entity.createdAt|oro_format_datetime : 'N/A'|trans }}
                         </div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">SHIPVIA:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entity.shipvia|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">CSHIPNO:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entity.cshipno|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Tax Rate:</label>
+                    <label class="control-label">Updated At:</label>
                     <div class="controls">
                         <div class="control-label">
-                            {{ entity.taxrate ? entity.taxrate|oro_format_percent : 'N/A'|trans }}
+                            {{ entity.updatedAt ? entity.updatedAt|oro_format_datetime : 'N/A'|trans }}
                         </div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Tax:</label>
-                    <div class="controls">
-                        <div class="control-label">
-                            {{ entity.tax ? entity.tax|oro_format_currency : 'N/A'|trans }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">INVAMT:</label>
-                    <div class="controls">
-                        <div class="control-label">
-                            {{ entity.invamt ? entity.invamt|oro_format_currency : 'N/A'|trans }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">PONUM:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entity.ponum|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">REFNO:</label>
-                    <div class="controls">
-                        <div class="control-label">{{ entity.refno|default('N/A') }}</div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Created:</label>
+                    <label class="control-label">Imported At:</label>
                     <div class="controls">
                         <div class="control-label">
                             {{ entity.created ? entity.created|oro_format_datetime : 'N/A'|trans }}
                         </div>
                     </div>
                 </div>
-
-                <div class="control-group">
-                    <label class="control-label">Updated:</label>
-                    <div class="controls">
-                        <div class="control-label">
-                            {{ entity.updated ? entity.updated|oro_format_datetime : 'N/A'|trans }}
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 
@@ -264,13 +154,13 @@
 </div>
 
 <div class="responsive-section responsive-big responsive-section-no-blocks" style="margin-left: 15px;">
-    <h4 class="scrollspy-title">Physical Store Order Items: <strong>{{ entity.invno|default('N/A')|upper }}</strong></h4>
+    <h4 class="scrollspy-title">Web Store Order: <strong>{{ originalOrderId|escape|default('N/A')|upper }}</strong></h4>
     <div id="physical-store-orders" class="scrollspy-nav-target"></div>
     <div class="row-fluid">
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
                 {% set gridName = 'erp-order-items-grid' %}
-                {% set gridFilters = { 'invno': entity.invno } %}
+                {% set gridFilters = { 'order_id': originalOrderId } %}
                 {{ dataGrid.renderGrid(gridName, gridFilters) }}
             </div>
         </div>
