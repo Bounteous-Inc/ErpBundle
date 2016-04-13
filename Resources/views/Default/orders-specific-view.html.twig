@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">First Name:</label>
+                    <label class="control-label">First Name!</label>
                     <div class="controls">
                         <div class="control-label">{{ entityAccounts.firstName|escape|default('N/A') }}</div>
                     </div>
@@ -96,11 +96,7 @@
                     </div>
                 </div>
 
-            </div>
-
-
-            <!-- Right Column (Order Info) -->
-            <div class="responsive-block span6">
+                <!-- Starting Order Information -->
                 <div class="control-group">
                     <div style="margin-left:20px;"><h5><strong>Order information:</strong></h5></div>
                 </div>
@@ -145,7 +141,159 @@
                         </div>
                     </div>
                 </div>
+                <!-- Starting Order Information END -->
 
+            </div>
+
+
+            <!-- Right Column (Order Info) -->
+            <div class="responsive-block span6">
+
+                <!-- Starting Billing Order Information -->
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>{{ 'demacmedia_erp.orders.billInformation.label'|trans }}:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billFirstname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billFirstName|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billLastname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billLastname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billCompany.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billCompany|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billAddress1.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billAddress1|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billAddress2.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billAddress2|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billCity.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billCity|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billState.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billState|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billZip.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billZip|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.billPhone.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            <a href="tel:{{ entity.billPhone|default('N/A')|escape }}">
+                                {{ entity.billPhone|default('N/A')|escape }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Starting Billing Order Information END -->
+
+                <!-- Starting Ship Order Information -->
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>{{ 'demacmedia_erp.orders.shipInformation.label'|trans }}:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipFirstname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipFirstname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipLastname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipLastname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipCompany.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipCompany|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipAddress1.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipAddress1|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipAddress2.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipAddress2|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipCity.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipCity|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipState.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipState|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipZip.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipZip|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.orders.shipPhone.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            <a href="tel:{{ entity.shipPhone|default('N/A')|escape }}">
+                                {{ entity.shipPhone|default('N/A')|escape }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Starting Ship Order Information END -->
             </div>
 
         </div>

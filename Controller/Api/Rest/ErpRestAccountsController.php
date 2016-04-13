@@ -18,7 +18,6 @@ use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 
-
 /**
  * @NamePrefix("demacmedia_api_")
  */
@@ -28,10 +27,10 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
      * REST GET list of Erp Accounts
      *
     $response = $oroClient->get('api/rest/latest/erp/accounts.json', [
-    'query' => [
-    'page' => 1,
-    'limit' => 5,
-    ]
+        'query' => [
+            'page' => 1,
+            'limit' => 5,
+        ]
     ]);
      *
      * @QueryParam(
@@ -70,11 +69,11 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
      *
      * @return \Symfony\Component\HttpFoundation\Response
      * @ApiDoc(
-     * description="Get a specific Physical Store account info",
-     * resource=true,
-     * requirements={
-     * {"name"="id", "dataType"="integer"},
-     * }
+     *      description="Get a specific Physical Store account info",
+     *      resource=true,
+     *      requirements={
+     *          {"name"="id", "dataType"="integer"},
+     *      }
      * )
      * @AclAncestor("demacmedia_erp_accounts_view")
      */
@@ -89,26 +88,16 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
      *
     // Example creating a new Account.
     $response = $oroClient->post('api/rest/latest/erp/accounts.json', [
-    'body' => [
-    'custno'            => 'AAAAA', // Required
-    'company'           => 'Acme Company',
-    'contact'           => 'AAAAA AAAAA', // Required
-    'title'             => 'Dr.',
-    'address1'          => 'Street Foo, Bar, 1',
-    'address2'          => 'Street Foo2, Bar2, 2',
-    'city'              => 'My City', // Required
-    'addrstate'         => 'ON',
-    'zip'               => 'M9MM9M',
-    'country'           => 'Canada',
-    'phone'             => '9999999', // Required
-    'phone2'            => '88888888',
-    'source'            => 'Radio',
-    'type'              => 'Client Type X',
-    'email'             => 'aaaaa@example.org',
-    'custmemo'          => 'Comment about anything',
-    'url'               => 'http://example.org',
-    'salesrep'          => 'Sales Rep Name',
-    ]
+        'body' => [
+            'account_original_id' => '123',
+            'first_name'          => 'Example',
+            'last_name'           => 'Example',
+            'email'               => 'example@example.org',
+            'original_email'      => 'example@example.org',
+            'website_id'          => 'httpwwwwebsitecom',
+            'created_at'          => 'YYYY-mm-dd HH:ii:ss',
+            'updated_at'          => 'YYYY-mm-dd HH:ii:ss'
+        ]
     ]);
      *
      * @ApiDoc(
@@ -127,27 +116,18 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
     /**
      * Update Physical Store account
      *
-    $request = $oroClient->put('api/rest/latest/erp/accounts/6.json', [
-    'body' => [
-    'custno'            => 'AAAAA', // Required
-    'company'           => 'Acme Company',
-    'contact'           => 'AAAAA AAAAA', // Required
-    'title'             => 'Dr.',
-    'address1'          => 'Street Foo, Bar, 1',
-    'address2'          => 'Street Foo2, Bar2, 2',
-    'city'              => 'Toronto', // Required
-    'addrstate'         => 'ON',
-    'zip'               => 'M9MM9M',
-    'country'           => 'Canada',
-    'phone'             => '9999999', // Required
-    'phone2'            => '88888888',
-    'source'            => 'Radio',
-    'type'              => 'Client Type X',
-    'email'             => 'aaaaa@example.org',
-    'custmemo'          => 'Comment about anything',
-    'url'               => 'http://example.org',
-    'owner'             => '17',
-    ]
+    $request = $oroClient->put('api/rest/latest/erp/accounts/1.json', [
+        'body' => [
+            'account_original_id' => '123',
+            'first_name'          => 'Example',
+            'last_name'           => 'Example',
+            'email'               => 'example@example.org',
+            'original_email'      => 'example@example.org',
+            'website_id'          => 'httpwwwwebsitecom',
+            'created_at'          => 'YYYY-mm-dd HH:ii:ss',
+            'updated_at'          => 'YYYY-mm-dd HH:ii:ss'
+            'owner'               => '1', // This is the OroCRM User ID
+        ]
     ]);
      *
      * @param int $id Comment item id
@@ -221,4 +201,3 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
         return $this->get('demacmedia_erp_accounts.form.handler.accounts_api');
     }
 }
-

@@ -106,5 +106,4 @@ class ErpOrderItemsHandler
     {
         return $this->form;
     }
-
 }

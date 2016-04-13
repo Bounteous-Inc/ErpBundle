@@ -106,5 +106,4 @@ class ErpAccountsHandler
     {
         return $this->form;
     }
-
 }

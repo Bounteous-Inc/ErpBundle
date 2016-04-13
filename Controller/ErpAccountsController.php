@@ -25,8 +25,6 @@ class ErpAccountsController extends Controller
      */
     public function viewAction($originalEmail, OroErpAccounts $entity)
     {
-        // $relationNames = $this->getDoctrine()->getManager()->getClassMetadata('DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts');
-
         return $this->render('DemacMediaErpBundle:Default:account-view.html.twig', [
             'entity'        => $entity,
             'originalEmail' => $originalEmail
@@ -103,5 +101,4 @@ class ErpAccountsController extends Controller
             'formAction' => $formAction
         );
     }
-
 }

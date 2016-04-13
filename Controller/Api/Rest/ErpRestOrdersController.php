@@ -20,8 +20,6 @@ use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 use Oro\Bundle\CommentBundle\Entity\Manager\CommentApiManager;
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
 
-
-
 /**
  * @NamePrefix("demacmedia_api_")
  */
@@ -32,7 +30,7 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      *
     $response = $oroClient->get('api/rest/latest/erp/orders.json', [
         'query' => [
-            'page' => 1,
+            'page'  => 1,
             'limit' => 5,
         ]
     ]);
@@ -90,27 +88,34 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
     /**
      * Create new Erp Order
      *
-        // Example creating a new Order.
+        // Example creating a new Web Order.
         $response = $oroClient->post('api/rest/latest/erp/orders.json', [
             'body' => [
-                'custno'            => 'AAAAA', // Required
-                'company'           => 'Acme Company',
-                'contactname'       => 'AAAAA AAAAA', // Required
-                'title'             => 'Dr.',
-                'address1'          => 'Street Foo, Bar, 1',
-                'address2'          => 'Street Foo2, Bar2, 2',
-                'city'              => 'My City', // Required
-                'addrstate'         => 'ON',
-                'zip'               => 'M9MM9M',
-                'country'           => 'Canada',
-                'phone'             => '9999999', // Required
-                'phone2'            => '88888888',
-                'source'            => 'Radio',
-                'type'              => 'Client Type X',
-                'email'             => 'aaaaa@example.org',
-                'custmemo'          => 'Comment about anything',
-                'url'               => 'http://example.org',
-                'owner'             => '17',
+                'original_order_id' => '1234',
+                'original_email'    => 'example@example.org',
+                'total_paid'        => '11.11',
+                'website_id'        => 'httpwwwwebsitecom',
+                'createdAt'         => 'YYYY-mm-dd HH:ii:ss',
+                'updatedAt'         => 'YYYY-mm-dd HH:ii:ss',
+                'bill_firstname'    => 'Example',
+                'bill_lastname'     => 'Example',
+                'bill_company'      => 'Acme',
+                'bill_address1'     => '12 Example Street',
+                'bill_address2'     => 'Unit 1',
+                'bill_city'         => 'Toronto',
+                'bill_state'        => 'ON',
+                'bill_zip'          => 'A1A1A1',
+                'bill_phone'        => '+1(111) 111-1111',
+                'ship_firstname'    => 'Example',
+                'ship_lastname'     => 'Example',
+                'ship_company'      => 'Acme',
+                'ship_address1'     => '11 Example Street',
+                'ship_address2'     => 'Unit 11',
+                'ship_city'         => 'Toronto',
+                'ship_state'        => 'ON',
+                'ship_zip'          => 'A1A1A1',
+                'ship_phone'        => '+1(111) 111-1111',
+                'owner'             => '1', // OroCRM User ID
             ]
         ]);
      *
@@ -132,24 +137,31 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      *
         $request = $oroClient->put('api/rest/latest/erp/orders/6.json', [
             'body' => [
-                'custno'            => 'AAAAA', // Required
-                'company'           => 'Acme Company',
-                'contact'           => 'AAAAA AAAAA', // Required
-                'title'             => 'Dr.',
-                'address1'          => 'Street Foo, Bar, 1',
-                'address2'          => 'Street Foo2, Bar2, 2',
-                'city'              => 'Toronto', // Required
-                'addrstate'         => 'ON',
-                'zip'               => 'M9MM9M',
-                'country'           => 'Canada',
-                'phone'             => '9999999', // Required
-                'phone2'            => '88888888',
-                'source'            => 'Radio',
-                'type'              => 'Client Type X',
-                'email'             => 'aaaaa@example.org',
-                'custmemo'          => 'Comment about anything',
-                'url'               => 'http://example.org',
-                'owner'             => '17',
+                'original_order_id' => '1234',
+                'original_email'    => 'example@example.org',
+                'total_paid'        => '11.11',
+                'website_id'        => 'httpwwwwebsitecom',
+                'createdAt'         => 'YYYY-mm-dd HH:ii:ss',
+                'updatedAt'         => 'YYYY-mm-dd HH:ii:ss',
+                'bill_firstname'    => 'Example',
+                'bill_lastname'     => 'Example',
+                'bill_company'      => 'Acme',
+                'bill_address1'     => '12 Example Street',
+                'bill_address2'     => 'Unit 1',
+                'bill_city'         => 'Toronto',
+                'bill_state'        => 'ON',
+                'bill_zip'          => 'A1A1A1',
+                'bill_phone'        => '+1(111) 111-1111',
+                'ship_firstname'    => 'Example',
+                'ship_lastname'     => 'Example',
+                'ship_company'      => 'Acme',
+                'ship_address1'     => '11 Example Street',
+                'ship_address2'     => 'Unit 11',
+                'ship_city'         => 'Toronto',
+                'ship_state'        => 'ON',
+                'ship_zip'          => 'A1A1A1',
+                'ship_phone'        => '+1(111) 111-1111',
+                'owner'             => '1', // OroCRM User ID
             ]
         ]);
      *
@@ -224,4 +236,3 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
         return $this->get('demacmedia_erp_orders.form.handler.orders_api');
     }
 }
-

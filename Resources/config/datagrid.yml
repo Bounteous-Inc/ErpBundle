@@ -120,6 +120,13 @@ datagrid:
                     - erp_orders.totalPaid
                     - erp_orders.createdAt
                     - erp_orders.updatedAt
+                    - erp_orders.billFirstname
+                    - erp_orders.billLastname
+                    - erp_orders.billCompany
+                    - erp_orders.shipFirstname
+                    - erp_orders.shipLastname
+                    - erp_orders.shipCompany
+                    - erp_orders.shipCity
                     - erp_orders.created
                     - erp_accounts.firstName
                     - erp_accounts.lastName
@@ -145,6 +152,20 @@ datagrid:
                 label: demacmedia_erp.accounts.firstName.label
             lastName:
                 label: demacmedia_erp.accounts.lastName.label
+            billFirstname:
+                label: demacmedia_erp.orders.billFirstname.label
+            billLastname:
+                label: demacmedia_erp.orders.billLastname.label
+            billCompany:
+                label: demacmedia_erp.orders.billCompany.label
+            shipFirstname:
+                label: demacmedia_erp.orders.shipFirstname.label
+            shipLastname:
+                label: demacmedia_erp.orders.shipLastname.label
+            shipCompany:
+                label: demacmedia_erp.orders.shipCompany.label
+            shipCity:
+                label: demacmedia_erp.orders.shipCity.label
             createdAt:
                 label: demacmedia_erp.orders.createdAt.label
                 frontend_type: datetime
@@ -167,6 +188,20 @@ datagrid:
                     data_name: erp_accounts.firstName
                 lastName:
                     data_name: erp_accounts.lastName
+                billFirstname:
+                    data_name: erp_orders.billFirstname
+                billLastname:
+                    data_name: erp_orders.billFirstname
+                billCompany:
+                    data_name: erp_orders.billFirstname
+                shipFirstname:
+                    data_name: erp_orders.shipFirstname
+                shipLastname:
+                    data_name: erp_orders.shipLastname
+                shipCompany:
+                    data_name: erp_orders.shipCompany
+                shipCity:
+                    data_name: erp_orders.shipCity
                 createdAt:
                     data_name: erp_orders.createdAt
                 updatedAt:
@@ -208,11 +243,32 @@ datagrid:
                 lastName:
                     type: string
                     data_name: erp_accounts.lastName
-                createdAt:
+                billFirstname:
                     type: string
+                    data_name: erp_orders.billFirstname
+                billLastname:
+                    type: string
+                    data_name: erp_orders.billFirstname
+                billCompany:
+                    type: string
+                    data_name: erp_orders.billFirstname
+                shipFirstname:
+                    type: string
+                    data_name: erp_orders.shipFirstname
+                shipLastname:
+                    type: string
+                    data_name: erp_orders.shipLastname
+                shipCompany:
+                    type: string
+                    data_name: erp_orders.shipCompany
+                shipCity:
+                    type: string
+                    data_name: erp_orders.shipCity
+                createdAt:
+                    type: datetime
                     data_name: erp_orders.createdAt
                 updatedAt:
-                    type: string
+                    type: datetime
                     data_name: erp_orders.updatedAt
                 created:
                     type: datetime

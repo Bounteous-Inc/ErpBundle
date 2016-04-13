@@ -17,7 +17,6 @@ use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 
-
 /**
  * @NamePrefix("demacmedia_api_")
  */
@@ -27,10 +26,10 @@ class ErpRestOrderItemsController extends RestController implements ClassResourc
      * REST GET list of Physical Store OrderItems
      *
     $physicalOrderItemsResponse = $oroClient->get('api/rest/latest/erp/orderitems.json', [
-    'query' => [
-    'page' => 1,
-    'limit' => 5,
-    ]
+        'query' => [
+            'page' => 1,
+            'limit' => 5,
+        ]
     ]);
      *
      * @QueryParam(
@@ -72,8 +71,10 @@ class ErpRestOrderItemsController extends RestController implements ClassResourc
      * description="Get a specific Physical Store order items info",
      * resource=true,
      * requirements={
-     * {"name"="id", "dataType"="integer"},
-     * }
+     *      {
+     *          "name"="id",
+     *          "dataType"="integer"},
+     *      }
      * )
      * @AclAncestor("demacmedia_erp_orderitems_view")
      */
@@ -89,21 +90,21 @@ class ErpRestOrderItemsController extends RestController implements ClassResourc
     // Example creating a new Order Items.
     $response = $oroClient->post(
     'api/rest/latest/erp/orderitems.json', [
-    'body' => [
-    'invno'     => $csvLine['invno'], // Required
-    'custno'    => $csvLine['custno'], // Required
-    'item'      => $csvLine['item'],
-    'descrip'   => $csvLine['descrip'],
-    'taxrate'   => $csvLine['taxrate'],
-    'cost'      => $csvLine['cost'],
-    'price'     => $csvLine['price'],
-    'qtyord'    => $csvLine['qtyord'],
-    'qtyshp'    => $csvLine['qtyshp'],
-    'extprice'  => $csvLine['extprice'],
-    'invdate'   => $csvLine['invdate'],
-    'ponum'     => $csvLine['ponum'],
-    ]
-    ]
+        'body' => [
+            'invno'     => $csvLine['invno'], // Required
+            'custno'    => $csvLine['custno'], // Required
+            'item'      => $csvLine['item'],
+            'descrip'   => $csvLine['descrip'],
+            'taxrate'   => $csvLine['taxrate'],
+            'cost'      => $csvLine['cost'],
+            'price'     => $csvLine['price'],
+            'qtyord'    => $csvLine['qtyord'],
+            'qtyshp'    => $csvLine['qtyshp'],
+            'extprice'  => $csvLine['extprice'],
+            'invdate'   => $csvLine['invdate'],
+            'ponum'     => $csvLine['ponum'],
+        ]
+        ]
     );
      *
      * @ApiDoc(

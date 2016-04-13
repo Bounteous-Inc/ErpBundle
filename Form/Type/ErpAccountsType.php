@@ -16,147 +16,67 @@ class ErpAccountsType extends AbstractType
     {
         $builder
             ->add(
-                'custno',
+                'account_original_id',
                 'text',
                 [
                     'required' => true,
-                    'label'    => 'Custno'
+                    'label'    => 'Account Original ID'
                 ]
             )
             ->add(
-                'company',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Company',
-                ]
-            )
-            ->add(
-                'contactname',
+                'first_name',
                 'text',
                 [
                     'required'    => true,
-                    'label'       => 'Contact Name',
+                    'label'       => 'First Name',
                 ]
             )
             ->add(
-                'title',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Title',
-                ]
-            )
-            ->add(
-                'address1',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Address1',
-                ]
-            )
-            ->add(
-                'address2',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Address2',
-                ]
-            )
-            ->add(
-                'city',
+                'last_name',
                 'text',
                 [
                     'required'    => true,
-                    'label'       => 'City',
-                ]
-            )
-            ->add(
-                'addrstate',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'State',
-                ]
-            )
-            ->add(
-                'zip',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Zip',
-                ]
-            )
-            ->add(
-                'country',
-                'text',
-                [
-                    'required'    => true,
-                    'label'       => 'Country',
-                ]
-            )
-            ->add(
-                'phone',
-                'text',
-                [
-                    'required'    => true,
-                    'label'       => 'Phone',
-                ]
-            )
-            ->add(
-                'phone2',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Phone2',
-                ]
-            )
-            ->add(
-                'source',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Source',
-                ]
-            )
-            ->add(
-                'type',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Type',
+                    'label'       => 'Last Name',
                 ]
             )
             ->add(
                 'email',
-                'email',
+                'text',
                 [
-                    'required'    => false,
+                    'required'    => true,
                     'label'       => 'Email',
                 ]
             )
             ->add(
-                'custmemo',
-                'textarea',
+                'original_email',
+                'text',
                 [
-                    'required'    => false,
-                    'label'       => 'Custmemo',
+                    'required'    => true,
+                    'label'       => 'Original Email',
                 ]
             )
             ->add(
-                'url',
+                'website_id',
                 'text',
                 [
-                    'required'    => false,
-                    'label'       => 'Url',
+                    'required'    => true,
+                    'label'       => 'Website ID',
                 ]
             )
             ->add(
-                'salesrep',
-                'text',
+                'created_at',
+                'oro_datetime',
                 [
-                    'required'    => false,
-                    'label'       => 'Sales Representative',
+                    'required'    => true,
+                    'label'       => 'Created At',
+                ]
+            )
+            ->add(
+                'updated_at',
+                'oro_datetime',
+                [
+                    'required'    => true,
+                    'label'       => 'Updated At',
                 ]
             );
     }

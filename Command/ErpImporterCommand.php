@@ -81,7 +81,7 @@ class ErpImporterCommand extends ContainerAwareCommand
             self::COMMAND_NAME
         );
 
-        if (!$csvfile || !$currentUser || !$currentOrganization){
+        if (!$csvfile || !$currentUser || !$currentOrganization) {
             $output->writeln(
                 $errorMessage
             );
@@ -90,7 +90,8 @@ class ErpImporterCommand extends ContainerAwareCommand
         $this->showDemacMediaHeader($output);
 
         $output->writeln(
-            sprintf('<comment>Importing .csv: <info>%s</info></comment>',
+            sprintf(
+                '<comment>Importing .csv: <info>%s</info></comment>',
                 $csvfile
             )
         );
@@ -101,16 +102,17 @@ class ErpImporterCommand extends ContainerAwareCommand
         $this->lines = $this->getLines($this->csvPath);
         $this->progress->start($output, $this->lines);
 
-        if (($handle = fopen($this->csvPath, "r")) !== FALSE) {
+        if (($handle = fopen($this->csvPath, "r")) !== false) {
             $line = 0;
             $header = '';
 
-            while (($data = fgetcsv($handle)) !== FALSE) {
+            while (($data = fgetcsv($handle)) !== false) {
                 if (0 == $line) {
                     $header = $data;
 
                     if (in_array('invdte', $header)) {
-                        $header = array_replace($header,
+                        $header = array_replace(
+                            $header,
                             array_fill_keys(
                                 array_keys($header, 'invdte'),
                                 'invdate'
@@ -119,9 +121,7 @@ class ErpImporterCommand extends ContainerAwareCommand
                     }
 
                     $header = array_flip($header);
-
                 } else {
-
                     if ($this->isAccountsParser($header)) {
                         $this->updateAccount($header, $data);
                     }
@@ -148,7 +148,8 @@ class ErpImporterCommand extends ContainerAwareCommand
     }
 
 
-    protected function isAccountsParser($header) {
+    protected function isAccountsParser($header)
+    {
         $arrayAccounts = [
             'custno',
             'company',
@@ -169,13 +170,14 @@ class ErpImporterCommand extends ContainerAwareCommand
             'url'
         ];
 
-        if (sizeof(array_diff(array_flip($header), $arrayAccounts)) < 1 ) {
+        if (sizeof(array_diff(array_flip($header), $arrayAccounts)) < 1) {
             return true;
         }
         return false;
     }
 
-    protected function isOrdersParser($header) {
+    protected function isOrdersParser($header)
+    {
         $arrayOrders = [
             'invno',
             'custno',
@@ -189,14 +191,15 @@ class ErpImporterCommand extends ContainerAwareCommand
             'refno'
         ];
 
-        if (sizeof(array_diff(array_flip($header), $arrayOrders)) < 1 ) {
+        if (sizeof(array_diff(array_flip($header), $arrayOrders)) < 1) {
             return true;
         }
         return false;
     }
 
 
-    protected function isOrderItemsParser($header) {
+    protected function isOrderItemsParser($header)
+    {
         $arrayOrderItems = [
             'invno',
             'custno',
@@ -211,13 +214,14 @@ class ErpImporterCommand extends ContainerAwareCommand
             'invdate'
         ];
 
-        if (sizeof(array_diff(array_flip($header), $arrayOrderItems)) < 1 ) {
+        if (sizeof(array_diff(array_flip($header), $arrayOrderItems)) < 1) {
             return true;
         }
         return false;
     }
 
-    protected function updateAccount($header, $data) {
+    protected function updateAccount($header, $data)
+    {
         $entity = null;
         $update = false;
 
@@ -232,7 +236,6 @@ class ErpImporterCommand extends ContainerAwareCommand
 
         // Validating required fields
         if (!$data[$header['custno']]) {
-
             $msgError = sprintf(
                 " [ACCOUNTS] - Required field missing. 'custno': [%s]",
                 $data[$header['custno']]
@@ -251,16 +254,18 @@ class ErpImporterCommand extends ContainerAwareCommand
             return false;
         }
 
-        $data[$header['custno']] = is_numeric($data[$header['custno']])? (int) $data[$header['custno']]: $data[$header['custno']];
+        if (is_numeric($data[$header['custno']])) {
+            $data[$header['custno']] = (int) $data[$header['custno']];
+        }
 
-        if ("web" === strtolower($data[$header['source']])){
+        if ("web" === strtolower($data[$header['source']])) {
             return false;
         }
 
         $erpAccounts = $this->getEntityManager()
             ->getRepository('DemacMediaErpBundle:OroErpAccounts')->findOneBy([
             'custno' => $data[$header['custno']]
-        ]);
+            ]);
 
         if (!$erpAccounts) {
             $this->getEntityManager()->clear();
@@ -269,14 +274,14 @@ class ErpImporterCommand extends ContainerAwareCommand
             $entity = $erpAccounts;
         }
 
-        foreach($header as $key => $value) {
+        foreach ($header as $key => $value) {
             if (!isset($data[$value])) {
                 echo "\n---------------------------------------> No value on line on field {$value} \n";
                 return false;
             }
             $csvValue = utf8_encode($data[$value]);
             if ($data[$value]) {
-                if (is_object($entity)){
+                if (is_object($entity)) {
                     $getValue = call_user_func([$entity, 'get' . ucwords($key)]);
                     if ($csvValue != $getValue) {
                         call_user_func([$erpAccounts, 'set' . ucwords($key)], $csvValue);
@@ -300,12 +305,12 @@ class ErpImporterCommand extends ContainerAwareCommand
     }
 
 
-    protected function updateOrders($header, $data) {
+    protected function updateOrders($header, $data)
+    {
         $entity = null;
         $update = false;
 
         if (!$data[$header['custno']] || !$data[$header['invno']]) {
-
             $msgError = sprintf(
                 "[ORDERS] - Required field missing. 'custno': [%s] - 'invno': [%s] - REFNO: %s",
                 $data[$header['custno']],
@@ -335,7 +340,9 @@ class ErpImporterCommand extends ContainerAwareCommand
             return false;
         }
 
-        $data[$header['invno']] = is_numeric($data[$header['invno']])? (int) $data[$header['invno']]: $data[$header['invno']];
+        if (is_numeric($data[$header['invno']])) {
+            $data[$header['invno']] = (int) $data[$header['invno']];
+        }
 
         $erpOrders = $this->getEntityManager()
             ->getRepository('DemacMediaErpBundle:OroErpOrders')->findOneBy([
@@ -349,15 +356,14 @@ class ErpImporterCommand extends ContainerAwareCommand
             $entity = $erpOrders;
         }
 
-        foreach($header as $key => $value) {
+        foreach ($header as $key => $value) {
             $csvValue = utf8_encode($data[$value]);
             if ($data[$value]) {
-
                 if ($key == 'invdate') {
                     $csvValue = \DateTime::createFromFormat('d/m/Y H:i A', $csvValue);
                 }
 
-                if (is_object($entity)){
+                if (is_object($entity)) {
                     $getValue = call_user_func([$entity, 'get' . ucwords($key)]);
                     if ($csvValue != $getValue) {
                         call_user_func([$erpOrders, 'set' . ucwords($key)], $csvValue);
@@ -382,7 +388,8 @@ class ErpImporterCommand extends ContainerAwareCommand
     }
 
 
-    protected function updateOrderItems($header, $data) {
+    protected function updateOrderItems($header, $data)
+    {
         $entity = null;
         $update = false;
 
@@ -403,7 +410,10 @@ class ErpImporterCommand extends ContainerAwareCommand
             return false;
         }
 
-        $data[$header['invno']] = is_numeric($data[$header['invno']])? (int) $data[$header['invno']]: $data[$header['invno']];
+
+        if (is_numeric($data[$header['invno']])) {
+            $data[$header['invno']] = (int) $data[$header['invno']];
+        }
 
         $custno = $this->getCustnoFromInvno($data[$header['invno']]);
 
@@ -446,7 +456,7 @@ class ErpImporterCommand extends ContainerAwareCommand
             ->getRepository('DemacMediaErpBundle:OroErpOrderItems')->findOneBy([
             'invno'  => $data[$header['invno']],
             'item'   => $data[$header['item']]
-        ]);
+            ]);
 
         if (!$erpOrderItems) {
             $this->getEntityManager()->clear();
@@ -455,7 +465,7 @@ class ErpImporterCommand extends ContainerAwareCommand
             $entity = $erpOrderItems;
         }
 
-        foreach($header as $key => $value) {
+        foreach ($header as $key => $value) {
             $csvValue = utf8_encode($data[$value]);
             if ($data[$value]) {
                 if (is_object($entity)) {
@@ -484,7 +494,8 @@ class ErpImporterCommand extends ContainerAwareCommand
         }
     }
 
-    protected function getCustnoFromInvno($invno) {
+    protected function getCustnoFromInvno($invno)
+    {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager')
             ->getRepository('DemacMediaErpBundle:OroErpOrders')->findOneBy([
                 'invno'  => $invno
@@ -497,7 +508,8 @@ class ErpImporterCommand extends ContainerAwareCommand
         }
     }
 
-    protected function showDemacMediaHeader(OutputInterface $output) {
+    protected function showDemacMediaHeader(OutputInterface $output)
+    {
         $output->writeln('');
         $output->writeln('<demac>                                ');
         $output->writeln('                                ');
@@ -507,12 +519,14 @@ class ErpImporterCommand extends ContainerAwareCommand
         $output->writeln('');
     }
 
-    protected function checkIfCsvExist($csvfile, OutputInterface $output) {
-        if (!is_readable($this->csvPath = self::CSV_FOLDER . $csvfile)){
+    protected function checkIfCsvExist($csvfile, OutputInterface $output)
+    {
+        if (!is_readable($this->csvPath = self::CSV_FOLDER . $csvfile)) {
             $output->writeln('');
             $output->writeln('<error>        ERROR        </error>');
             $output->writeln(
-                sprintf('<error>I can\'t read the .csv: %s</error>',
+                sprintf(
+                    '<error>I can\'t read the .csv: %s</error>',
                     $this->csvPath
                 )
             );

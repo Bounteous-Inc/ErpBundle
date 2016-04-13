@@ -146,6 +146,311 @@ class OroErpOrders
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_firstname", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill First Name",
+     *              "plural_label"="Bill First Names",
+     *              "description"="Bill First Name"
+     *          }
+     *      }
+     * )
+     */
+    protected $billFirstname;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_lastname", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Last Name",
+     *              "plural_label"="Bill Last Names",
+     *              "description"="Bill Last Name"
+     *          }
+     *      }
+     * )
+     */
+    protected $billLastname;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_company", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Company",
+     *              "plural_label"="Bill Companies",
+     *              "description"="Bill Company"
+     *          }
+     *      }
+     * )
+     */
+    protected $billCompany;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_address1", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Address1",
+     *              "plural_label"="Bill Address1",
+     *              "description"="Bill Address1"
+     *          }
+     *      }
+     * )
+     */
+    protected $billAddress1;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_address2", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Address2",
+     *              "plural_label"="Bill Address2",
+     *              "description"="Bill Address2"
+     *          }
+     *      }
+     * )
+     */
+    protected $billAddress2;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_city", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill City",
+     *              "plural_label"="Bill Cities",
+     *              "description"="Bill City"
+     *          }
+     *      }
+     * )
+     */
+    protected $billCity;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_state", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill State",
+     *              "plural_label"="Bill States",
+     *              "description"="Bill State"
+     *          }
+     *      }
+     * )
+     */
+    protected $billState;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_zip", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Zip",
+     *              "plural_label"="Bill Zips",
+     *              "description"="Bill Zip"
+     *          }
+     *      }
+     * )
+     */
+    protected $billZip;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bill_phone", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Bill Phone",
+     *              "plural_label"="Bill Phones",
+     *              "description"="Bill Phone"
+     *          }
+     *      }
+     * )
+     */
+    protected $billPhone;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_firstname", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship First Name",
+     *              "plural_label"="Ship First Names",
+     *              "description"="Ship First Name"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipFirstname;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_lastname", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Last Name",
+     *              "plural_label"="Ship Last Names",
+     *              "description"="Ship Last Name"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipLastname;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_company", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Company",
+     *              "plural_label"="Ship Companies",
+     *              "description"="Ship Company"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipCompany;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_address1", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Address1",
+     *              "plural_label"="Ship Address1",
+     *              "description"="Ship Address1"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipAddress1;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_address2", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Address2",
+     *              "plural_label"="Ship Address2",
+     *              "description"="Ship Address2"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipAddress2;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_city", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship City",
+     *              "plural_label"="Ship Cities",
+     *              "description"="Ship City"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipCity;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_state", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship State",
+     *              "plural_label"="Ship States",
+     *              "description"="Ship State"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipState;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_zip", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Zip",
+     *              "plural_label"="Ship Zips",
+     *              "description"="Ship Zip"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipZip;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ship_phone", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Ship Phone",
+     *              "plural_label"="Ship Phones",
+     *              "description"="Ship Phone"
+     *          }
+     *      }
+     * )
+     */
+    protected $shipPhone;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=true)
@@ -297,6 +602,310 @@ class OroErpOrders
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOriginalOrderId()
+    {
+        return $this->originalOrderId;
+    }
+
+    /**
+     * @param int $originalOrderId
+     */
+    public function setOriginalOrderId($originalOrderId)
+    {
+        $this->originalOrderId = $originalOrderId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillFirstname()
+    {
+        return $this->billFirstname;
+    }
+
+    /**
+     * @param string $billFirstname
+     */
+    public function setBillFirstname($billFirstname)
+    {
+        $this->billFirstname = $billFirstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillLastname()
+    {
+        return $this->billLastname;
+    }
+
+    /**
+     * @param string $billLastname
+     */
+    public function setBillLastname($billLastname)
+    {
+        $this->billLastname = $billLastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillCompany()
+    {
+        return $this->billCompany;
+    }
+
+    /**
+     * @param string $billCompany
+     */
+    public function setBillCompany($billCompany)
+    {
+        $this->billCompany = $billCompany;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillAddress1()
+    {
+        return $this->billAddress1;
+    }
+
+    /**
+     * @param string $billAddress1
+     */
+    public function setBillAddress1($billAddress1)
+    {
+        $this->billAddress1 = $billAddress1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillAddress2()
+    {
+        return $this->billAddress2;
+    }
+
+    /**
+     * @param string $billAddress2
+     */
+    public function setBillAddress2($billAddress2)
+    {
+        $this->billAddress2 = $billAddress2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillCity()
+    {
+        return $this->billCity;
+    }
+
+    /**
+     * @param string $billCity
+     */
+    public function setBillCity($billCity)
+    {
+        $this->billCity = $billCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillState()
+    {
+        return $this->billState;
+    }
+
+    /**
+     * @param string $billState
+     */
+    public function setBillState($billState)
+    {
+        $this->billState = $billState;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillZip()
+    {
+        return $this->billZip;
+    }
+
+    /**
+     * @param string $billZip
+     */
+    public function setBillZip($billZip)
+    {
+        $this->billZip = $billZip;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillPhone()
+    {
+        return $this->billPhone;
+    }
+
+    /**
+     * @param string $billPhone
+     */
+    public function setBillPhone($billPhone)
+    {
+        $this->billPhone = $billPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipFirstname()
+    {
+        return $this->shipFirstname;
+    }
+
+    /**
+     * @param string $shipFirstname
+     */
+    public function setShipFirstname($shipFirstname)
+    {
+        $this->shipFirstname = $shipFirstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipLastname()
+    {
+        return $this->shipLastname;
+    }
+
+    /**
+     * @param string $shipLastname
+     */
+    public function setShipLastname($shipLastname)
+    {
+        $this->shipLastname = $shipLastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipCompany()
+    {
+        return $this->shipCompany;
+    }
+
+    /**
+     * @param string $shipCompany
+     */
+    public function setShipCompany($shipCompany)
+    {
+        $this->shipCompany = $shipCompany;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipAddress1()
+    {
+        return $this->shipAddress1;
+    }
+
+    /**
+     * @param string $shipAddress1
+     */
+    public function setShipAddress1($shipAddress1)
+    {
+        $this->shipAddress1 = $shipAddress1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipAddress2()
+    {
+        return $this->shipAddress2;
+    }
+
+    /**
+     * @param string $shipAddress2
+     */
+    public function setShipAddress2($shipAddress2)
+    {
+        $this->shipAddress2 = $shipAddress2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipCity()
+    {
+        return $this->shipCity;
+    }
+
+    /**
+     * @param string $shipCity
+     */
+    public function setShipCity($shipCity)
+    {
+        $this->shipCity = $shipCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipState()
+    {
+        return $this->shipState;
+    }
+
+    /**
+     * @param string $shipState
+     */
+    public function setShipState($shipState)
+    {
+        $this->shipState = $shipState;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipZip()
+    {
+        return $this->shipZip;
+    }
+
+    /**
+     * @param string $shipZip
+     */
+    public function setShipZip($shipZip)
+    {
+        $this->shipZip = $shipZip;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipPhone()
+    {
+        return $this->shipPhone;
+    }
+
+    /**
+     * @param string $shipPhone
+     */
+    public function setShipPhone($shipPhone)
+    {
+        $this->shipPhone = $shipPhone;
     }
 
     /**

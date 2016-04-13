@@ -27,8 +27,7 @@ class ErpOrdersApiType extends ErpOrdersType
                 'csrf_protection'      => false,
                 'cascade_validation'   => false,
                 'extra_fields_message' => 'EXTRA FIELDS DETECTED! "{{ extra_fields }}"',
-            ]
-        );
+            ]);
     }
 
     /**

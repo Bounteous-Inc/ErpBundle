@@ -35,7 +35,6 @@ class DemacMediaErpBundle implements Migration, RenameExtensionAwareInterface
 
         $queries->addQuery(
             "INSERT IGNORE INTO orocrm_contact_source (name, label) VALUES ('webstore', 'Web-Store')"
-
         );
     }
 

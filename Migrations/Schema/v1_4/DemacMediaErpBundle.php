@@ -17,7 +17,7 @@ class DemacMediaErpBundle implements Migration
         $table = $schema->createTable('demacmedia_erp_accounts');
 
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('account_original_id','integer',['notnull' => true]);
+        $table->addColumn('account_original_id', 'integer', ['notnull' => true]);
         $table->addColumn('first_name', 'string', ['notnull' => true]);
         $table->addColumn('last_name', 'string', ['notnull' => true]);
         $table->addColumn('email', 'string', ['notnull' => true]);
@@ -54,7 +54,7 @@ class DemacMediaErpBundle implements Migration
 
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
 
-        $table->addColumn('original_order_id','integer', ['notnull' => true]);
+        $table->addColumn('original_order_id', 'integer', ['notnull' => true]);
         $table->addColumn('original_email', 'string', ['notnull' => true]);
         $table->addColumn('total_paid', 'float', ['notnull' => true]);
         $table->addColumn('created_at', 'datetime', ['notnull' => false]);
@@ -64,14 +64,14 @@ class DemacMediaErpBundle implements Migration
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('user_owner_id', 'integer', ['notnull' => false]);
 
-        $table->addIndex(['original_order_id'],strtoupper('IDX_orig_ord_id'), []);
+        $table->addIndex(['original_order_id'], strtoupper('IDX_orig_ord_id'), []);
         $table->addIndex(['original_email'], strtoupper('IDX_original_email'), []);
         $table->addIndex(['total_paid'], strtoupper('IDX_total_paid'), []);
         $table->addIndex(['created_at'], strtoupper('IDX_created_at'), []);
         $table->addIndex(['updated_at'], strtoupper('IDX_updated_at'), []);
         $table->addIndex(['created'], strtoupper('IDX_created'), []);
         $table->addIndex(['updated'], strtoupper('IDX_updated'), []);
-        $table->addIndex(['organization_id'], strtoupper('IDX_organization_id'),[]);
+        $table->addIndex(['organization_id'], strtoupper('IDX_organization_id'), []);
         $table->addIndex(['user_owner_id'], strtoupper('IDX_user_owner_id'), []);
 
         $table->addUniqueIndex(array("original_order_id"));
@@ -83,7 +83,7 @@ class DemacMediaErpBundle implements Migration
 
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
 
-        $table->addColumn('original_order_item_id','integer', ['notnull' => true]);
+        $table->addColumn('original_order_item_id', 'integer', ['notnull' => true]);
         $table->addColumn('order_id', 'integer', ['notnull' => true]);
         $table->addColumn('sku', 'string', ['notnull' => true]);
         $table->addColumn('product_name', 'string', ['notnull' => false]);
@@ -96,7 +96,7 @@ class DemacMediaErpBundle implements Migration
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('user_owner_id', 'integer', ['notnull' => false]);
 
-        $table->addIndex(['original_order_item_id'],strtoupper('IDX_orig_ord_id'), []);
+        $table->addIndex(['original_order_item_id'], strtoupper('IDX_orig_ord_id'), []);
         $table->addIndex(['order_id'], strtoupper('IDX_order_id'), []);
         $table->addIndex(['sku'], strtoupper('IDX_sku'), []);
         $table->addIndex(['product_name'], strtoupper('IDX_product_name'), []);

@@ -16,103 +16,103 @@ class ErpOrdersType extends AbstractType
     {
         $builder
             ->add(
-                'invno',
-                'text',
+                'original_order_id',
+                'number',
                 [
                     'required' => true,
-                    'label'    => 'Invno'
+                    'label'    => 'Original Order ID'
                 ]
             )
             ->add(
-                'custno',
+                'original_email',
                 'text',
                 [
                     'required'    => true,
-                    'label'       => 'Custno',
+                    'label'       => 'Original Email',
                 ]
             )
             ->add(
-                'invdate',
+                'total_paid',
+                'oro_money',
+                [
+                    'required'    => false,
+                    'label'       => 'Total Paid',
+                ]
+            )
+            ->add(
+                'created_at',
                 'oro_datetime',
                 [
-                    'required'    => false,
-                    'label'       => 'Invdate',
+                    'required'    => true,
+                    'label'       => 'Created At',
                 ]
             )
             ->add(
-                'shipvia',
+                'updated_at',
+                'oro_datetime',
+                [
+                    'required'    => true,
+                    'label'       => 'Updated At',
+                ]
+            )
+            ->add(
+                'bill_firstname',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Shipvia',
+                    'label'       => 'Bill First Name',
                 ]
             )
             ->add(
-                'cshipno',
+                'bill_lastname',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Cshipno',
+                    'label'       => 'Bill Last Name',
                 ]
             )
             ->add(
-                'taxrate',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Tax Rate',
-                ]
-            )
-            ->add(
-                'tax',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Tax',
-                ]
-            )
-            ->add(
-                'invamt',
+                'bill_company',
                 'text',
                 [
                     'required'    => true,
-                    'label'       => 'Invamt',
+                    'label'       => 'Bill Company',
                 ]
             )
             ->add(
-                'ponum',
+                'bill_address1',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ponum',
+                    'label'       => 'Bill Address1',
                 ]
             )
             ->add(
-                'refno',
+                'bill_address2',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Refno',
+                    'label'       => 'Bill Address2',
                 ]
             )
             ->add(
-                'salesrep',
+                'bill_city',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Salesrep',
+                    'label'       => 'Bill City',
                 ]
             )
             ->add(
-                'status',
+                'bill_state',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Status',
+                    'label'       => 'Bill State',
                 ]
             )
             ->add(
-                'shipname',
+                'bill_zip',
                 'text',
                 [
                     'required'    => false,
@@ -120,39 +120,55 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'shipcontact',
+                'bill_phone',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ship Contact',
+                    'label'       => 'Ship Name',
                 ]
             )
             ->add(
-                'shipcontactphone',
+                'ship_firstname',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ship Contact Phone',
+                    'label'       => 'Ship First Name',
                 ]
             )
             ->add(
-                'shipaddr1',
+                'ship_lastname',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ship Addr1',
+                    'label'       => 'Ship Last Name',
                 ]
             )
             ->add(
-                'shipaddr2',
+                'ship_company',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ship Addr2',
+                    'label'       => 'Ship Company',
                 ]
             )
             ->add(
-                'shipcity',
+                'ship_address1',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Ship Address1',
+                ]
+            )
+            ->add(
+                'ship_address2',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Ship Address2',
+                ]
+            )
+            ->add(
+                'ship_city',
                 'text',
                 [
                     'required'    => false,
@@ -160,7 +176,7 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'shipstate',
+                'ship_state',
                 'text',
                 [
                     'required'    => false,
@@ -168,7 +184,7 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'shipzip',
+                'ship_zip',
                 'text',
                 [
                     'required'    => false,
@@ -176,67 +192,11 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'shipcountry',
+                'ship_phone',
                 'text',
                 [
                     'required'    => false,
-                    'label'       => 'Ship Country',
-                ]
-            )
-            ->add(
-                'vendorno',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Vendor',
-                ]
-            )
-            ->add(
-                'freight',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'freight',
-                ]
-            )
-            ->add(
-                'dateord',
-                'oro_datetime',
-                [
-                    'required'    => false,
-                    'label'       => 'dateord',
-                ]
-            )
-            ->add(
-                'estshpdate',
-                'oro_datetime',
-                [
-                    'required'    => false,
-                    'label'       => 'estshpdate',
-                ]
-            )
-            ->add(
-                'shipdate',
-                'oro_datetime',
-                [
-                    'required'    => false,
-                    'label'       => 'shipdate',
-                ]
-            )
-            ->add(
-                'created',
-                'oro_datetime',
-                [
-                    'required'    => false,
-                    'label'       => 'Created At',
-                ]
-            )
-            ->add(
-                'updated',
-                'oro_datetime',
-                [
-                    'required'    => false,
-                    'label'       => 'Updated At',
+                    'label'       => 'Ship Phone',
                 ]
             );
     }

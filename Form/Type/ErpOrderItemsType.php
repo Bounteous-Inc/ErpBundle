@@ -16,115 +16,67 @@ class ErpOrderItemsType extends AbstractType
     {
         $builder
             ->add(
-                'invno',
-                'text',
+                'original_order_item_id',
+                'number',
                 [
                     'required' => true,
-                    'label'    => 'Invno'
+                    'label'    => 'Original Order Item ID'
                 ]
             )
             ->add(
-                'custno',
+                'order_id',
+                'number',
+                [
+                    'required'    => true,
+                    'label'       => 'Order ID',
+                ]
+            )
+            ->add(
+                'sku',
                 'text',
                 [
                     'required'    => true,
-                    'label'       => 'Custno',
+                    'label'       => 'Sku',
                 ]
             )
             ->add(
-                'invdate',
+                'product_name',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Product Name',
+                ]
+            )
+            ->add(
+                'product_price',
+                'oro_money',
+                [
+                    'required'    => false,
+                    'label'       => 'Product Price',
+                ]
+            )
+            ->add(
+                'quantity',
+                'number',
+                [
+                    'required'    => true,
+                    'label'       => 'Quantity',
+                ]
+            )
+            ->add(
+                'created_at',
                 'oro_datetime',
                 [
-                    'required'    => false,
-                    'label'       => 'Invdate',
+                    'required'    => true,
+                    'label'       => 'Created At',
                 ]
             )
             ->add(
-                'item',
-                'text',
+                'updated_at',
+                'oro_datetime',
                 [
-                    'required'    => false,
-                    'label'       => 'Item',
-                ]
-            )
-            ->add(
-                'descrip',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Descrip',
-                ]
-            )
-            ->add(
-                'taxrate',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Tax Rate',
-                ]
-            )
-            ->add(
-                'cost',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Cost',
-                ]
-            )
-            ->add(
-                'price',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Price',
-                ]
-            )
-            ->add(
-                'qtyord',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Qty Ord',
-                ]
-            )
-            ->add(
-                'qtyshp',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Qty Ord',
-                ]
-            )
-            ->add(
-                'qtyord',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Qty Ord',
-                ]
-            )
-            ->add(
-                'qtyshp',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Qty shp',
-                ]
-            )
-            ->add(
-                'extprice',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Ext price',
-                ]
-            )
-            ->add(
-                'ponum',
-                'text',
-                [
-                    'required'    => false,
-                    'label'       => 'Ponum',
+                    'required'    => true,
+                    'label'       => 'Updated At',
                 ]
             );
     }
