@@ -80,7 +80,7 @@ class OroErpOrders
      * @var OroErpAccounts
      *
      * @ORM\ManyToOne(targetEntity="DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts")
-     * @ORM\JoinColumn(name="original_email", referencedColumnName="original_email", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="original_email", referencedColumnName="original_email", onDelete="SET NULL", nullable=true)
      * @ConfigField(
      *      defaultValues={
      *          "entity"={

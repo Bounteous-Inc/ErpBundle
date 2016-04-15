@@ -108,7 +108,8 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
      */
     public function postAction()
     {
-        return $this->handleCreateRequest();
+        $originalEmail = $this->get('request')->request->get('original_email');
+        return $this->handleCreateRequest($originalEmail);
     }
 
 

@@ -58,7 +58,7 @@ demacmedia_api_erp_get_orders:
         _method: GET
 
 demacmedia_api_erp_create_order:
-    pattern: api/rest/{version}/erp/orders.{_format}
+    pattern: api/rest/{version}/erp/orders/{originalEmail}.{_format}
     defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:post, _format: json, version: latest }
     requirements:
         _method: POST

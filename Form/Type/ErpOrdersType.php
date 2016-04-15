@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ErpOrdersType extends AbstractType
 {
+    const NAME = 'demacmedia_erp_orders';
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -21,14 +23,6 @@ class ErpOrdersType extends AbstractType
                 [
                     'required' => true,
                     'label'    => 'Original Order ID'
-                ]
-            )
-            ->add(
-                'original_email',
-                'text',
-                [
-                    'required'    => true,
-                    'label'       => 'Original Email',
                 ]
             )
             ->add(
@@ -75,7 +69,7 @@ class ErpOrdersType extends AbstractType
                 'bill_company',
                 'text',
                 [
-                    'required'    => true,
+                    'required'    => false,
                     'label'       => 'Bill Company',
                 ]
             )
@@ -198,6 +192,24 @@ class ErpOrdersType extends AbstractType
                     'required'    => false,
                     'label'       => 'Ship Phone',
                 ]
+            )
+            ->add(
+                'originalEmail',
+                'translatable_entity',
+                [
+                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts',
+                    'property' => 'original_email',
+                    'required' => true
+                ]
+            )
+            ->add(
+                'owner',
+                'translatable_entity',
+                [
+                    'class'    => 'Oro\Bundle\UserBundle\Entity\User',
+                    'property' => 'username',
+                    'required' => false
+                ]
             );
     }
 
@@ -221,6 +233,6 @@ class ErpOrdersType extends AbstractType
      */
     public function getName()
     {
-        return 'demacmedia_erp_orders';
+        return self::NAME;
     }
 }

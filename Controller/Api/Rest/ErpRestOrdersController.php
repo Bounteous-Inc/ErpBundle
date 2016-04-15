@@ -11,6 +11,7 @@ use FOS\RestBundle\Util\Codes;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
@@ -18,7 +19,10 @@ use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 use Oro\Bundle\CommentBundle\Entity\Manager\CommentApiManager;
+
+
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
 /**
  * @NamePrefix("demacmedia_api_")
@@ -88,8 +92,9 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
     /**
      * Create new Erp Order
      *
+     *
         // Example creating a new Web Order.
-        $response = $oroClient->post('api/rest/latest/erp/orders.json', [
+        $response = $oroClient->post('api/rest/latest/erp/orders/rodolfo.json', [
             'body' => [
                 'original_order_id' => '1234',
                 'original_email'    => 'example@example.org',
@@ -119,17 +124,46 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
             ]
         ]);
      *
+     * @param string $originalEmail original_email
+     *
      * @ApiDoc(
      * description="Create new Physical Store Account.",
      * resource=true
      * )
      * @AclAncestor("demacmedia_erp_orders_create")
+     *
+     * @return Response
      */
-    public function postAction()
+    public function postAction($originalEmail, Request $request)
     {
-        return $this->handleCreateRequest();
-    }
+        $account = $this->getDoctrine()->getManager()->getRepository('DemacMediaErpBundle:OroErpAccounts')->findOneBy([
+            'originalEmail' => $originalEmail
+        ]);
+        $isProcessed = false;
+        $order = new OroErpOrders();
 
+        if ($account instanceof OroErpAccounts) {
+            $order->setOriginalEmail($account);
+
+            $form = $this->getForm();
+            $form->handleRequest($request);
+
+            $entity = $form->getViewData();
+            $entity->setOriginalEmail($account);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->persist($entity);
+                $this->getDoctrine()->getManager()->flush();
+                $view = $this->view($this->createResponseData($entity), Codes::HTTP_CREATED);
+                $isProcessed = true;
+            } else {
+                $view = $this->view($this->getForm(), Codes::HTTP_BAD_REQUEST);
+            }
+        } else {
+            $view = $this->view($this->getForm(), Codes::HTTP_NOT_FOUND);
+        }
+        return $this->buildResponse($view, self::ACTION_CREATE, ['success' => $isProcessed, 'entity' => $entity]);
+    }
 
 
     /**

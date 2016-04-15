@@ -11,6 +11,8 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 use OroCRM\Bundle\AccountBundle\Entity\Account;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
+
+
 /**
  * OroErpAccounts
  *
@@ -46,7 +48,6 @@ class OroErpAccounts
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
-     *
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ConfigField(
      *      defaultValues={
@@ -145,6 +146,8 @@ class OroErpAccounts
      * )
      */
     protected $originalEmail;
+
+
 
     /**
      * @var \DateTime
@@ -302,9 +305,6 @@ class OroErpAccounts
      * )
      */
     protected $contact;
-
-
-
 
     /**
      * @return int

@@ -3,11 +3,13 @@
 namespace DemacMedia\Bundle\ErpBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
+
 
 class ErpAccountsApiHandler
 {
@@ -71,5 +73,18 @@ class ErpAccountsApiHandler
     {
         $this->manager->persist($entity);
         $this->manager->flush();
+
+        /*
+            $accountId = $entity->getOriginalEmail();
+
+            $account = $this->manager->find(
+                'DemacMediaErpBundle:OroErpAccounts',
+                $accountId
+            );
+
+            $account->setOriginalEmail($this->request->get('original_email'));
+            $this->manager->flush();
+        */
     }
+
 }
