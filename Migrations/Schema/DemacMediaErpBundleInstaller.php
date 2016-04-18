@@ -1,12 +1,12 @@
 <?php
 
-namespace DemacMedia\Bundle\PhysicalStoreBundle\Migrations\Schema;
+namespace DemacMedia\Bundle\ErpBundle\Migrations\Schema;
 
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Installation;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 
-class DemacMediaPhysicalStoreBundle implements Installation
+class DemacMediaErpBundle implements Installation
 {
     /**
      * {@inheritdoc}

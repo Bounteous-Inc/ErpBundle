@@ -4,6 +4,8 @@ parameters:
     demacmedia_erp_orderitems.entity.class:       DemacMedia\Bundle\ErpBundle\Entity\OroErpOrderItems
     demacmedia_erp.manager.api.class:             Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
     demacmedia_erp.demac_assign_entity.action.class:    DemacMedia\Bundle\ErpBundle\Model\Action\AssignEntity
+    demacmedia_erp_orderitems.ordem_items.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\OriginalEmailListener
+    demacmedia_erp.formevent.class:               Oro\Bundle\FormBundle\Event\FormHandler\FormProcessEvent
 
 services:
     # ACCOUNTS
@@ -31,3 +33,4 @@ services:
         arguments:
         - %demacmedia_erp_orderitems.entity.class%
         - @doctrine.orm.entity_manager
+

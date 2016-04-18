@@ -134,8 +134,10 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      *
      * @return Response
      */
-    public function postAction($originalEmail, Request $request)
+    public function postAction(Request $request)
     {
+        $originalEmail = $request->get('originalEmail');
+
         $account = $this->getDoctrine()->getManager()->getRepository('DemacMediaErpBundle:OroErpAccounts')->findOneBy([
             'originalEmail' => $originalEmail
         ]);
@@ -162,7 +164,7 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
         } else {
             $view = $this->view($this->getForm(), Codes::HTTP_NOT_FOUND);
         }
-        return $this->buildResponse($view, self::ACTION_CREATE, ['success' => $isProcessed, 'entity' => $entity]);
+        return $this->buildResponse($view, self::ACTION_CREATE, ['success' => $isProcessed, 'entity' => $entity->getId()]);
     }
 
 

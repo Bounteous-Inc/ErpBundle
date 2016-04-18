@@ -70,5 +70,7 @@ class ErpOrderItemsApiHandler
     {
         $this->manager->persist($entity);
         $this->manager->flush();
+
+        $foo = '10';
     }
 }

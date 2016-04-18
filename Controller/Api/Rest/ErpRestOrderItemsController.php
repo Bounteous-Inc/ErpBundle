@@ -10,12 +10,18 @@ use FOS\RestBundle\Util\Codes;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
+
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrderItems;
+
+
 
 /**
  * @NamePrefix("demacmedia_api_")
@@ -113,9 +119,35 @@ class ErpRestOrderItemsController extends RestController implements ClassResourc
      * )
      * @AclAncestor("demacmedia_erp_orderitems_create")
      */
-    public function postAction()
+    public function postAction(Request $request)
     {
-        return $this->handleCreateRequest();
+        $orderId = $request->get('orderId');
+        $entity = '';
+
+        $order = $this->getDoctrine()->getManager()->getRepository('DemacMediaErpBundle:OroErpOrders')->findOneBy([
+            'originalOrderId' => $orderId
+        ]);
+        $isProcessed = false;
+
+        if ($order instanceof OroErpOrders) {
+            $form = $this->getForm();
+            $form->handleRequest($request);
+
+            $entity = $form->getViewData();
+            $entity->setOrderId($order);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->persist($entity);
+                $this->getDoctrine()->getManager()->flush();
+                $view = $this->view($this->createResponseData($entity), Codes::HTTP_CREATED);
+                $isProcessed = true;
+            } else {
+                $view = $this->view($this->getForm(), Codes::HTTP_BAD_REQUEST);
+            }
+        } else {
+            $view = $this->view($this->getForm(), Codes::HTTP_NOT_FOUND);
+        }
+        return $this->buildResponse($view, self::ACTION_CREATE, ['success' => $isProcessed, 'entity' => $entity->getId()]);
     }
 
 

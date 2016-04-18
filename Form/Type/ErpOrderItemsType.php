@@ -24,14 +24,6 @@ class ErpOrderItemsType extends AbstractType
                 ]
             )
             ->add(
-                'order_id',
-                'number',
-                [
-                    'required'    => true,
-                    'label'       => 'Order ID',
-                ]
-            )
-            ->add(
                 'sku',
                 'text',
                 [
@@ -77,6 +69,24 @@ class ErpOrderItemsType extends AbstractType
                 [
                     'required'    => true,
                     'label'       => 'Updated At',
+                ]
+            )
+            ->add(
+                'orderId',
+                'translatable_entity',
+                [
+                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders',
+                    'property' => 'original_order_id',
+                    'required' => true
+                ]
+            )
+            ->add(
+                'owner',
+                'translatable_entity',
+                [
+                    'class'    => 'Oro\Bundle\UserBundle\Entity\User',
+                    'property' => 'username',
+                    'required' => false
                 ]
             );
     }

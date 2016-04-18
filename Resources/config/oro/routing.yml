@@ -14,7 +14,7 @@ demacmedia_erp_orders_items:
     prefix:     /erp/orderitems
 
 #
-# REST actions for Physical Store Accounts
+# REST actions for Erp Accounts
 # ----------------------------------------------------------------------------------------------------------------------
 demacmedia_api_erp_get_accounts:
     pattern: api/rest/{version}/erp/accounts.{_format}
@@ -49,7 +49,7 @@ demacmedia_api_erp_delete_account:
 
 
 #
-# REST actions for Physical Store Orders
+# REST actions for Erp Orders
 # ----------------------------------------------------------------------------------------------------------------------
 demacmedia_api_erp_get_orders:
     pattern: api/rest/{version}/erp/orders.{_format}
@@ -58,7 +58,7 @@ demacmedia_api_erp_get_orders:
         _method: GET
 
 demacmedia_api_erp_create_order:
-    pattern: api/rest/{version}/erp/orders/{originalEmail}.{_format}
+    pattern: api/rest/{version}/erp/orders.{_format}
     defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrders:post, _format: json, version: latest }
     requirements:
         _method: POST
@@ -84,7 +84,7 @@ demacmedia_api_erp_delete_order:
 
 
 #
-# REST actions for Physical Store Order Items
+# REST actions for Erp Order Items
 # ----------------------------------------------------------------------------------------------------------------------
 demacmedia_api_erp_get_ordersitems:
     pattern: api/rest/{version}/erp/orderitems.{_format}

@@ -74,7 +74,7 @@ class DemacMediaErpBundle implements Migration
         $table = $schema->createTable('demacmedia_erp_order_items');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('original_order_item_id', 'integer', ['notnull' => true]);
-        $table->addColumn('order_id', 'integer', ['notnull' => true]);
+        $table->addColumn('order_id', 'integer', ['notnull' => false]);
         $table->addColumn('sku', 'string', ['notnull' => true]);
         $table->addColumn('product_name', 'string', ['notnull' => false]);
         $table->addColumn('product_price', 'string', ['notnull' => true]);
