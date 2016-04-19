@@ -88,8 +88,29 @@ class ErpOrderItemsType extends AbstractType
                     'property' => 'username',
                     'required' => false
                 ]
-            );
+            )->addEventListener(
+                FormEvents::PRE_SUBMIT, [
+                    $this, 
+                    'onPreSubmit'
+                ]
+        I   );
     }
+
+
+    public function onPreSubmit(FormEvent $event)
+    {
+        $user = $event->getData();
+        $form = $event->getForm();
+
+        if (!$user) {
+            return;
+        }
+
+        if (true === $user['order_id']) {
+            $event->setData($user);
+        }
+    } 
+
 
     /**
      * @param OptionsResolverInterface $resolver
