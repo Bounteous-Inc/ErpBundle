@@ -29,6 +29,13 @@
                 <div class="responsive-block span6">
 
                     <div class="control-group">
+                        <label class="control-label">Account Number:</label>
+                        <div class="controls">
+                            <div class="control-label">{{ entity.accountNumber|escape|default('N/A') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
                         <label class="control-label">First Name:</label>
                         <div class="controls">
                             <div class="control-label">{{ entity.firstName|escape|default('N/A') }}</div>
@@ -111,7 +118,7 @@
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
                 {% set gridName = 'erp-orders-specific-grid' %}
-                {% set gridFilters = { 'original_email': entity.originalEmail } %}
+                {% set gridFilters = { 'erpaccount': entity.id } %}
                 {{ dataGrid.renderGrid(gridName, gridFilters) }}
             </div>
         </div>

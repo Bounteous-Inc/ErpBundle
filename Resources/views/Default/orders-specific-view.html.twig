@@ -2,7 +2,7 @@
 {% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 
 {% set pageTitle = 'demacmedia_erp.orders.entity.label'|trans %}
-{% set params = { 'originalOrderId': originalOrderId } %}
+{% set params = { 'orderNumber': orderNumber } %}
 
 {% block stats %}
     {% include 'OroWorkflowBundle:Widget:steps.html.twig' with { 'entity': entityAccounts } %}
@@ -104,7 +104,7 @@
                 <div class="control-group">
                     <label class="control-label">Order ID:</label>
                     <div class="controls">
-                        <div class="control-label">{{ originalOrderId|escape }}</div>
+                        <div class="control-label">{{ orderNumber|escape }}</div>
                     </div>
                 </div>
 
@@ -302,13 +302,13 @@
 </div>
 
 <div class="responsive-section responsive-big responsive-section-no-blocks" style="margin-left: 15px;">
-    <h4 class="scrollspy-title">Web Store Order: <strong>{{ originalOrderId|escape|default('N/A')|upper }}</strong></h4>
+    <h4 class="scrollspy-title">Web Store Order: <strong>{{ orderNumber|escape|default('N/A')|upper }}</strong></h4>
     <div id="physical-store-orders" class="scrollspy-nav-target"></div>
     <div class="row-fluid">
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
                 {% set gridName = 'erp-order-items-grid' %}
-                {% set gridFilters = { 'order_id': originalOrderId } %}
+                {% set gridFilters = { 'order_id': entity.id } %}
                 {{ dataGrid.renderGrid(gridName, gridFilters) }}
             </div>
         </div>

@@ -16,7 +16,7 @@ class ErpOrderItemsType extends AbstractType
     {
         $builder
             ->add(
-                'original_order_item_id',
+                'order_item_number',
                 'number',
                 [
                     'required' => true,
@@ -72,11 +72,10 @@ class ErpOrderItemsType extends AbstractType
                 ]
             )
             ->add(
-                'orderId',
+                'order',
                 'translatable_entity',
                 [
                     'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders',
-                    'property' => 'original_order_id',
                     'required' => true
                 ]
             )
@@ -88,28 +87,8 @@ class ErpOrderItemsType extends AbstractType
                     'property' => 'username',
                     'required' => false
                 ]
-            )->addEventListener(
-                FormEvents::PRE_SUBMIT, [
-                    $this, 
-                    'onPreSubmit'
-                ]
-        I   );
+            );
     }
-
-
-    public function onPreSubmit(FormEvent $event)
-    {
-        $user = $event->getData();
-        $form = $event->getForm();
-
-        if (!$user) {
-            return;
-        }
-
-        if (true === $user['order_id']) {
-            $event->setData($user);
-        }
-    } 
 
 
     /**

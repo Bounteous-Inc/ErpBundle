@@ -5,7 +5,7 @@ datagrid:
             query:
                 select:
                     - erp_accounts.id
-                    - erp_accounts.accountOriginalId
+                    - erp_accounts.accountNumber
                     - erp_accounts.firstName
                     - erp_accounts.lastName
                     - erp_accounts.email
@@ -17,8 +17,8 @@ datagrid:
                 from:
                     - { table: DemacMediaErpBundle:OroErpAccounts, alias: erp_accounts }
         columns:
-            accountOriginalId:
-                label: demacmedia_erp.accounts.accountOriginalId.label
+            accountNumber:
+                label: demacmedia_erp.accounts.accountNumber.label
             firstName:
                 label: demacmedia_erp.accounts.firstName.label
             lastName:
@@ -41,8 +41,8 @@ datagrid:
 
         sorters:
             columns:
-                accountOriginalId:
-                    data_name: erp_accounts.accountOriginalId
+                accountNumber:
+                    data_name: erp_accounts.accountNumber
                 firstName:
                     data_name: erp_accounts.firstName
                 lastName:
@@ -79,9 +79,9 @@ datagrid:
 
         filters:
             columns:
-                accountOriginalId:
+                accountNumber:
                     type: number
-                    data_name: erp_accounts.accountOriginalId
+                    data_name: erp_accounts.accountNumber
                 firstName:
                     type: string
                     data_name: erp_accounts.firstName
@@ -115,8 +115,8 @@ datagrid:
             query:
                 select:
                     - erp_orders.id
-                    - erp_orders.originalOrderId
-                    - IDENTITY(erp_orders.originalEmail) as originalEmail
+                    - erp_orders.orderNumber
+                    - IDENTITY(erp_orders.erpaccount) as erpaccount
                     - erp_orders.totalPaid
                     - erp_orders.createdAt
                     - erp_orders.updatedAt
@@ -138,13 +138,11 @@ datagrid:
                             join: DemacMediaErpBundle:OroErpAccounts
                             alias: erp_accounts
                             conditionType: WITH
-                            condition: erp_accounts.originalEmail = erp_orders.originalEmail
+                            condition: erp_accounts.id = erp_orders.erpaccount
 
         columns:
-            originalOrderId:
-                label: demacmedia_erp.orders.originalOrderId.label
-            originalEmail:
-                label: demacmedia_erp.orders.originalEmail.label
+            orderNumber:
+                label: demacmedia_erp.orders.orderNumber.label
             totalPaid:
                 label: demacmedia_erp.orders.totalPaid.label
                 frontend_type: currency
@@ -178,10 +176,8 @@ datagrid:
 
         sorters:
             columns:
-                originalOrderId:
-                    data_name: erp_orders.originalOrderId
-                originalOrderId:
-                    data_name: erp_orders.originalEmail
+                orderNumber:
+                    data_name: erp_orders.orderNumber
                 totalPaid:
                     data_name: erp_orders.totalPaid
                 firstName:
@@ -216,7 +212,7 @@ datagrid:
             view_link:
                 type:       url
                 route:      demacmedia_erp_orders_view
-                params:     [ originalOrderId ]
+                params:     [ id ]
 
         actions:
             view:
@@ -228,12 +224,9 @@ datagrid:
 
         filters:
             columns:
-                originalOrderId:
-                    type: string
-                    data_name: erp_orders.originalOrderId
-                originalOrderId:
-                    type: string
-                    data_name: erp_orders.originalOrderId
+                orderNumber:
+                    type: number
+                    data_name: erp_orders.orderNumber
                 totalPaid:
                     type: currency
                     data_name: erp_orders.totalPaid
@@ -282,8 +275,8 @@ datagrid:
             query:
                 select:
                     - erp_orders.id
-                    - erp_orders.originalOrderId
-                    - IDENTITY(erp_orders.originalEmail) as originalEmail
+                    - erp_orders.orderNumber
+                    - IDENTITY(erp_orders.erpaccount) as erpaccount
                     - erp_orders.totalPaid
                     - erp_orders.createdAt
                     - erp_orders.updatedAt
@@ -292,13 +285,13 @@ datagrid:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 where:
                     and:
-                        - IDENTITY(erp_orders.originalEmail) IN (:original_email)
+                        - IDENTITY(erp_orders.erpaccount) IN (:erpaccount)
             bind_parameters:
-                original_email: original_email
+                erpaccount: erpaccount
 
         columns:
-            originalOrderId:
-                label: demacmedia_erp.orders.originalOrderId.label
+            orderNumber:
+                label: demacmedia_erp.orders.orderNumber.label
             originalEmail:
                 label: demacmedia_erp.orders.originalEmail.label
             totalPaid:
@@ -316,8 +309,8 @@ datagrid:
 
         sorters:
             columns:
-                originalOrderId:
-                    data_name: erp_orders.originalOrderId
+                orderNumber:
+                    data_name: erp_orders.orderNumber
                 originalEmail:
                     data_name: erp_orders.originalEmail
                 totalPaid:
@@ -336,7 +329,7 @@ datagrid:
             view_link:
                 type:       url
                 route:      demacmedia_erp_orders_view
-                params:     [ originalOrderId ]
+                params:     [ orderNumber ]
 
         actions:
             view:
@@ -348,9 +341,9 @@ datagrid:
 
         filters:
             columns:
-                originalOrderId:
+                orderNumber:
                     type: number
-                    data_name: erp_orders.originalOrderId
+                    data_name: erp_orders.orderNumber
                 originalEmail:
                     type: string
                     data_name: erp_orders.originalEmail
@@ -375,8 +368,9 @@ datagrid:
             query:
                 select:
                     - erp_order_items.id
-                    - erp_order_items.originalOrderItemId
-                    - IDENTITY(erp_order_items.orderId) as orderId
+                    - erp_order_items.orderItemNumber
+                    - IDENTITY(erp_order_items.order) as orderId
+#                   - erp_orders.orderNumber
                     - erp_order_items.sku
                     - erp_order_items.productName
                     - erp_order_items.productPrice
@@ -386,27 +380,37 @@ datagrid:
                     - erp_order_items.updated
                 from:
                     - { table: DemacMediaErpBundle:OroErpOrderItems, alias: erp_order_items }
+#                join:
+#                    inner:
+#                        - { join: DemacMediaErpBundle:OroErpOrders, alias: erp_orders, conditionType: WITH, condition: 'erp_orders.id = IDENTITY(erp_order_items.order)' }
                 where:
                     and:
-                        - IDENTITY(erp_order_items.orderId) = :order_id
+                        - IDENTITY(erp_order_items.order) = :order_id
             bind_parameters:
                 order_id: order_id
 
         columns:
-            originalOrderItemId:
-                label: demacmedia_erp.order_items.originalOrderItemId.label
+            orderItemNumber:
+                label: demacmedia_erp.order_items.orderItemNumber.label
+                frontend_type: integer
             orderId:
                 label: demacmedia_erp.order_items.orderId.label
+                frontend_type: integer
+            orderNumber:
+                label: demacmedia_erp.order.orderNumber.label
+                frontend_type: integer
             sku:
                 label: demacmedia_erp.order_items.sku.label
+                frontend_type: text
             productName:
                 label: demacmedia_erp.order_items.productName.label
-                frontend_type: currency
+                frontend_type: text
             productPrice:
                 label: demacmedia_erp.order_items.productPrice.label
                 frontend_type: currency
             quantity:
                 label: demacmedia_erp.order_items.quantity.label
+                frontend_type: number
             createdAt:
                 label: demacmedia_erp.order_items.createdAt.label
                 frontend_type: datetime
@@ -419,8 +423,8 @@ datagrid:
 
         sorters:
             columns:
-                originalOrderItemId:
-                    data_name: erp_order_items.originalOrderItemId
+                orderItemNumber:
+                    data_name: erp_order_items.orderItemNumber
                 orderId:
                     data_name: erp_order_items.orderId
                 sku:
@@ -443,9 +447,9 @@ datagrid:
 
         filters:
             columns:
-                originalOrderItemId:
+                orderItemNumber:
                     type: number
-                    data_name: erp_order_items.originalOrderItemId
+                    data_name: erp_order_items.orderItemNumber
                 orderId:
                     type: number
                     data_name: erp_order_items.orderId

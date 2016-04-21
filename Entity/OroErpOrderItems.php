@@ -7,9 +7,10 @@ use Oro\Bundle\UserBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
 
 /**
  * OroErpOrderItems

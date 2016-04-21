@@ -24,7 +24,7 @@ class ErpOrderItemsController extends Controller
 
 
     /**
-     * @Route("/view/{originalOrderId}", name="demacmedia_erp_order_items")
+     * @Route("/view/{id}", name="demacmedia_erp_order_items")
      */
     public function viewAction($originalOrderId, OroErpOrderItems $entity)
     {

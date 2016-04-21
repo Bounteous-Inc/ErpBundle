@@ -25,9 +25,9 @@ class ErpOrdersController extends Controller
 
 
     /**
-     * @Route("/view/{originalOrderId}", name="demacmedia_erp_orders_view")
+     * @Route("/view/{id}", name="demacmedia_erp_orders_view")
      */
-    public function viewAction($originalOrderId, OroErpOrders $entityOrders)
+    public function viewAction($id, OroErpOrders $entityOrders)
     {
         $this->em = $this->container->get('doctrine.orm.entity_manager');
         $entityAccounts = $this->em->getRepository('DemacMediaErpBundle:OroErpAccounts')
@@ -37,14 +37,14 @@ class ErpOrdersController extends Controller
 
         if (!$entityAccounts) {
             // throw new EntityNotFoundException();
-            printf('There is no accounts for this order: %d', $originalOrderId);
+            printf('There is no accounts for this order: %d', $id);
             die();
         }
 
         return $this->render('DemacMediaErpBundle:Default:orders-specific-view.html.twig', [
             'entityAccounts'  => $entityAccounts,
             'entity'          => $entityOrders,
-            'originalOrderId' => $originalOrderId
+            'orderNumber'     => $id
         ]);
     }
 
