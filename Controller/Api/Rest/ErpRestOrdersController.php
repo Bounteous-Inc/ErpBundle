@@ -94,9 +94,9 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      *
      *
         // Example creating a new Web Order.
-        $response = $oroClient->post('api/rest/latest/erp/orders/rodolfo.json', [
+        $response = $oroClient->post('api/rest/latest/erp/orders.json', [
             'body' => [
-                'original_order_id' => '1234',
+                'order_number'      => '1234',
                 'original_email'    => 'example@example.org',
                 'total_paid'        => '11.11',
                 'website_id'        => 'httpwwwwebsitecom',
@@ -127,53 +127,25 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      * @param string $originalEmail original_email
      *
      * @ApiDoc(
-     * description="Create new Physical Store Account.",
+     * description="Create new Erp Web Store Account.",
      * resource=true
      * )
      * @AclAncestor("demacmedia_erp_orders_create")
      *
      * @return Response
      */
-    public function postAction(Request $request)
+    public function postAction()
     {
-        $originalEmail = $request->get('originalEmail');
-
-        $account = $this->getDoctrine()->getManager()->getRepository('DemacMediaErpBundle:OroErpAccounts')->findOneBy([
-            'originalEmail' => $originalEmail
-        ]);
-        $isProcessed = false;
-        $order = new OroErpOrders();
-
-        if ($account instanceof OroErpAccounts) {
-            $order->setOriginalEmail($account);
-
-            $form = $this->getForm();
-            $form->handleRequest($request);
-
-            $entity = $form->getViewData();
-            $entity->setOriginalEmail($account);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->getDoctrine()->getManager()->persist($entity);
-                $this->getDoctrine()->getManager()->flush();
-                $view = $this->view($this->createResponseData($entity), Codes::HTTP_CREATED);
-                $isProcessed = true;
-            } else {
-                $view = $this->view($this->getForm(), Codes::HTTP_BAD_REQUEST);
-            }
-        } else {
-            $view = $this->view($this->getForm(), Codes::HTTP_NOT_FOUND);
-        }
-        return $this->buildResponse($view, self::ACTION_CREATE, ['success' => $isProcessed, 'entity' => $entity->getId()]);
+        return $this->handleCreateRequest();
     }
 
 
     /**
-     * Update Physical Store account
+     * Update Erp Web Store account
      *
         $request = $oroClient->put('api/rest/latest/erp/orders/6.json', [
             'body' => [
-                'original_order_id' => '1234',
+                'original_number'   => '1234',
                 'original_email'    => 'example@example.org',
                 'total_paid'        => '11.11',
                 'website_id'        => 'httpwwwwebsitecom',

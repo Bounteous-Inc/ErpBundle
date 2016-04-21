@@ -2,13 +2,18 @@
 
 namespace DemacMedia\Bundle\ErpBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
-
-use Doctrine\ORM\Mapping as ORM;
-use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
+
+
 
 /**
  * OroErpOrders
@@ -61,26 +66,25 @@ class OroErpOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="original_order_id", type="integer")
-     *
+     * @ORM\Column(name="order_number", type="integer")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Order Original ID",
-     *              "plural_label"="Orders Original ID",
-     *              "description"="Order Original ID"
+     *              "label"="Order Number",
+     *              "plural_label"="Orders Number",
+     *              "description"="Order Number"
      *          }
      *      }
      * )
      */
-    protected $originalOrderId;
-
+    protected $orderNumber;
+    
 
     /**
      * @var OroErpAccounts
      *
-     * @ORM\ManyToOne(targetEntity="DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts")
-     * @ORM\JoinColumn(name="original_email", referencedColumnName="original_email", onDelete="SET NULL", nullable=true)
+     * @ORM\ManyToOne(targetEntity="OroErpAccounts", inversedBy="orders")
+     * @ORM\JoinColumn(name="erpaccount_id", onDelete="CASCADE")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
@@ -91,7 +95,16 @@ class OroErpOrders
      *      }
      * )
      */
-    protected $originalEmail;
+    protected $erpaccount;
+
+
+    /**
+     * @var Collection|OroErpOrders[]
+     *
+     * @ORM\OneToMany(targetEntity="OroErpOrderItems", mappedBy="order", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $items;
 
 
     /**
@@ -144,6 +157,24 @@ class OroErpOrders
      */
     protected $createdAt;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="original_email", type="string")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Original Email",
+     *              "plural_label"="Original Emails",
+     *              "description"="Original Email"
+     *          }
+     *      }
+     * )
+     */
+    protected $originalEmail;
+    
+    
 
     /**
      * @var string
@@ -524,6 +555,12 @@ class OroErpOrders
      */
     protected $organization;
 
+
+    public function __construct() {
+        $this->items = new ArrayCollection();
+    }    
+    
+    
     /**
      * @return int
      */
@@ -1032,5 +1069,68 @@ class OroErpOrders
     public function doUpdate()
     {
         $this->updated = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param int $orderNumber
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+    }
+
+    /**
+     * @return \DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts
+     */
+    public function getErpaccount()
+    {
+        return $this->erpaccount;
+    }
+
+    /**
+     * @param \DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts $erpaccount
+     */
+    public function setErpaccount($erpaccount)
+    {
+        $this->erpaccount = $erpaccount;
+    }
+
+
+    
+    /**
+     * @return Collection|OroErpOrderItems[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+    /**
+     * @param OroErpOrderItems $item
+     *
+     * @return $this
+     */
+    public function addItem(OroErpOrderItems $item)
+    {
+        $this->items->add($item);
+        $item->setOrder($this);
+        return $this;
+    }
+    /**
+     * @param OroErpOrderItems $item
+     *
+     * @return $this
+     */
+    public function removeItem(OroErpOrderItems $item)
+    {
+        $this->items->removeElement($item);
+        return $this;
     }
 }

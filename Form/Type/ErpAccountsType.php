@@ -16,11 +16,11 @@ class ErpAccountsType extends AbstractType
     {
         $builder
             ->add(
-                'account_original_id',
+                'account_number',
                 'text',
                 [
                     'required' => true,
-                    'label'    => 'Account Original ID'
+                    'label'    => 'Account Number'
                 ]
             )
             ->add(

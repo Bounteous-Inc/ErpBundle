@@ -2,15 +2,16 @@
 
 namespace DemacMedia\Bundle\ErpBundle\Entity;
 
-use Oro\Bundle\OrganizationBundle\Entity\Organization;
-use Oro\Bundle\UserBundle\Entity\User;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
+use Oro\Bundle\UserBundle\Entity\User;
 use OroCRM\Bundle\AccountBundle\Entity\Account;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
-
 
 
 /**
@@ -48,6 +49,7 @@ class OroErpAccounts
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ConfigField(
      *      defaultValues={
@@ -65,18 +67,18 @@ class OroErpAccounts
     /**
      * @var integer
      *
-     * @ORM\Column(name="account_original_id", type="integer")
+     * @ORM\Column(name="account_number", type="integer")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Account Original ID",
-     *              "plural_label"="Account Original ID",
-     *              "description"="Account Original ID"
+     *              "label"="Account Number",
+     *              "plural_label"="Account Number",
+     *              "description"="Account Number"
      *          }
      *      }
      * )
      */
-    protected $accountOriginalId;
+    protected $accountNumber;
 
 
     /**
@@ -134,7 +136,6 @@ class OroErpAccounts
      * @var string
      *
      * @ORM\Column(name="original_email", type="string")
-     * @ORM\Id
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
@@ -147,6 +148,14 @@ class OroErpAccounts
      */
     protected $originalEmail;
 
+
+    /**
+     * @var Collection|OroErpOrders[]
+     *
+     * @ORM\OneToMany(targetEntity="OroErpOrders", mappedBy="erpaccount", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $orders;
 
 
     /**
@@ -306,6 +315,12 @@ class OroErpAccounts
      */
     protected $contact;
 
+    
+    public function __construct() {
+        $this->orders = new ArrayCollection();
+    }
+    
+
     /**
      * @return int
      */
@@ -321,22 +336,7 @@ class OroErpAccounts
     {
         $this->id = $id;
     }
-
-    /**
-     * @return int
-     */
-    public function getAccountOriginalId()
-    {
-        return $this->accountOriginalId;
-    }
-
-    /**
-     * @param int $accountOriginalId
-     */
-    public function setAccountOriginalId($accountOriginalId)
-    {
-        $this->accountOriginalId = $accountOriginalId;
-    }
+    
 
     /**
      * @return string
@@ -621,5 +621,50 @@ class OroErpAccounts
     public function doUpdate()
     {
         $this->updated = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccountNumber()
+    {
+        return $this->accountNumber;
+    }
+
+    /**
+     * @param int $accountNumber
+     */
+    public function setAccountNumber($accountNumber)
+    {
+        $this->accountNumber = $accountNumber;
+    }
+
+    /**
+     * @return Collection|OroErpOrders[]
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+    /**
+     * @param OroErpOrders $order
+     *
+     * @return $this
+     */
+    public function addOrder(OroErpOrders $order)
+    {
+        $this->orders->add($order);
+        $order->setErpaccount($this);
+        return $this;
+    }
+    /**
+     * @param OroErpOrders $order
+     *
+     * @return $this
+     */
+    public function removeOrder(OroErpOrders $order)
+    {
+        $this->orders->removeElement($order);
+        return $this;
     }
 }

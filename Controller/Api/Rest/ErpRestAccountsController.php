@@ -13,10 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
+
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
 /**
  * @NamePrefix("demacmedia_api_")
@@ -89,7 +91,7 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
     // Example creating a new Account.
     $response = $oroClient->post('api/rest/latest/erp/accounts.json', [
         'body' => [
-            'account_original_id' => '123',
+            'account_number'      => '123',
             'first_name'          => 'Example',
             'last_name'           => 'Example',
             'email'               => 'example@example.org',
@@ -108,18 +110,17 @@ class ErpRestAccountsController extends RestController implements ClassResourceI
      */
     public function postAction()
     {
-        $originalEmail = $this->get('request')->request->get('original_email');
-        return $this->handleCreateRequest($originalEmail);
+        return $this->handleCreateRequest();
     }
 
 
 
     /**
-     * Update Physical Store account
+     * Update Erp account
      *
     $request = $oroClient->put('api/rest/latest/erp/accounts/1.json', [
         'body' => [
-            'account_original_id' => '123',
+            'account_number'      => '123',
             'first_name'          => 'Example',
             'last_name'           => 'Example',
             'email'               => 'example@example.org',

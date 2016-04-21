@@ -62,37 +62,37 @@ class OroErpOrderItems
     /**
      * @var integer
      *
-     * @ORM\Column(name="original_order_item_id", type="integer")
+     * @ORM\Column(name="order_item_number", type="integer")
      *
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Original Order Item ID",
-     *              "plural_label"="Original Order Item IDs",
-     *              "description"="Original Order Item ID"
+     *              "label"="Order Item Number",
+     *              "plural_label"="Order Item Numbers",
+     *              "description"="Order Item Numbers"
      *          }
      *      }
      * )
      */
-    protected $originalOrderItemId;
+    protected $orderItemNumber;
 
 
     /**
      * @var OroErpOrders
      *
-     * @ORM\ManyToOne(targetEntity="DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders")
-     * @ORM\JoinColumn(name="order_id", referencedColumnName="original_order_id", onDelete="SET NULL")
+     * @ORM\ManyToOne(targetEntity="OroErpOrders", inversedBy="items")
+     * @ORM\JoinColumn(name="order_id", onDelete="CASCADE")
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Original Email",
-     *              "plural_label"="Original Email",
-     *              "description"="Original Email"
+     *              "label"="Order",
+     *              "plural_label"="Orders",
+     *              "description"="Order"
      *          }
      *      }
      * )
      */
-    protected $orderId;
+    protected $order;
 
     /**
      * @var string
@@ -522,4 +522,38 @@ class OroErpOrderItems
     {
         $this->updated = new \DateTime('now', new \DateTimeZone('UTC'));
     }
+
+    /**
+     * @return int
+     */
+    public function getOrderItemNumber()
+    {
+        return $this->orderItemNumber;
+    }
+
+    /**
+     * @param int $orderItemNumber
+     */
+    public function setOrderItemNumber($orderItemNumber)
+    {
+        $this->orderItemNumber = $orderItemNumber;
+    }
+
+    /**
+     * @return OroErpOrders
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param OroErpOrders $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+    }
+    
+    
 }

@@ -18,11 +18,11 @@ class ErpOrdersType extends AbstractType
     {
         $builder
             ->add(
-                'original_order_id',
+                'order_number',
                 'number',
                 [
                     'required' => true,
-                    'label'    => 'Original Order ID'
+                    'label'    => 'Order Number'
                 ]
             )
             ->add(
@@ -194,12 +194,19 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'originalEmail',
+                'erpaccount',
                 'translatable_entity',
                 [
                     'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts',
-                    'property' => 'original_email',
                     'required' => true
+                ]
+            )
+            ->add(
+                'original_email',
+                'text',
+                [
+                    'required' => false,
+                    'label' => 'Original Email'
                 ]
             )
             ->add(
