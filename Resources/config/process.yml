@@ -11,9 +11,12 @@ definitions:
                     - @assign_value:
                         attribute: $.emailToMatch
                         value: $email
-                    - @assign_value:
+                    - @format_string:
                         attribute: $.contactName
-                        value: $contactname
+                        string: '%first_name% %last_name%'
+                        arguments:
+                            first_name: $firstName
+                            last_name: $lastName
                     #------ Try to find any Contact with the same $email present on entity ----
                     - @find_entity:
                         parameters:
@@ -21,12 +24,6 @@ definitions:
                             attribute: $.findContactByEmail
                             where:
                                 email: $.emailToMatch
-#                    - @find_entity:
-#                        parameters:
-#                            class: OroCRM\Bundle\ContactBundle\Entity\Contact
-#                            attribute: $.findContactByName
-#                            where:
-#                                firstName: $.contactName
                     #------ Try to find any Account with the same $email present on entity ----
                     - @find_entity:
                         parameters:
@@ -44,7 +41,6 @@ definitions:
                     - @tree:
                         conditions:
                             @and:
-#                                - @empty: $.findContactByName
                                 - @empty: $.findContactByEmail
                                 - @empty: $.findAccountByName
                         actions:
@@ -53,8 +49,8 @@ definitions:
                                 attribute: $contact
                                 data:
                                     email:        $email
-                                    firstName:    $.contactName
-                                    lastName:     'N/A'
+                                    firstName:    $firstName
+                                    lastName:     $lastName
                                     source:       $.instore
                                     owner:        $owner
                                     organization: $organization
@@ -67,7 +63,7 @@ definitions:
                                     city:         $city
                                     postalCode:   $zip
                                     organization: $organization
-                                    firstName:    $contactname
+                                    firstName:    $firstName
                             - @call_method: # add Contact Address to Contact
                                 object: $contact
                                 method: addAddress
@@ -121,13 +117,6 @@ definitions:
                             object: $.data # this is the current entity!
                             method: setContact
                             method_parameters: [$.findContactByEmail]
-#                    - @call_method: # connect in-Store Customer with Contact by Name
-#                        conditions:
-#                            @not_empty: $.findContactByName
-#                        parameters:
-#                            object: $.data # this is the current entity!
-#                            method: setContact
-#                            method_parameters: [$.findContactByName]
                     - @call_method: # connect in-Store Customer with Account by Name
                         conditions:
                             @not_empty: $.findAccountByName
