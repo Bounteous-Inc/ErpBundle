@@ -1,4 +1,6 @@
 demacmedia_erp:
+    erp:
+        channel_type.label: 'Custom Schwaab WebStore'
     accounts:
         entity.label: 'WebStore Account'
         entity_plural.label: 'WebStore Accounts'
@@ -13,6 +15,10 @@ demacmedia_erp:
         created.label: 'Imported'
         updated.label: 'Imported'
         accountNumber.label: 'Account Number'
+    oroerpaccounts:
+        contact.label: 'Oro Contact'
+        orders.label: 'WebStore Orders'
+        account.label: 'Oro Account'
 
     orders:
         entity.label: 'WebStore Order'
@@ -47,10 +53,13 @@ demacmedia_erp:
         shipZip.label: 'Ship Zip'
         shipPhone.label: 'Ship Phone'
         orderNumber.label: 'Order Number'
+    oroerporders:
+        items.label: 'WebStore Order Items'
+
 
     order_items:
-        entity.label: 'WebStore Items'
-        entity_plural.label: 'WebStore Items'
+        entity.label: 'WebStore Order Items'
+        entity_plural.label: 'WebStore Order Items'
         oroid.label: 'Oro ID'
         id.label: 'ID'
         originalOrderItemId.label: 'Order Item ID'
@@ -65,3 +74,94 @@ demacmedia_erp:
         updated.label: 'Imported'
         imported.label: 'Imported'
         orderItemNumber.label: 'Item Number'
+
+demacmedia:
+    erp:
+        oroerpaccounts:
+            contact.label: 'Oro Contact'
+            orders.label: 'WebStore Orders'
+            account.label: 'Oro Account'
+            zip.label: 'Zip'
+            url.label: 'Url'
+            type.label: 'Type'
+            account_original_id.label: 'Original ID'
+            address1.label: 'Address 1'
+            address2.label: 'Address 2'
+            addrstate.label: 'Address State'
+            city.label: 'City'
+            country.label: 'Country'
+            custmemo.label: 'Customemo'
+            original_account_id.label: 'Original Account ID'
+            company.label: 'Company'
+            contactname.label: 'Contact Name'
+            custno.label: 'Custno'
+            owner.label: 'Owner'
+            phone.label: 'Phone'
+            phone2.label: 'Phone 2'
+            salesrep.label: 'Sales Representative'
+            source.label: 'Source'
+            title.label: 'Title'
+            lifetime.label: 'Lifetime Value'
+
+        oroerporders:
+            items.label: 'WebStore Order Items'
+            vendorno.label: 'Vendor No'
+            taxrate.label: 'Tax Rate'
+            tax.label: 'Tax'
+            status.label: 'Status'
+            entity.label: 'WebStore Order'
+            entity_plural.label: 'WebStore Orders'
+            originalOrderId.label: 'Original Order ID'
+            originalEmail.label: 'Original Email'
+            totalPaid.label: 'Total Paid'
+            websiteId.label: 'Website ID'
+            createdAt.label: 'Created at'
+            updatedAt.label: 'Updated at'
+            created.label: 'Imported'
+            updated.label: 'Imported'
+            imported.label: 'Imported'
+            billinformation.label: 'Billing Information'
+            billfirstname.label: 'Billing First Name'
+            billlastname.label: 'Billing Last Name'
+            billcompany.label: 'Billing Company'
+            billaddress1.label: 'Billing Address1'
+            billaddress2.label: 'Billing Address2'
+            billcity.label: 'Billing City'
+            billstate.label: 'Billing State'
+            billzip.label: 'Billing Zip'
+            billphone.label: 'Billing Phone'
+            shipinformation.label: 'Ship Information'
+            shipfirstname.label: 'Ship First Name'
+            shiplastname.label: 'Ship Last Name'
+            shipcompany.label: 'Ship Company'
+            shipaddress1.label: 'Ship Address1'
+            shipaddress2.label: 'Ship Address2'
+            shipcity.label: 'Ship City'
+            shipstate.label: 'Ship State'
+            shipzip.label: 'Ship Zip'
+            shipphone.label: 'Ship Phone'
+            orderNumber.label: 'Order Number'
+            shipvia.label: 'Ship Via'
+            shipname.label: 'Ship Name'
+            shipdate.label: 'Ship Date'
+            shipcountry.label: 'Ship Country'
+            shipcontactphone.label: 'Ship Contact Phone'
+            shipcontact.label: 'Ship Contact'
+            shipaddr2.label: 'Ship Address 2'
+            shipaddr1.label: 'Ship Address 1'
+            salesrep.label: 'Sales Representative'
+            refno.label: 'Ref No'
+            ponum.label: 'Ponum'
+            owner.label: 'Owner'
+            original_order_id.label: 'Original Order ID'
+
+        oroerporderitems:
+            owner.label: 'Owner'
+oro:
+    tracking:
+        trackingvisitevent:
+            oro_erp_accounts_6e903dd5.label: 'User Tracked Events'
+
+
+
+

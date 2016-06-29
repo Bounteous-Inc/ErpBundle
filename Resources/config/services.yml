@@ -6,8 +6,17 @@ parameters:
     demacmedia_erp.demac_assign_entity.action.class:    DemacMedia\Bundle\ErpBundle\Model\Action\AssignEntity
     demacmedia_erp_orderitems.ordem_items.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\OriginalEmailListener
     demacmedia_erp.formevent.class:               Oro\Bundle\FormBundle\Event\FormHandler\FormProcessEvent
+    demacmedia_erp.provider.erp_channel_type.class:    DemacMedia\Bundle\ErpBundle\Provider\ErpChannelType
+    demacmedia_erp.provider.customer_identification.class: DemacMedia\Bundle\ErpBundle\Provider\CustomerIdentification
 
 services:
+    # CHANNEL REGISTRATION PROVIDER
+    demacmedia_erp.provider.erp_channel_type:
+        class: %demacmedia_erp.provider.erp_channel_type.class%
+        tags:
+            - { name: oro_integration.channel, type: erp }
+
+
     # ACCOUNTS
     demacmedia_erp_accounts.manager.api:
         class: %demacmedia_erp.manager.api.class%
@@ -34,3 +43,12 @@ services:
         - %demacmedia_erp_orderitems.entity.class%
         - @doctrine.orm.entity_manager
 
+    # Custom Tracking Customer Identification WebAccounts
+    demacmedia_erp.provider.customer_identification:
+        class: %demacmedia_erp.provider.customer_identification.class%
+        arguments:
+           - "@doctrine"
+           - "@oro_entity_config.provider.extend"
+           - "@orocrm_channel.provider.settings_provider"
+        tags:
+           - { name: oro_tracking.provider.identification, priority: 10 }

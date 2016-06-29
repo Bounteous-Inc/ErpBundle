@@ -475,3 +475,97 @@ datagrid:
                     type: datetime
                     data_name: erp_order_items.updated
 
+
+# Tracked Events
+############################################################
+    tracking-events-grid-to-webcustomer-page:
+        source:
+            type: orm
+            acl_resource: oro_tracking_website_view
+            query:
+                select:
+                    - ote.name
+                    - ote.title
+                    - ote.id
+                    - ora.id as customerId
+                    - ote.url
+                    - ote.value
+                    - ote.userIdentifier
+                    - ote.loggedAt
+                    - ote.code
+                from:
+                    - { table: %oro_tracking.tracking_event.class%, alias: ote }
+                join:
+                    left:
+                        -
+                            join: Oro\Bundle\TrackingBundle\Entity\TrackingVisitEvent
+                            alias: otve
+                            conditionType: WITH
+                            condition: "otve.webEvent=ote.id"
+                        -
+                            join: DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts
+                            alias: ora
+                            conditionType: WITH
+                            condition: "IDENTITY(otve.oro_erp_accounts_6e903dd5)=ora.id"
+                where:
+                    and:
+                        - ora.account = :userId
+            bind_parameters:
+                - userId
+
+        columns:
+            id:
+                label: oro.tracking.trackingevent.id.label
+            title:
+                label: oro.tracking.trackingevent.title.label
+            name:
+                label: oro.tracking.trackingevent.name.label
+            value:
+                label: oro.tracking.trackingevent.value.label
+            userIdentifier:
+                label: oro.tracking.trackingevent.user_identifier.label
+            code:
+                label: oro.tracking.trackingevent.code.label
+            url:
+                type: twig
+                label: oro.tracking.trackingevent.url.label
+                frontend_type: html
+                template: OroTrackingBundle:TrackingEvent:Property/url.html.twig
+            loggedAt:
+                label: oro.tracking.trackingevent.logged_at.label
+                frontend_type: datetime
+
+        sorters:
+            columns:
+                id:
+                    data_name: ote.id
+                userIdentifier:
+                    data_name: ote.userIdentifier
+                loggedAt:
+                    data_name: ote.loggedAt
+            default:
+                id: DESC
+
+        filters:
+            columns:
+                title:
+                    type:      string
+                    data_name: ote.title
+                name:
+                    type:      string
+                    data_name: ote.name
+                value:
+                    type:      string
+                    data_name: ote.value
+                userIdentifier:
+                    type:      string
+                    data_name: ote.userIdentifier
+                code:
+                    type:      string
+                    data_name: ote.code
+                loggedAt:
+                    type:      datetime
+                    data_name: ote.loggedAt
+
+        properties:
+            id: ~

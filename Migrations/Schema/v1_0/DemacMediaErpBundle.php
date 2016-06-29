@@ -1,6 +1,6 @@
 <?php
 
-namespace DemacMedia\Bundle\DemacMediaErpBundle\Migrations\Schema\v1_0;
+namespace DemacMedia\Bundle\ErpBundle\Migrations\Schema\v1_0;
 
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Migration;

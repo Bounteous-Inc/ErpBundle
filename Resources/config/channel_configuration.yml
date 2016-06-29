@@ -1,0 +1,10 @@
+#orcrm_channel:
+#   channel_types:
+#        custom:
+#            label: demacmedia_erp.erp.channel_type.label
+#            entities:
+#                - DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders
+#                - DemacMedia\Bundle\ErpBundle\Entity\OroErpOrderItems
+#            integration_type: custom
+#            customer_identity: DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts
+#            lifetime_value: lifetime

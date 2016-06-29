@@ -86,9 +86,9 @@ class OroErpOrderItems
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Order",
-     *              "plural_label"="Orders",
-     *              "description"="Order"
+     *              "label"="WebStore Order",
+     *              "plural_label"="WebStore Orders",
+     *              "description"="WebStore Order"
      *          }
      *      }
      * )

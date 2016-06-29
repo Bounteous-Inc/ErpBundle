@@ -88,9 +88,9 @@ class OroErpOrders
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Original Email",
-     *              "plural_label"="Original Email",
-     *              "description"="Original Email"
+     *              "label"="WebStore Account(Original Email)",
+     *              "plural_label"="WebStore Accounts(Original Email)",
+     *              "description"="WebStore Account(Original Email)"
      *          }
      *      }
      * )
@@ -165,7 +165,7 @@ class OroErpOrders
      * @ConfigField(
      *      defaultValues={
      *          "entity"={
-     *              "label"="Original Email",
+     *              "label"="WebStore Account(Original Email)",
      *              "plural_label"="Original Emails",
      *              "description"="Original Email"
      *          }

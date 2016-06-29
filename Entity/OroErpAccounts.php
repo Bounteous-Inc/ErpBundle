@@ -315,6 +315,21 @@ class OroErpAccounts
      */
     protected $contact;
 
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="lifetime", type="money", nullable=true)
+     * @ConfigField(
+     *      defaultValues={
+     *          "importexport"={
+     *              "excluded"=true
+     *          }
+     *      }
+     * )
+     */
+    protected $lifetime = 0;
+
     
     public function __construct() {
         $this->orders = new ArrayCollection();
@@ -646,6 +661,7 @@ class OroErpAccounts
     {
         return $this->orders;
     }
+
     /**
      * @param OroErpOrders $order
      *
@@ -657,6 +673,26 @@ class OroErpAccounts
         $order->setErpaccount($this);
         return $this;
     }
+
+    /**
+     * @param double $lifetime
+     *
+     * @return Customer
+     */
+    public function setLifetime($lifetime)
+    {
+        $this->lifetime = $lifetime;
+        return $this;
+    }
+
+    /**
+     * @return double
+     */
+    public function getLifetime()
+    {
+        return $this->lifetime;
+    }
+
     /**
      * @param OroErpOrders $order
      *

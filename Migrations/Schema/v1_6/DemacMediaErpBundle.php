@@ -1,6 +1,6 @@
 <?php
 
-namespace DemacMedia\Bundle\ErpBundle\Migrations\Schema\v1_3;
+namespace DemacMedia\Bundle\ErpBundle\Migrations\Schema\v1_6;
 
 use Doctrine\DBAL\Schema\Schema;
 
@@ -14,8 +14,9 @@ class DemacMediaErpBundle implements Migration
      */
     public function up(Schema $schema, QueryBag $queries)
     {
-        $schema->dropTable('demacmedia_erp_accounts');
-        $schema->dropTable('demacmedia_erp_orders');
-        $schema->dropTable('demacmedia_erp_order_items');
+        $table = $schema->getTable('demacmedia_erp_accounts');
+
+        $table->addColumn('lifetime', 'money', ['notnull' => false]);
+        $table->addIndex(['lifetime'], strtoupper('IDX_erp_lifetime'), []);
     }
 }
