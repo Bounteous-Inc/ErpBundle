@@ -1,13 +1,15 @@
 placeholders:
     view_content_data_additional_information:
         items:
-            demacmedia_instore_orders: ~
-            demacmedia_trackedevents_view: ~
+            demacmedia_instore_orders:
+                order: 1
+            demacmedia_trackedevents_view:
+                order: 2
 items:
     demacmedia_instore_orders:
         template: DemacMediaErpBundle:Default:orders-specific-view-accounts.html.twig
         applicable: @oro_ui.placeholder.filter->isInstanceOf($entity$, %orocrm_account.account.entity.class%)
+
     demacmedia_trackedevents_view:
         template: DemacMediaErpBundle:TrackedEvents:events.html.twig
         applicable: @oro_ui.placeholder.filter->isInstanceOf($entity$, %orocrm_account.account.entity.class%)
-

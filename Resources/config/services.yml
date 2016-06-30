@@ -8,6 +8,7 @@ parameters:
     demacmedia_erp.formevent.class:               Oro\Bundle\FormBundle\Event\FormHandler\FormProcessEvent
     demacmedia_erp.provider.erp_channel_type.class:    DemacMedia\Bundle\ErpBundle\Provider\ErpChannelType
     demacmedia_erp.provider.customer_identification.class: DemacMedia\Bundle\ErpBundle\Provider\CustomerIdentification
+    demacmedia_erp.lifetime_helper.class: DemacMedia\Bundle\ErpBundle\Entity\Helper\OroErpAccountsHelper
 
 services:
     # CHANNEL REGISTRATION PROVIDER
@@ -52,3 +53,8 @@ services:
            - "@orocrm_channel.provider.settings_provider"
         tags:
            - { name: oro_tracking.provider.identification, priority: 10 }
+
+    demacmedia_erp.lifetime_helper:
+        class: %demacmedia_erp.lifetime_helper.class%
+        arguments:
+          - @doctrine.orm.entity_manager

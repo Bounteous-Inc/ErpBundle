@@ -12,6 +12,9 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 use OroCRM\Bundle\AccountBundle\Entity\Account;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
+use OroCRM\Bundle\ChannelBundle\Model\CustomerIdentityInterface;
+use OroCRM\Bundle\ChannelBundle\Model\ChannelAwareInterface;
+use OroCRM\Bundle\ChannelBundle\Model\ChannelEntityTrait;
 
 
 /**
@@ -41,9 +44,11 @@ use OroCRM\Bundle\ContactBundle\Entity\Contact;
  *  }
  * )
  */
-class OroErpAccounts
+class OroErpAccounts implements ChannelAwareInterface, CustomerIdentityInterface
 {
     const ENTITY_NAME = 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts';
+
+    use ChannelEntityTrait;
 
     /**
      * @var integer
@@ -702,5 +707,15 @@ class OroErpAccounts
     {
         $this->orders->removeElement($order);
         return $this;
+    }
+
+    /**
+     * PostUpdate event handler
+     * @ORM\PostPersist
+     */
+    public function postPersist()
+    {
+        $lifetimeHelper = $this->get('demacmedia_erp.lifetime_helper');
+        $lifetimeHelper->updateLifetimeSalesValue($this->getId());
     }
 }

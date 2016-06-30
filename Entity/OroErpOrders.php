@@ -13,8 +13,6 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
-
-
 /**
  * OroErpOrders
  *

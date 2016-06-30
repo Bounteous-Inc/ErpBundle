@@ -25,6 +25,9 @@ class ErpAccountsController extends Controller
      */
     public function viewAction(OroErpAccounts $entity)
     {
+        $lifetime = $this->get('demacmedia_erp.lifetime_helper');
+        $lifetime->updateLifetimeSalesValue($entity->getId());
+
         return $this->render('DemacMediaErpBundle:Default:account-view.html.twig', [
             'entity'        => $entity
         ]);
