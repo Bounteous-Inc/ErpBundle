@@ -8,7 +8,8 @@ parameters:
     demacmedia_erp.formevent.class:               Oro\Bundle\FormBundle\Event\FormHandler\FormProcessEvent
     demacmedia_erp.provider.erp_channel_type.class:    DemacMedia\Bundle\ErpBundle\Provider\ErpChannelType
     demacmedia_erp.provider.customer_identification.class: DemacMedia\Bundle\ErpBundle\Provider\CustomerIdentification
-    demacmedia_erp.lifetime_helper.class: DemacMedia\Bundle\ErpBundle\Entity\Helper\OroErpAccountsHelper
+    demacmedia_erp.lifetime_helper.class:         DemacMedia\Bundle\ErpBundle\Entity\Helper\OroErpAccountsHelper
+    demacmedia_erp.update_lifetime.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\UpdateLifetimeSalesValue
 
 services:
     # CHANNEL REGISTRATION PROVIDER
@@ -58,3 +59,9 @@ services:
         class: %demacmedia_erp.lifetime_helper.class%
         arguments:
           - @doctrine.orm.entity_manager
+
+    # EventListener to update Lifetime Sales Value on every update/insert (orders)
+    demacmedia_erp.update_lifetime.listener:
+        class: %demacmedia_erp.update_lifetime.listener.class%
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

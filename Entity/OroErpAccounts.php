@@ -708,14 +708,4 @@ class OroErpAccounts implements ChannelAwareInterface, CustomerIdentityInterface
         $this->orders->removeElement($order);
         return $this;
     }
-
-    /**
-     * PostUpdate event handler
-     * @ORM\PostPersist
-     */
-    public function postPersist()
-    {
-        $lifetimeHelper = $this->get('demacmedia_erp.lifetime_helper');
-        $lifetimeHelper->updateLifetimeSalesValue($this->getId());
-    }
 }
