@@ -18,7 +18,7 @@ class OroErpAccountsHelper
      *
      * @return array
      */
-    public function updateLifetimeSalesValue($accountId) {
+    public function updateLifetimeSalesValue($accountId, $websiteId, $totalPaid=null) {
         if (!is_numeric($accountId)){
             return false;
         }
@@ -29,7 +29,7 @@ class OroErpAccountsHelper
 
         $qb->select('SUM(o.totalPaid)');
         $qb->innerJoin('o.erpaccount', 'a');
-        $qb->where('a.id = :account_id');
+        $qb->where('o.erpaccount = :account_id');
         $qb->setParameters([
             'account_id' => $accountId
         ]);
@@ -37,6 +37,9 @@ class OroErpAccountsHelper
         $lifetimeSalesValue = (float)$qb->getQuery()->getSingleScalarResult();
 
         if (is_float($lifetimeSalesValue)) {
+
+            // $lifetimeSalesValue += $totalPaid;
+
             $qb = $this->em
                 ->getRepository('DemacMediaErpBundle:OroErpAccounts')
                 ->createQueryBuilder('a');
@@ -48,7 +51,6 @@ class OroErpAccountsHelper
             ]);
             $qb->setMaxResults(1);
             $resultUpdate = $qb->getQuery()->getSingleScalarResult();
-
         }
 
         return $lifetimeSalesValue;
@@ -70,7 +72,7 @@ class OroErpAccountsHelper
 
         $qb->select('SUM(o.totalPaid)');
         $qb->innerJoin('o.erpaccount', 'a');
-        $qb->where('a.id = :account_id');
+        $qb->where('o.erpaccount = :account_id');
         $qb->setParameters([
             'account_id' => $accountId
         ]);

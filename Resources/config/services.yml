@@ -9,7 +9,7 @@ parameters:
     demacmedia_erp.provider.erp_channel_type.class:    DemacMedia\Bundle\ErpBundle\Provider\ErpChannelType
     demacmedia_erp.provider.customer_identification.class: DemacMedia\Bundle\ErpBundle\Provider\CustomerIdentification
     demacmedia_erp.lifetime_helper.class:         DemacMedia\Bundle\ErpBundle\Entity\Helper\OroErpAccountsHelper
-    demacmedia_erp.update_lifetime.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\UpdateLifetimeSalesValue
+    demacmedia_erp.update_lifetime.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\UpdateLifetimeSalesValueListener
 
 services:
     # CHANNEL REGISTRATION PROVIDER
@@ -63,5 +63,7 @@ services:
     # EventListener to update Lifetime Sales Value on every update/insert (orders)
     demacmedia_erp.update_lifetime.listener:
         class: %demacmedia_erp.update_lifetime.listener.class%
+        arguments:
+            - @service_container
         tags:
-            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postPersist, connection: default }

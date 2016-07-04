@@ -72,6 +72,14 @@ class ErpOrderItemsType extends AbstractType
                 ]
             )
             ->add(
+                'website_id',
+                'text',
+                [
+                    'required'    => true,
+                    'label'       => 'Website ID',
+                ]
+            )
+            ->add(
                 'order',
                 'translatable_entity',
                 [

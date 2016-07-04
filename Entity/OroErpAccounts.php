@@ -12,9 +12,6 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 use OroCRM\Bundle\AccountBundle\Entity\Account;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
-use OroCRM\Bundle\ChannelBundle\Model\CustomerIdentityInterface;
-use OroCRM\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use OroCRM\Bundle\ChannelBundle\Model\ChannelEntityTrait;
 
 
 /**
@@ -44,11 +41,9 @@ use OroCRM\Bundle\ChannelBundle\Model\ChannelEntityTrait;
  *  }
  * )
  */
-class OroErpAccounts implements ChannelAwareInterface, CustomerIdentityInterface
+class OroErpAccounts
 {
     const ENTITY_NAME = 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts';
-
-    use ChannelEntityTrait;
 
     /**
      * @var integer
@@ -552,6 +547,7 @@ class OroErpAccounts implements ChannelAwareInterface, CustomerIdentityInterface
     {
         return $this->organization;
     }
+
 
     /**
      * Set organization

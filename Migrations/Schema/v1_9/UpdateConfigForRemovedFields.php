@@ -15,6 +15,8 @@ class UpdateConfigForRemovedFields implements Migration
      */
     public function up(Schema $schema, QueryBag $queries)
     {
+        $this->removeUniqueIndexFromOriginalEmail($schema);
+
         $classList = [
             'DemacMedia\\Bundle\\ErpBundle\\Entity\\OroErpAccounts',
             'DemacMedia\\Bundle\\ErpBundle\\Entity\\OroErpOrders',
@@ -43,5 +45,11 @@ class UpdateConfigForRemovedFields implements Migration
 	        ON ofi.entity_id = o.id
             WHERE
 	        o.class_name = :class_name";
+    }
+
+    protected function removeUniqueIndexFromOriginalEmail($schema)
+    {
+        $table = $schema->getTable('demacmedia_erp_accounts');
+        $table->dropIndex('UNIQ_A202FE7128229C86');
     }
 }

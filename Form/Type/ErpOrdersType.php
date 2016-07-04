@@ -202,6 +202,14 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
+                'website_id',
+                'text',
+                [
+                    'required'    => true,
+                    'label'       => 'Website ID',
+                ]
+            )
+            ->add(
                 'original_email',
                 'text',
                 [

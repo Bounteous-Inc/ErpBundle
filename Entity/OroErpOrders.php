@@ -514,6 +514,23 @@ class OroErpOrders
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="website_id", type="string", length=64)
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Website ID",
+     *              "plural_label"="Websites ID",
+     *              "description"="Website ID"
+     *          }
+     *      }
+     * )
+     */
+    protected $websiteId;
+
+
+    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
@@ -1100,8 +1117,6 @@ class OroErpOrders
     {
         $this->erpaccount = $erpaccount;
     }
-
-
     
     /**
      * @return Collection|OroErpOrderItems[]
@@ -1110,6 +1125,7 @@ class OroErpOrders
     {
         return $this->items;
     }
+
     /**
      * @param OroErpOrderItems $item
      *
@@ -1121,6 +1137,7 @@ class OroErpOrders
         $item->setOrder($this);
         return $this;
     }
+
     /**
      * @param OroErpOrderItems $item
      *
@@ -1130,5 +1147,21 @@ class OroErpOrders
     {
         $this->items->removeElement($item);
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebsiteId()
+    {
+        return $this->websiteId;
+    }
+
+    /**
+     * @param string $websiteId
+     */
+    public function setWebsiteId($websiteId)
+    {
+        $this->websiteId = $websiteId;
     }
 }

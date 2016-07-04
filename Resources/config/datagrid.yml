@@ -130,6 +130,7 @@ datagrid:
                     - erp_orders.created
                     - erp_accounts.firstName
                     - erp_accounts.lastName
+                    - erp_orders.websiteId
                 from:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 join:
@@ -173,6 +174,8 @@ datagrid:
             created:
                 label: demacmedia_erp.orders.created.label
                 frontend_type: datetime
+            websiteId:
+                label: demacmedia_erp.orders.websiteId.label
 
         sorters:
             columns:
@@ -190,10 +193,6 @@ datagrid:
                     data_name: erp_orders.billFirstname
                 billCompany:
                     data_name: erp_orders.billFirstname
-                shipFirstname:
-                    data_name: erp_orders.shipFirstname
-                shipLastname:
-                    data_name: erp_orders.shipLastname
                 shipCompany:
                     data_name: erp_orders.shipCompany
                 shipCity:
@@ -204,6 +203,8 @@ datagrid:
                     data_name: erp_orders.updatedAt
                 created:
                     data_name: erp_orders.created
+                websiteId:
+                    data_name: erp_orders.websiteId
             default:
                 id: DESC
 
@@ -245,12 +246,6 @@ datagrid:
                 billCompany:
                     type: string
                     data_name: erp_orders.billFirstname
-                shipFirstname:
-                    type: string
-                    data_name: erp_orders.shipFirstname
-                shipLastname:
-                    type: string
-                    data_name: erp_orders.shipLastname
                 shipCompany:
                     type: string
                     data_name: erp_orders.shipCompany
@@ -266,6 +261,9 @@ datagrid:
                 created:
                     type: datetime
                     data_name: erp_orders.created
+                websiteId:
+                    type: string
+                    data_name: erp_orders.websiteId
 
     # ORDERS FOR SPECIFIC ACCOUNT
     ############################################################
@@ -282,6 +280,7 @@ datagrid:
                     - erp_orders.createdAt
                     - erp_orders.updatedAt
                     - erp_orders.created
+                    - erp_orders.websiteId
                 from:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 where:
@@ -307,6 +306,8 @@ datagrid:
             created:
                 label: demacmedia_erp.orders.created.label
                 frontend_type: datetime
+            websiteId:
+                label: demacmedia_erp.orders.websiteId.label
 
         sorters:
             columns:
@@ -322,6 +323,8 @@ datagrid:
                     data_name: erp_orders.updatedAt
                 created:
                     data_name: erp_orders.created
+                websiteId:
+                    data_name: erp_orders.websiteId
             default:
                 id: DESC
 
@@ -360,7 +363,9 @@ datagrid:
                 created:
                     type: datetime
                     data_name: erp_orders.created
-
+                websiteId:
+                    type: string
+                    data_name: erp_orders.websiteId
 
 
     erp-order-items-grid:

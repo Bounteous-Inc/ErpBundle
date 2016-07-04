@@ -4,9 +4,17 @@ namespace DemacMedia\Bundle\ErpBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UpdateLifetimeSalesValueListener
 {
+    protected $containerInterface;
+
+    public function __construct(ContainerInterface $containerInterface)
+    {
+        $this->containerInterface = $containerInterface;
+    }
+
     /**
      * @param LifecycleEventArgs $eventArgs
      */
@@ -18,7 +26,12 @@ class UpdateLifetimeSalesValueListener
             return;
         }
 
-        $lifetimeHelper = $this->get('demacmedia_erp.lifetime_helper');
-        $lifetimeHelper->updateLifetimeSalesValue($entity->getId());
+        $lifetimeHelper = $this->containerInterface->get('demacmedia_erp.lifetime_helper');
+
+        $lifetimeHelper->updateLifetimeSalesValue(
+            $entity->getErpaccount()->getId(),
+            $entity->getWebsiteId(),
+            $entity->getTotalPaid()
+        );
     }
 }
