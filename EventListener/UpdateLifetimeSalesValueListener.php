@@ -30,7 +30,7 @@ class UpdateLifetimeSalesValueListener
 
         $lifetimeHelper->updateLifetimeSalesValue(
             $entity->getErpaccount()->getId(),
-            $entity->getWebsiteId(),
+            $entity->getOriginalEmail(),
             $entity->getTotalPaid()
         );
     }

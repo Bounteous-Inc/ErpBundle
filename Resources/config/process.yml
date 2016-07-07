@@ -24,7 +24,7 @@ definitions:
                             attribute: $.findContactByEmail
                             where:
                                 email: $.emailToMatch
-                    #------ Try to find any Account with the same $email present on entity ----
+                    #------ Try to find any Account with the same name present on entity ----
                     - @find_entity:
                         parameters:
                             class: OroCRM\Bundle\AccountBundle\Entity\Account

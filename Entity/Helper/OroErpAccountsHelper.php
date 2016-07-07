@@ -3,6 +3,7 @@
 namespace DemacMedia\Bundle\ErpBundle\Entity\Helper;
 
 use Doctrine\ORM\EntityManager;
+use OroCRM\Bundle\ChannelBundle\Entity\LifetimeValueHistory;
 
 class OroErpAccountsHelper
 {
@@ -18,7 +19,27 @@ class OroErpAccountsHelper
      *
      * @return array
      */
-    public function updateLifetimeSalesValue($accountId, $websiteId, $totalPaid=null) {
+    public function updateLifetimeSalesValue($accountId, $originalEmail, $totalPaid=0) {
+        if (!is_numeric($accountId)){
+            return false;
+        }
+
+        $lifetimeSalesValue = $this->getLifetimeSalesValue($accountId, $totalPaid);
+        $this->setLifetimeSalesValue($accountId, $lifetimeSalesValue);
+        $this->setLifetimeAllSalesValue(
+            $originalEmail,
+            $this->getLifetimeAllSalesValue($originalEmail)
+        );
+
+        return $lifetimeSalesValue;
+    }
+
+    /**
+     * @param $accountId
+     *
+     * @return float
+     */
+    public function getLifetimeSalesValue($accountId, $totalPaid) {
         if (!is_numeric($accountId)){
             return false;
         }
@@ -28,18 +49,37 @@ class OroErpAccountsHelper
             ->createQueryBuilder('o');
 
         $qb->select('SUM(o.totalPaid)');
-        $qb->innerJoin('o.erpaccount', 'a');
         $qb->where('o.erpaccount = :account_id');
         $qb->setParameters([
             'account_id' => $accountId
         ]);
 
-        $lifetimeSalesValue = (float)$qb->getQuery()->getSingleScalarResult();
+        $lifetimeSales = (float)$qb->getQuery()->getSingleScalarResult();
 
+        if ($lifetimeSales < 1 || $lifetimeSales == null) {
+            $lifetimeSales = $totalPaid;
+        }
+
+        return $lifetimeSales;
+    }
+
+
+    public function getLifetimeAllSalesValue($originalEmail) {
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpOrders')
+            ->createQueryBuilder('o');
+
+        $qb->select('SUM(o.totalPaid)');
+        $qb->where('o.originalEmail = :original_email');
+        $qb->setParameters([
+            'original_email' => $originalEmail
+        ]);
+
+        return (float)$qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function setLifetimeSalesValue($accountId, $lifetimeSalesValue) {
         if (is_float($lifetimeSalesValue)) {
-
-            // $lifetimeSalesValue += $totalPaid;
-
             $qb = $this->em
                 ->getRepository('DemacMediaErpBundle:OroErpAccounts')
                 ->createQueryBuilder('a');
@@ -50,35 +90,22 @@ class OroErpAccountsHelper
                 'account_id' => $accountId
             ]);
             $qb->setMaxResults(1);
-            $resultUpdate = $qb->getQuery()->getSingleScalarResult();
+            return $qb->getQuery()->getSingleScalarResult();
         }
-
-        return $lifetimeSalesValue;
     }
 
-    /**
-     * @param $accountId
-     *
-     * @return float
-     */
-    public function getLifetimeSalesValue($accountId) {
-        if (!is_numeric($accountId)){
-            return false;
+    public function setLifetimeAllSalesValue($originalEmail, $lifetimeAllSalesValue) {
+        if (is_float($lifetimeAllSalesValue)) {
+            $qb = $this->em
+                ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+                ->createQueryBuilder('a');
+            $qb->update('DemacMediaErpBundle:OroErpAccounts', 'a');
+            $qb->set('a.lifetimeall', $lifetimeAllSalesValue);
+            $qb->where('a.originalEmail = :original_email');
+            $qb->setParameters([
+                'original_email' => $originalEmail
+            ]);
+            return $qb->getQuery()->getSingleScalarResult();
         }
-
-        $qb = $this->em
-            ->getRepository('DemacMediaErpBundle:OroErpOrders')
-            ->createQueryBuilder('o');
-
-        $qb->select('SUM(o.totalPaid)');
-        $qb->innerJoin('o.erpaccount', 'a');
-        $qb->where('o.erpaccount = :account_id');
-        $qb->setParameters([
-            'account_id' => $accountId
-        ]);
-
-        $result = (float)$qb->getQuery()->getSingleScalarResult();
-
-        return $result;
     }
 }

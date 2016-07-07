@@ -285,11 +285,13 @@ datagrid:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 where:
                     and:
-                        - IDENTITY(erp_orders.erpaccount) IN (:erpaccount)
+                        - erp_orders.originalEmail = :original_email
             bind_parameters:
-                erpaccount: erpaccount
+                original_email: original_email
 
         columns:
+            websiteId:
+                label: demacmedia_erp.orders.websiteId.label
             orderNumber:
                 label: demacmedia_erp.orders.orderNumber.label
             originalEmail:
@@ -306,11 +308,11 @@ datagrid:
             created:
                 label: demacmedia_erp.orders.created.label
                 frontend_type: datetime
-            websiteId:
-                label: demacmedia_erp.orders.websiteId.label
 
         sorters:
             columns:
+                websiteId:
+                    data_name: erp_orders.websiteId
                 orderNumber:
                     data_name: erp_orders.orderNumber
                 originalEmail:
@@ -323,8 +325,6 @@ datagrid:
                     data_name: erp_orders.updatedAt
                 created:
                     data_name: erp_orders.created
-                websiteId:
-                    data_name: erp_orders.websiteId
             default:
                 id: DESC
 
@@ -345,6 +345,9 @@ datagrid:
 
         filters:
             columns:
+                websiteId:
+                    type: string
+                    data_name: erp_orders.websiteId
                 orderNumber:
                     type: number
                     data_name: erp_orders.orderNumber
@@ -363,9 +366,6 @@ datagrid:
                 created:
                     type: datetime
                     data_name: erp_orders.created
-                websiteId:
-                    type: string
-                    data_name: erp_orders.websiteId
 
 
     erp-order-items-grid:

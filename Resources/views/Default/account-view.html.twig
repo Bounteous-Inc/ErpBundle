@@ -99,11 +99,27 @@
 
                 </div>
 
-
-
                 <div class="responsive-block span6">
                     <div class="control-group">
-                        <p> &nbsp; </p>
+                        <label class="control-label">Lifetime Sales:</label>
+                        <div class="controls">
+                            <div class="control-label">
+                                <span class="label label-success">
+                                    {{ entity.lifetime ? entity.lifetime|oro_format_currency : 'N/A'|trans }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Lifetime Sales <br />(All Websites):</label>
+                        <div class="controls">
+                            <div class="control-label">
+                                <span class="label label-info">
+                                    {{ entity.lifetimeall ? entity.lifetimeall|oro_format_currency : entity.lifetime|oro_format_currency }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
         </div>
@@ -118,7 +134,7 @@
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
                 {% set gridName = 'erp-orders-specific-grid' %}
-                {% set gridFilters = { 'erpaccount': entity.id } %}
+                {% set gridFilters = { 'original_email': entity.originalEmail } %}
                 {{ dataGrid.renderGrid(gridName, gridFilters) }}
             </div>
         </div>
