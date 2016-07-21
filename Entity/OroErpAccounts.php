@@ -13,6 +13,8 @@ use Oro\Bundle\UserBundle\Entity\User;
 use OroCRM\Bundle\AccountBundle\Entity\Account;
 use OroCRM\Bundle\ContactBundle\Entity\Contact;
 
+use DemacMedia\Bundle\ErpBundle\Model\ExtendOroErpAccounts;
+
 
 /**
  * OroErpAccounts
@@ -41,7 +43,7 @@ use OroCRM\Bundle\ContactBundle\Entity\Contact;
  *  }
  * )
  */
-class OroErpAccounts
+class OroErpAccounts extends ExtendOroErpAccounts
 {
     const ENTITY_NAME = 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts';
 
