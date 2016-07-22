@@ -129,7 +129,7 @@ class CustomerIdentification implements TrackingEventIdentifierInterface
         /**
          * Here we should return object's class name for which given tracking visit will be assigned to.
          */
-        return 'DemacMediaErpBundle:OroErpAccounts';
+        return 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts';
     }
 
     /**
