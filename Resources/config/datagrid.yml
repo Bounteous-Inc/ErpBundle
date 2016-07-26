@@ -285,17 +285,17 @@ datagrid:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 where:
                     and:
-                        - erp_orders.originalEmail = :original_email
+                        - IDENTITY(erp_orders.erpaccount) = :erpaccount
             bind_parameters:
-                original_email: original_email
+                erpaccount: erpaccount
 
         columns:
             websiteId:
                 label: demacmedia_erp.orders.websiteId.label
             orderNumber:
                 label: demacmedia_erp.orders.orderNumber.label
-            originalEmail:
-                label: demacmedia_erp.orders.originalEmail.label
+            erpaccount:
+                label: demacmedia_erp.orders.erpaccount.label
             totalPaid:
                 label: demacmedia_erp.orders.totalPaid.label
                 frontend_type: currency
