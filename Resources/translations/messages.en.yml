@@ -53,6 +53,7 @@ demacmedia_erp:
         shipZip.label: 'Ship Zip'
         shipPhone.label: 'Ship Phone'
         orderNumber.label: 'Order Number'
+        erpaccount.label: 'Web Account'
     oroerporders:
         items.label: 'WebStore Order Items'
 
