@@ -315,8 +315,8 @@ datagrid:
                     data_name: erp_orders.websiteId
                 orderNumber:
                     data_name: erp_orders.orderNumber
-                originalEmail:
-                    data_name: erp_orders.originalEmail
+                erpaccount:
+                    data_name: erp_orders.erpaccount
                 totalPaid:
                     data_name: erp_orders.totalPaid
                 createdAt:
@@ -351,9 +351,9 @@ datagrid:
                 orderNumber:
                     type: number
                     data_name: erp_orders.orderNumber
-                originalEmail:
-                    type: string
-                    data_name: erp_orders.originalEmail
+                erpaccount:
+                    type: number
+                    data_name: erp_orders.erpaccount
                 totalPaid:
                     type: currency
                     data_name: erp_orders.totalPaid
