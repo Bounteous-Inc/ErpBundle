@@ -134,7 +134,7 @@
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
                 {% set gridName = 'erp-orders-specific-grid' %}
-                {% set gridFilters = { 'original_email': entity.originalEmail } %}
+                {% set gridFilters = { 'erpaccount': entity.id } %}
                 {{ dataGrid.renderGrid(gridName, gridFilters) }}
             </div>
         </div>
