@@ -9,7 +9,7 @@
     <div class="row-fluid">
         <div class="form-horizontal">
             <div class="responsive-cell responsive-cell-no-blocks">
-                {{ dataGrid.renderGrid('erp-orders-specific-grid', {erpaccount: entity.id|default('0') }) }}
+                {{ dataGrid.renderGrid('erp-orders-specific-grid', {contact_email: entity.email|default('0') }) }}
             </div>
         </div>
     </div>

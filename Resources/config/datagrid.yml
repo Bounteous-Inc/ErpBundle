@@ -60,7 +60,7 @@ datagrid:
                 created:
                     data_name: erp_accounts.created
             default:
-                id: DESC
+                updatedAt: DESC
 
         properties:
             id: ~
@@ -206,7 +206,7 @@ datagrid:
                 websiteId:
                     data_name: erp_orders.websiteId
             default:
-                id: DESC
+                updatedAt: DESC
 
         properties:
             id: ~
@@ -285,9 +285,9 @@ datagrid:
                     - { table: DemacMediaErpBundle:OroErpOrders, alias: erp_orders }
                 where:
                     and:
-                        - IDENTITY(erp_orders.erpaccount) = :erpaccount
+                        - erp_orders.originalEmail = :contact_email
             bind_parameters:
-                erpaccount: erpaccount
+                contact_email: contact_email
 
         columns:
             websiteId:
@@ -326,7 +326,7 @@ datagrid:
                 created:
                     data_name: erp_orders.created
             default:
-                id: DESC
+                updatedAt: DESC
 
         properties:
             id: ~
@@ -445,7 +445,7 @@ datagrid:
                     data_name: erp_order_items.updated
 
             default:
-                id: DESC
+                updatedAt: DESC
 
         filters:
             columns:
