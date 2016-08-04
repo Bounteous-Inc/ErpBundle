@@ -1,0 +1,317 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+
+{% set pageTitle = 'demacmedia_erp.carts.entity.label'|trans %}
+{% set params = { 'cartNumber': cartNumber } %}
+
+{% block stats %}
+    {% include 'OroWorkflowBundle:Widget:steps.html.twig' with { 'entity': entityAccounts } %}
+{% endblock %}
+
+{% block pageHeader %}
+    {% include 'DemacMediaErpBundle:Default:headerStats.html.twig' with { 'entity': entityAccounts } %}
+{% endblock %}
+
+{% block content_data %}
+<div id="contactView" class="navbar navbar-static scrollspy-nav">
+    <div class="navbar-inner">
+        <div class="container-fluid" style="width: auto;">
+            <ul class="nav">
+                <li class="active"><a href="#">General Information</a></li>
+                <li class=""><a href="#physical-store-carts">Web Store Carts</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="form-horizontal">
+    <div class="responsive-cell">
+        <div class="row-fluid form-horizontal">
+
+            <!-- Left Column (Customer Info) -->
+            <div class="responsive-block span6">
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>Customer details:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">First Name!</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entityAccounts.firstName|escape|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Last Name:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entityAccounts.lastName|escape|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Original Email (key):</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entityAccounts.originalEmail|escape|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Email:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entityAccounts.email|escape|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Website ID:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entityAccounts.websiteId|escape|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Created At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entityAccounts.createdAt ? entityAccounts.createdAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Updated At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entityAccounts.updatedAt ? entityAccounts.updatedAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Imported At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entityAccounts.created ? entityAccounts.created|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Starting Cart Information -->
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>Cart information:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Cart ID:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ cartNumber|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Total Paid:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.totalPaid|oro_format_currency|default('N/A') }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Created At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entity.createdAt ? entity.createdAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Updated At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entity.updatedAt ? entity.updatedAt|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Imported At:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            {{ entity.created ? entity.created|oro_format_datetime : 'N/A'|trans }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Starting Cart Information END -->
+
+            </div>
+
+
+            <!-- Right Column (Cart Info) -->
+            <div class="responsive-block span6">
+
+                <!-- Starting Billing Cart Information -->
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>{{ 'demacmedia_erp.carts.billInformation.label'|trans }}:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billFirstname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billFirstName|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billLastname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billLastname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billCompany.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billCompany|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billAddress1.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billAddress1|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billAddress2.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billAddress2|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billCity.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billCity|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billState.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billState|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billZip.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.billZip|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.billPhone.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            <a href="tel:{{ entity.billPhone|default('N/A')|escape }}">
+                                {{ entity.billPhone|default('N/A')|escape }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Starting Billing Cart Information END -->
+
+                <!-- Starting Ship Cart Information -->
+                <div class="control-group">
+                    <div style="margin-left:20px;"><h5><strong>{{ 'demacmedia_erp.carts.shipInformation.label'|trans }}:</strong></h5></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipFirstname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipFirstname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipLastname.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipLastname|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipCompany.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipCompany|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipAddress1.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipAddress1|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipAddress2.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipAddress2|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipCity.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipCity|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipState.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipState|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipZip.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">{{ entity.shipZip|default('N/A')|escape }}</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">{{ 'demacmedia_erp.carts.shipPhone.label'|trans }}:</label>
+                    <div class="controls">
+                        <div class="control-label">
+                            <a href="tel:{{ entity.shipPhone|default('N/A')|escape }}">
+                                {{ entity.shipPhone|default('N/A')|escape }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Starting Ship Cart Information END -->
+            </div>
+
+        </div>
+    </div>
+    <br />
+</div>
+
+<div class="responsive-section responsive-big responsive-section-no-blocks" style="margin-left: 15px;">
+    <h4 class="scrollspy-title">Web Store Cart: <strong>{{ cartNumber|escape|default('N/A')|upper }}</strong></h4>
+    <div id="physical-store-carts" class="scrollspy-nav-target"></div>
+    <div class="row-fluid">
+        <div class="form-horizontal">
+            <div class="responsive-cell responsive-cell-no-blocks">
+                {% set gridName = 'erp-cart-items-grid' %}
+                {% set gridFilters = { 'cart_id': entity.id } %}
+                {{ dataGrid.renderGrid(gridName, gridFilters) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content_data %}

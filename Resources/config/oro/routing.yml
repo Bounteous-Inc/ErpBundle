@@ -13,6 +13,16 @@ demacmedia_erp_orders_items:
     type:       annotation
     prefix:     /erp/orderitems
 
+demacmedia_erp_carts:
+    resource:   "@DemacMediaErpBundle/Controller/ErpCartsController.php"
+    type:       annotation
+    prefix:     /erp/carts
+
+demacmedia_erp_carts_items:
+    resource:   "@DemacMediaErpBundle/Controller/ErpCartItemsController.php"
+    type:       annotation
+    prefix:     /erp/cartitems
+
 #
 # REST actions for Erp Accounts
 # ----------------------------------------------------------------------------------------------------------------------
@@ -113,5 +123,74 @@ demacmedia_api_erp_update_orderitems:
 demacmedia_api_erp_delete_orderitems:
     pattern: api/rest/{version}/erp/orderitems/{id}.{_format}
     defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestOrderItems:delete, _format: json, version: latest }
+    requirements:
+        _method: DELETE
+
+
+#
+# REST actions for Erp Carts
+# ----------------------------------------------------------------------------------------------------------------------
+demacmedia_api_erp_get_carts:
+    pattern: api/rest/{version}/erp/carts.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCarts:cget, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_create_cart:
+    pattern: api/rest/{version}/erp/carts.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCarts:post, _format: json, version: latest }
+    requirements:
+        _method: POST
+
+demacmedia_api_erp_get_cart:
+    pattern: api/rest/{version}/erp/carts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCarts:get, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_update_cart:
+    pattern: api/rest/{version}/erp/carts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCarts:put, _format: json, version: latest }
+    requirements:
+        _method: PUT
+
+demacmedia_api_erp_delete_cart:
+    pattern: api/rest/{version}/erp/carts/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCarts:delete, _format: json, version: latest }
+    requirements:
+        _method: DELETE
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+#
+# REST actions for Erp Cart Items
+# ----------------------------------------------------------------------------------------------------------------------
+demacmedia_api_erp_get_cartsitems:
+    pattern: api/rest/{version}/erp/cartitems.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCartItems:cget, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_create_cartitems:
+    pattern: api/rest/{version}/erp/cartitems.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCartItems:post, _format: json, version: latest }
+    requirements:
+        _method: POST
+
+demacmedia_api_erp_get_cartitems:
+    pattern: api/rest/{version}/erp/cartitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCartItems:get, _format: json, version: latest }
+    requirements:
+        _method: GET
+
+demacmedia_api_erp_update_cartitems:
+    pattern: api/rest/{version}/erp/cartitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCartItems:put, _format: json, version: latest }
+    requirements:
+        _method: PUT
+
+demacmedia_api_erp_delete_cartitems:
+    pattern: api/rest/{version}/erp/cartitems/{id}.{_format}
+    defaults: { _controller: DemacMediaErpBundle:Api/Rest/ErpRestCartItems:delete, _format: json, version: latest }
     requirements:
         _method: DELETE

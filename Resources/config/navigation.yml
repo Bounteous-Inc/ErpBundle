@@ -11,6 +11,10 @@ oro_menu_config:
        shortcut_orders_item:
            label: 'WebStore Orders'
            route: demacmedia_erp_orders
+
+       shortcut_carts_item:
+           label: 'WebStore Carts'
+           route: demacmedia_erp_carts
  
    tree:
        application_menu:
@@ -18,6 +22,7 @@ oro_menu_config:
                sales_tab:
                    children:
                        shortcut_orders_item: ~
+                       shortcut_carts_item: ~
                customers_tab:
                    children:
                        shortcut_accounts_item: ~
@@ -25,6 +30,10 @@ oro_menu_config:
                    children:
                        shortcut_accounts_item: ~
                        shortcut_orders_item: ~
+                       shortcut_carts_item: ~
+
 oro_titles:
     demacmedia_erp_accounts: "WebStore Accounts"
     demacmedia_erp_orders: "WebStore Orders"
+    demacmedia_erp_carts: "WebStore Carts"
+

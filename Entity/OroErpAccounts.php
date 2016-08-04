@@ -161,6 +161,15 @@ class OroErpAccounts extends ExtendOroErpAccounts
 
 
     /**
+     * @var Collection|OroErpCarts[]
+     *
+     * @ORM\OneToMany(targetEntity="OroErpCarts", mappedBy="erpaccount", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $carts;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime", nullable=true)
@@ -689,6 +698,26 @@ class OroErpAccounts extends ExtendOroErpAccounts
     {
         $this->orders->add($order);
         $order->setErpaccount($this);
+        return $this;
+    }
+
+    /**
+     * @return Collection|OroErpCarts[]
+     */
+    public function getCarts()
+    {
+        return $this->carts;
+    }
+
+    /**
+     * @param OroErpCarts $cart
+     *
+     * @return $this
+     */
+    public function addCart(OroErpCarts $cart)
+    {
+        $this->carts->add($cart);
+        $cart->setErpaccount($this);
         return $this;
     }
 

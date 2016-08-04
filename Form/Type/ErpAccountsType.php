@@ -64,6 +64,22 @@ class ErpAccountsType extends AbstractType
                 ]
             )
             ->add(
+                'lifetime',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Lifetime Sales',
+                ]
+            )
+            ->add(
+                'lifetimeall',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Lifetime Sales All Websites',
+                ]
+            )
+            ->add(
                 'created_at',
                 'oro_datetime',
                 [

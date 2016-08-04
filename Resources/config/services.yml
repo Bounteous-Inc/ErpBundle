@@ -2,6 +2,8 @@ parameters:
     demacmedia_erp_accounts.entity.class:         DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts
     demacmedia_erp_orders.entity.class:           DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders
     demacmedia_erp_orderitems.entity.class:       DemacMedia\Bundle\ErpBundle\Entity\OroErpOrderItems
+    demacmedia_erp_carts.entity.class:            DemacMedia\Bundle\ErpBundle\Entity\OroErpCarts
+    demacmedia_erp_cartitems.entity.class:        DemacMedia\Bundle\ErpBundle\Entity\OroErpCartItems
     demacmedia_erp.manager.api.class:             Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
     demacmedia_erp.demac_assign_entity.action.class:    DemacMedia\Bundle\ErpBundle\Model\Action\AssignEntity
     demacmedia_erp_orderitems.ordem_items.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\OriginalEmailListener
@@ -45,6 +47,23 @@ services:
         - %demacmedia_erp_orderitems.entity.class%
         - @doctrine.orm.entity_manager
 
+    # CARTS
+    demacmedia_erp_carts.manager.api:
+        class: %demacmedia_erp.manager.api.class%
+        parent: oro_soap.manager.entity_manager.abstract
+        arguments:
+        - %demacmedia_erp_carts.entity.class%
+        - @doctrine.orm.entity_manager
+
+
+    # CART ITEMS
+    demacmedia_erp_cartitems.manager.api:
+        class: %demacmedia_erp.manager.api.class%
+        parent: oro_soap.manager.entity_manager.abstract
+        arguments:
+        - %demacmedia_erp_cartitems.entity.class%
+        - @doctrine.orm.entity_manager
+
     # Custom Tracking Customer Identification WebAccounts
     demacmedia_erp.provider.customer_identification:
         class: %demacmedia_erp.provider.customer_identification.class%
@@ -55,6 +74,7 @@ services:
         tags:
            - { name: oro_tracking.provider.identification, priority: 10 }
 
+    # Lifetime Helper
     demacmedia_erp.lifetime_helper:
         class: %demacmedia_erp.lifetime_helper.class%
         arguments:

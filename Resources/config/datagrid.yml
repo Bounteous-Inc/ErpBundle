@@ -574,3 +574,384 @@ datagrid:
 
         properties:
             id: ~
+
+
+############################################
+###
+###            CARTS
+###
+############################################
+
+    # CARTS
+    ############################################################
+    erp-carts-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - erp_carts.id
+                    - erp_carts.cartNumber
+                    - IDENTITY(erp_carts.erpaccount) as erpaccount
+                    - erp_carts.totalPaid
+                    - erp_carts.createdAt
+                    - erp_carts.updatedAt
+                    - erp_carts.billFirstname
+                    - erp_carts.billLastname
+                    - erp_carts.billCompany
+                    - erp_carts.shipFirstname
+                    - erp_carts.shipLastname
+                    - erp_carts.shipCompany
+                    - erp_carts.shipCity
+                    - erp_carts.created
+                    - erp_accounts.firstName
+                    - erp_accounts.lastName
+                    - erp_carts.websiteId
+                from:
+                    - { table: DemacMediaErpBundle:OroErpCarts, alias: erp_carts }
+                join:
+                    inner:
+                        -
+                            join: DemacMediaErpBundle:OroErpAccounts
+                            alias: erp_accounts
+                            conditionType: WITH
+                            condition: erp_accounts.id = erp_carts.erpaccount
+
+        columns:
+            cartNumber:
+                label: demacmedia_erp.carts.cartNumber.label
+            totalPaid:
+                label: demacmedia_erp.carts.totalPaid.label
+                frontend_type: currency
+            firstName:
+                label: demacmedia_erp.accounts.firstName.label
+            lastName:
+                label: demacmedia_erp.accounts.lastName.label
+            billFirstname:
+                label: demacmedia_erp.carts.billFirstname.label
+            billLastname:
+                label: demacmedia_erp.carts.billLastname.label
+            billCompany:
+                label: demacmedia_erp.carts.billCompany.label
+            shipFirstname:
+                label: demacmedia_erp.carts.shipFirstname.label
+            shipLastname:
+                label: demacmedia_erp.carts.shipLastname.label
+            shipCompany:
+                label: demacmedia_erp.carts.shipCompany.label
+            shipCity:
+                label: demacmedia_erp.carts.shipCity.label
+            createdAt:
+                label: demacmedia_erp.carts.createdAt.label
+                frontend_type: datetime
+            updatedAt:
+                label: demacmedia_erp.carts.updatedAt.label
+                frontend_type: datetime
+            created:
+                label: demacmedia_erp.carts.created.label
+                frontend_type: datetime
+            websiteId:
+                label: demacmedia_erp.carts.websiteId.label
+
+        sorters:
+            columns:
+                cartNumber:
+                    data_name: erp_carts.cartNumber
+                totalPaid:
+                    data_name: erp_carts.totalPaid
+                firstName:
+                    data_name: erp_accounts.firstName
+                lastName:
+                    data_name: erp_accounts.lastName
+                billFirstname:
+                    data_name: erp_carts.billFirstname
+                billLastname:
+                    data_name: erp_carts.billFirstname
+                billCompany:
+                    data_name: erp_carts.billFirstname
+                shipCompany:
+                    data_name: erp_carts.shipCompany
+                shipCity:
+                    data_name: erp_carts.shipCity
+                createdAt:
+                    data_name: erp_carts.createdAt
+                updatedAt:
+                    data_name: erp_carts.updatedAt
+                created:
+                    data_name: erp_carts.created
+                websiteId:
+                    data_name: erp_carts.websiteId
+            default:
+                updatedAt: DESC
+
+        properties:
+            id: ~
+            view_link:
+                type:       url
+                route:      demacmedia_erp_carts_view
+                params:     [ id ]
+
+        actions:
+            view:
+                type:         navigate
+                label:        oro.grid.action.view
+                link:         view_link
+                icon:         eye-open
+                rowAction:    true
+
+        filters:
+            columns:
+                cartNumber:
+                    type: number
+                    data_name: erp_carts.cartNumber
+                totalPaid:
+                    type: currency
+                    data_name: erp_carts.totalPaid
+                firstName:
+                    type: string
+                    data_name: erp_accounts.firstName
+                lastName:
+                    type: string
+                    data_name: erp_accounts.lastName
+                billFirstname:
+                    type: string
+                    data_name: erp_carts.billFirstname
+                billLastname:
+                    type: string
+                    data_name: erp_carts.billFirstname
+                billCompany:
+                    type: string
+                    data_name: erp_carts.billFirstname
+                shipCompany:
+                    type: string
+                    data_name: erp_carts.shipCompany
+                shipCity:
+                    type: string
+                    data_name: erp_carts.shipCity
+                createdAt:
+                    type: datetime
+                    data_name: erp_carts.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_carts.updatedAt
+                created:
+                    type: datetime
+                    data_name: erp_carts.created
+                websiteId:
+                    type: string
+                    data_name: erp_carts.websiteId
+
+    # CARTS FOR SPECIFIC ACCOUNT
+    ############################################################
+    erp-carts-specific-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - erp_carts.id
+                    - erp_carts.cartNumber
+                    - erp_carts.originalEmail
+                    - IDENTITY(erp_carts.erpaccount) as erpaccount
+                    - erp_carts.totalPaid
+                    - erp_carts.createdAt
+                    - erp_carts.updatedAt
+                    - erp_carts.created
+                    - erp_carts.websiteId
+                from:
+                    - { table: DemacMediaErpBundle:OroErpCarts, alias: erp_carts }
+                where:
+                    and:
+                        - erp_carts.originalEmail = :contact_email
+            bind_parameters:
+                contact_email: contact_email
+
+        columns:
+            websiteId:
+                label: demacmedia_erp.carts.websiteId.label
+            cartNumber:
+                label: demacmedia_erp.carts.cartNumber.label
+            erpaccount:
+                label: demacmedia_erp.carts.erpaccount.label
+            totalPaid:
+                label: demacmedia_erp.carts.totalPaid.label
+                frontend_type: currency
+            createdAt:
+                label: demacmedia_erp.carts.createdAt.label
+                frontend_type: datetime
+            updatedAt:
+                label: demacmedia_erp.carts.updatedAt.label
+                frontend_type: datetime
+            created:
+                label: demacmedia_erp.carts.created.label
+                frontend_type: datetime
+
+        sorters:
+            columns:
+                websiteId:
+                    data_name: erp_carts.websiteId
+                cartNumber:
+                    data_name: erp_carts.cartNumber
+                erpaccount:
+                    data_name: erp_carts.erpaccount
+                totalPaid:
+                    data_name: erp_carts.totalPaid
+                createdAt:
+                    data_name: erp_carts.createdAt
+                updatedAt:
+                    data_name: erp_carts.updatedAt
+                created:
+                    data_name: erp_carts.created
+            default:
+                updatedAt: DESC
+
+        properties:
+            id: ~
+            view_link:
+                type:       url
+                route:      demacmedia_erp_carts_view
+                params:     [ id ]
+
+        actions:
+            view:
+                type:         navigate
+                label:        oro.grid.action.view
+                link:         view_link
+                icon:         eye-open
+                rowAction:    true
+
+        filters:
+            columns:
+                websiteId:
+                    type: string
+                    data_name: erp_carts.websiteId
+                cartNumber:
+                    type: number
+                    data_name: erp_carts.cartNumber
+                erpaccount:
+                    type: number
+                    data_name: erp_carts.erpaccount
+                totalPaid:
+                    type: currency
+                    data_name: erp_carts.totalPaid
+                createdAt:
+                    type: datetime
+                    data_name: erp_carts.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_carts.updatedAt
+                created:
+                    type: datetime
+                    data_name: erp_carts.created
+
+
+    erp-cart-items-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - erp_cart_items.id
+                    - erp_cart_items.cartItemNumber
+                    - IDENTITY(erp_cart_items.cart) as cartId
+                    - erp_carts.cartNumber
+                    - erp_cart_items.sku
+                    - erp_cart_items.productName
+                    - erp_cart_items.productPrice
+                    - erp_cart_items.quantity
+                    - erp_cart_items.createdAt
+                    - erp_cart_items.updatedAt
+                    - erp_cart_items.updated
+                from:
+                    - { table: DemacMediaErpBundle:OroErpCartItems, alias: erp_cart_items }
+                join:
+                    inner:
+                        - { join: DemacMediaErpBundle:OroErpCarts, alias: erp_carts, conditionType: WITH, condition: 'erp_carts.id = IDENTITY(erp_cart_items.cart)' }
+                where:
+                    and:
+                        - IDENTITY(erp_cart_items.cart) = :cart_id
+            bind_parameters:
+                cart_id: cart_id
+
+        columns:
+            cartItemNumber:
+                label: demacmedia_erp.cart_items.cartItemNumber.label
+            cartId:
+                label: demacmedia_erp.cart_items.cartId.label
+            cartNumber:
+                label: demacmedia_erp.carts.cartNumber.label
+            sku:
+                label: demacmedia_erp.cart_items.sku.label
+            productName:
+                label: demacmedia_erp.cart_items.productName.label
+            productPrice:
+                label: demacmedia_erp.cart_items.productPrice.label
+                frontend_type: currency
+            quantity:
+                label: demacmedia_erp.cart_items.quantity.label
+            createdAt:
+                label: demacmedia_erp.cart_items.createdAt.label
+                frontend_type: datetime
+            updatedAt:
+                label: demacmedia_erp.cart_items.updatedAt.label
+                frontend_type: datetime
+            updated:
+                label: demacmedia_erp.cart_items.updated.label
+                frontend_type: datetime
+
+        sorters:
+            columns:
+                cartItemNumber:
+                    data_name: erp_cart_items.cartItemNumber
+                cartId:
+                    data_name: erp_cart_items.cartId
+                cartNumber:
+                    data_name: erp_carts.cartNumber
+                sku:
+                    data_name: erp_cart_items.sku
+                productName:
+                    data_name: erp_cart_items.productName
+                productPrice:
+                    data_name: erp_cart_items.productPrice
+                quantity:
+                    data_name: erp_cart_items.quantity
+                createdAt:
+                    data_name: erp_cart_items.createdAt
+                updatedAt:
+                    data_name: erp_cart_items.updatedAt
+                updated:
+                    data_name: erp_cart_items.updated
+
+            default:
+                updatedAt: DESC
+
+        filters:
+            columns:
+                cartItemNumber:
+                    type: number
+                    data_name: erp_cart_items.cartItemNumber
+                cartId:
+                    type: number
+                    data_name: erp_cart_items.cartId
+                cartNumber:
+                    type: number
+                    data_name: erp_carts.cartNumber
+                sku:
+                    type: string
+                    data_name: erp_cart_items.sku
+                productName:
+                    type: string
+                    data_name: erp_cart_items.productName
+                productPrice:
+                    type: currency
+                    data_name: erp_cart_items.productPrice
+                quantity:
+                    type: number
+                    data_name: erp_cart_items.quantity
+                createdAt:
+                    type: datetime
+                    data_name: erp_cart_items.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: erp_cart_items.updatedAt
+                updated:
+                    type: datetime
+                    data_name: erp_cart_items.updated
+
