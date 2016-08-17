@@ -23,6 +23,11 @@ use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
  *      defaultValues={
  *          "entity"={
  *              "icon"="icon-ok-circle",
+ *              "contact_information"={
+ *                  "email"={
+ *                      {"fieldName"="originalEmail"}
+ *                  }
+ *              },
  *              "label"="Erp Order",
  *              "plural_label"="Erp Orders",
  *              "description"="Erp Order"
