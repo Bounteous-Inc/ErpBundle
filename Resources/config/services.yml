@@ -29,7 +29,6 @@ services:
             - %demacmedia_erp_accounts.entity.class%
             - @doctrine.orm.entity_manager
 
-
     # ORDERS
     demacmedia_erp_orders.manager.api:
         class: %demacmedia_erp.manager.api.class%

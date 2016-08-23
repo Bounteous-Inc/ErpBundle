@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders;
+use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
 class ErpOrdersApiHandler
 {
@@ -69,6 +70,13 @@ class ErpOrdersApiHandler
      */
     protected function onSuccess(OroErpOrders $entity)
     {
+        $erpAccountEntity = $this
+            ->manager
+            ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+            ->find($entity->getErpaccount());
+
+        $entity->setErpaccount($erpAccountEntity);
+
         $this->manager->persist($entity);
         $this->manager->flush();
     }

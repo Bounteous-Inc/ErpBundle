@@ -15,6 +15,7 @@ demacmedia_erp:
         created.label: 'Imported'
         updated.label: 'Imported'
         accountNumber.label: 'Account Number'
+        form.choose_account: 'Choose Account'
     oroerpaccounts:
         contact.label: 'Oro Contact'
         orders.label: 'WebStore Orders'

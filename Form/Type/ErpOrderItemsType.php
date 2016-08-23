@@ -79,12 +79,21 @@ class ErpOrderItemsType extends AbstractType
                     'label'       => 'Website ID',
                 ]
             )
+//            ->add(
+//                'order',
+//                'translatable_entity',
+//                [
+//                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders',
+//                    'property' => 'orderItemNumber',
+//                    'required' => true
+//                ]
+//            )
             ->add(
                 'order',
-                'translatable_entity',
+                'number',
                 [
-                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpOrders',
-                    'required' => true
+                    'required' => true,
+                    'label' => 'Order ID'
                 ]
             )
             ->add(

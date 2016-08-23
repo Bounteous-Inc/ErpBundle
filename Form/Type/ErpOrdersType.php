@@ -2,9 +2,12 @@
 
 namespace DemacMedia\Bundle\ErpBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 
 class ErpOrdersType extends AbstractType
 {
@@ -194,14 +197,6 @@ class ErpOrdersType extends AbstractType
                 ]
             )
             ->add(
-                'erpaccount',
-                'translatable_entity',
-                [
-                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts',
-                    'required' => true
-                ]
-            )
-            ->add(
                 'website_id',
                 'text',
                 [
@@ -215,6 +210,14 @@ class ErpOrdersType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'Original Email'
+                ]
+            )
+            ->add(
+                'erpaccount',
+                'number',
+                [
+                    'required' => true,
+                    'label' => 'Erp Account ID'
                 ]
             )
             ->add(

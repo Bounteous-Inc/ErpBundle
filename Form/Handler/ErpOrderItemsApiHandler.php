@@ -68,9 +68,14 @@ class ErpOrderItemsApiHandler
      */
     protected function onSuccess(OroErpOrderItems $entity)
     {
+        $erpOrderEntity = $this
+            ->manager
+            ->getRepository('DemacMediaErpBundle:OroErpOrders')
+            ->find($entity->getOrder());
+
+        $entity->setOrder($erpOrderEntity);
+
         $this->manager->persist($entity);
         $this->manager->flush();
-
-        $foo = '10';
     }
 }

@@ -127,7 +127,7 @@ class ErpRestOrdersController extends RestController implements ClassResourceInt
      * @param string $originalEmail original_email
      *
      * @ApiDoc(
-     * description="Create new Erp Web Store Account.",
+     * description="Create new Erp Web Store Order.",
      * resource=true
      * )
      * @AclAncestor("demacmedia_erp_orders_create")
