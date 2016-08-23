@@ -28,9 +28,11 @@ class UpdateLifetimeSalesValueListener
         }
 
         $job = new Job('demacmedia:oro:erp:lifetime:update', [
-            sprintf('--erpaccount-id=%d', $entity->getErpaccount()->getId()),
-            sprintf('--original-email=%s', $entity->getOriginalEmail()),
-            sprintf('--total-paid=%s', $entity->getTotalPaid())
+            sprintf("--erpaccount-id=%d --original-email=%s --total-paid='%s'",
+                $entity->getErpaccount()->getId(),
+                $entity->getOriginalEmail(),
+                $entity->getTotalPaid()
+            )
         ]);
         $em = $this->containerInterface->get('doctrine')->getManagerForClass('JMSJobQueueBundle:Job');
         $em->persist($job);

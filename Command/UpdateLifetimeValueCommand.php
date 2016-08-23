@@ -4,12 +4,12 @@ namespace DemacMedia\Bundle\ErpBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UpdateLifetimeValueCommand extends Command
+class UpdateLifetimeValueCommand extends ContainerAwareCommand
 {
     const COMMAND_NAME = 'demacmedia:oro:erp:lifetime:update';
 
@@ -21,19 +21,22 @@ class UpdateLifetimeValueCommand extends Command
         $this
             ->setName(self::COMMAND_NAME)
             ->setDescription('Perform update of lifetime sales values for WebAccounts channel.')
-            ->addArgument(
+            ->addOption(
                 'erpaccount-id',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_REQUIRED,
                 'ErpAccountID is the OroAccount ID'
             )
-            ->addArgument(
+            ->addOption(
                 'original-email',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_REQUIRED,
                 'Original and Unique Email for this user'
             )
-            ->addArgument(
+            ->addOption(
                 'total-paid',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_REQUIRED,
                 'Total Paid float value coming from Orders (total paid) field'
             )
             ->setHelp("This command allows you to update of lifetime sales values for WebAccounts channel.");
@@ -41,12 +44,16 @@ class UpdateLifetimeValueCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $lifetimeHelper = $this->get('demacmedia_erp.lifetime_helper');
+        $lifetimeHelper = $this
+            ->getApplication()
+            ->getKernel()
+            ->getContainer()
+            ->get('demacmedia_erp.lifetime_helper');
 
         $lifetimeHelper->updateLifetimeSalesValue(
-            $input->getArgument('erpaccount-id'),
-            $input->getArgument('original-email'),
-            $input->getArgument('total-paid')
+            $input->getOption('erpaccount-id'),
+            $input->getOption('original-email'),
+            $input->getOption('total-paid')
         );
     }
 }
