@@ -14,6 +14,9 @@ datagrid:
                     - erp_accounts.createdAt
                     - erp_accounts.updatedAt
                     - erp_accounts.created
+                    - erp_accounts.lifetime
+                    - erp_accounts.lifetimeall
+                    - erp_accounts.numberOfOrders
                 from:
                     - { table: DemacMediaErpBundle:OroErpAccounts, alias: erp_accounts }
         columns:
@@ -29,6 +32,14 @@ datagrid:
                 label: demacmedia_erp.accounts.originalEmail.label
             websiteId:
                 label: demacmedia_erp.accounts.websiteId.label
+            numberOfOrders:
+                label: demacmedia_erp.accounts.numberOfOrders.label
+            lifetime:
+                label: demacmedia_erp.accounts.lifetime.label
+                frontend_type: currency
+            lifetimeall:
+                label: demacmedia_erp.accounts.lifetimeall.label
+                frontend_type: currency
             createdAt:
                 label: demacmedia_erp.accounts.createdAt.label
                 frontend_type:    datetime
@@ -53,6 +64,12 @@ datagrid:
                     data_name: erp_accounts.originalEmail
                 websiteId:
                     data_name: erp_accounts.websiteId
+                numberOfOrders:
+                    data_name: erp_accounts.numberOfOrders
+                lifetime:
+                    data_name: erp_accounts.lifetime
+                lifetimeall:
+                    data_name: erp_accounts.lifetimeall
                 createdAt:
                     data_name: erp_accounts.createdAt
                 updatedAt:
@@ -97,6 +114,15 @@ datagrid:
                 websiteId:
                     type: string
                     data_name: erp_accounts.websiteId
+                numberOfOrders:
+                    type: number
+                    data_name: erp_accounts.numberOfOrders
+                lifetime:
+                    type: number
+                    data_name: erp_accounts.lifetime
+                lifetimeall:
+                    type: number
+                    data_name: erp_accounts.lifetimeall
                 createdAt:
                     type: datetime
                     data_name: erp_accounts.createdAt

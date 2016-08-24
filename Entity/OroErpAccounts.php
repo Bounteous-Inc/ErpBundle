@@ -348,6 +348,23 @@ class OroErpAccounts extends ExtendOroErpAccounts
 
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="number_of_orders", type="integer")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Number of Orders",
+     *              "plural_label"="Number of Orders",
+     *              "description"="Number of Orders"
+     *          }
+     *      }
+     * )
+     */
+    protected $numberOfOrders;
+
+
+    /**
      * @var float
      *
      * @ORM\Column(name="lifetimeall", type="money", nullable=true)
@@ -772,5 +789,19 @@ class OroErpAccounts extends ExtendOroErpAccounts
         $this->lifetimeall = $lifetimeall;
     }
 
+    /**
+     * @return int
+     */
+    public function getNumberOfOrders()
+    {
+        return $this->numberOfOrders;
+    }
 
+    /**
+     * @param int $numberOfOrders
+     */
+    public function setNumberOfOrders($numberOfOrders)
+    {
+        $this->numberOfOrders = $numberOfOrders;
+    }
 }

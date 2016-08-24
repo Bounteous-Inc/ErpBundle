@@ -32,6 +32,7 @@ class OroErpAccountsHelper
             $this->getLifetimeAllSalesValue($originalEmail)
         );
         $this->setOroLifetimeValueHistory($accountId, $lifetimeSalesValue);
+        $this->setNumberOfOrdersInAccounts($accountId);
 
         return $lifetimeSalesValue;
     }
@@ -143,5 +144,31 @@ class OroErpAccountsHelper
 
             return true;
         }
+    }
+
+    public function setNumberOfOrdersInAccounts($accountId) {
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpOrders')
+            ->createQueryBuilder('o');
+        $qb->select('COUNT(o.id)');
+        $qb->where('o.erpaccount = :account_id');
+        $qb->setParameters([
+            'account_id' => $accountId
+        ]);
+
+        $numberOfOrders = (int)$qb->getQuery()->getSingleScalarResult();
+
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+            ->createQueryBuilder('a');
+        $qb->update('DemacMediaErpBundle:OroErpAccounts', 'a');
+        $qb->set('a.numberOfOrders', ':number_of_orders');
+        $qb->where('a.id = :account_id');
+        $qb->setParameters([
+            'account_id' => $accountId,
+            'number_of_orders' => $numberOfOrders
+        ]);
+        $qb->getQuery()->setMaxResults(1);
+        $qb->getQuery()->execute();
     }
 }

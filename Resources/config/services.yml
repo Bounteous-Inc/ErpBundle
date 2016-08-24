@@ -12,6 +12,8 @@ parameters:
     demacmedia_erp.provider.customer_identification.class: DemacMedia\Bundle\ErpBundle\Provider\CustomerIdentification
     demacmedia_erp.lifetime_helper.class:         DemacMedia\Bundle\ErpBundle\Entity\Helper\OroErpAccountsHelper
     demacmedia_erp.update_lifetime.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\UpdateLifetimeSalesValueListener
+    demacmedia_erp.change_account_datagrid.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\Datagrid\ChangeAccountDatagridListener
+
 
 services:
     # CHANNEL REGISTRATION PROVIDER
@@ -86,3 +88,9 @@ services:
             - @service_container
         tags:
             - { name: doctrine.event_listener, event: postPersist, connection: default }
+
+    # Change Accounts datagrid Adding lifetimeValueHistory on it's columns
+    demacmedia_erp.change_account_datagrid.listener:
+         class: %demacmedia_erp.change_account_datagrid.listener.class%
+         tags:
+             - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.accounts-grid, method: onBuildBefore }

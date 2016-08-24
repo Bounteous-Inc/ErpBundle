@@ -16,6 +16,9 @@ demacmedia_erp:
         updated.label: 'Imported'
         accountNumber.label: 'Account Number'
         form.choose_account: 'Choose Account'
+        lifetime.label: 'Lifetime'
+        lifetimeall.label: 'Lifetime All'
+        numberOfOrders.label: 'Number of Orders'
     oroerpaccounts:
         contact.label: 'Oro Contact'
         orders.label: 'WebStore Orders'
