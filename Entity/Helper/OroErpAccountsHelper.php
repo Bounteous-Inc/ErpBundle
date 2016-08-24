@@ -5,6 +5,7 @@ namespace DemacMedia\Bundle\ErpBundle\Entity\Helper;
 use Doctrine\ORM\EntityManager;
 use OroCRM\Bundle\ChannelBundle\Entity\LifetimeValueHistory;
 
+
 class OroErpAccountsHelper
 {
     protected $em;
@@ -30,6 +31,7 @@ class OroErpAccountsHelper
             $originalEmail,
             $this->getLifetimeAllSalesValue($originalEmail)
         );
+        $this->setOroLifetimeValueHistory($accountId, $lifetimeSalesValue);
 
         return $lifetimeSalesValue;
     }
@@ -106,6 +108,40 @@ class OroErpAccountsHelper
                 'original_email' => $originalEmail
             ]);
             return $qb->getQuery()->getSingleScalarResult();
+        }
+    }
+
+    public function setOroLifetimeValueHistory($accountId, $lifetimeSalesValue) {
+        if ($lifetimeSalesValue) {
+            $qb = $this->em
+                ->getRepository('OroCRMChannelBundle:LifetimeValueHistory')
+                ->createQueryBuilder('h');
+            $qb->update('OroCRMChannelBundle:LifetimeValueHistory', 'h');
+            $qb->set('h.status', '0');
+            $qb->where('h.account = :account_id');
+            $qb->setParameters([
+                'account_id' => $accountId
+            ]);
+            $qb->getQuery()->execute();
+
+            $account = $this->em
+                ->getRepository('OroCRM\Bundle\AccountBundle\Entity\Account')
+                ->find($accountId);
+
+            $dataChannel = $this->em
+                ->getRepository('OroCRM\Bundle\ChannelBundle\Entity\Channel')
+                ->find(1);
+
+            $entity = new LifetimeValueHistory();
+            $entity->setStatus(1);
+            $entity->setAccount($account);
+            $entity->setDataChannel($dataChannel);
+            $entity->setAmount($lifetimeSalesValue);
+
+            $this->em->persist($entity);
+            $this->em->flush();
+
+            return true;
         }
     }
 }

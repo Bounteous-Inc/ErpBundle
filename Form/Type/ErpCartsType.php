@@ -194,14 +194,6 @@ class ErpCartsType extends AbstractType
                 ]
             )
             ->add(
-                'erpaccount',
-                'translatable_entity',
-                [
-                    'class'    => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts',
-                    'required' => true
-                ]
-            )
-            ->add(
                 'website_id',
                 'text',
                 [
@@ -231,6 +223,14 @@ class ErpCartsType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'Cart Status'
+                ]
+            )
+            ->add(
+                'erpaccount',
+                'number',
+                [
+                    'required' => true,
+                    'label' => 'Erp Account ID'
                 ]
             )
             ->add(

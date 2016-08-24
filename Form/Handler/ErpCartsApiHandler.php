@@ -69,6 +69,13 @@ class ErpCartsApiHandler
      */
     protected function onSuccess(OroErpCarts $entity)
     {
+        $erpAccountEntity = $this
+            ->manager
+            ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+            ->find($entity->getErpaccount());
+
+        $entity->setErpaccount($erpAccountEntity);
+
         $this->manager->persist($entity);
         $this->manager->flush();
     }
