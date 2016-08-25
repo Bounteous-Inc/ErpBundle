@@ -93,9 +93,17 @@ class ChangeAccountDatagridListener
             $customJoin
         );
 
+        $createdAt = $configuration->offsetGetByPath('[columns][createdAt]');
+        $updatedAt = $configuration->offsetGetByPath('[columns][updatedAt]');
+
+        $configuration->offsetUnsetByPath('[columns][createdAt]');
+        $configuration->offsetUnsetByPath('[columns][updatedAt]');
+
         $configuration->offsetAddToArrayByPath(
             '[columns]', $customColumns
         );
+        $configuration->offsetAddToArrayByPath('[columns][createdAt]', $createdAt);
+        $configuration->offsetAddToArrayByPath('[columns][updatedAt]', $updatedAt);
 
         $configuration->offsetAddToArrayByPath(
             '[filters][columns]', $customFilters
