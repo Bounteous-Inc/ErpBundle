@@ -104,6 +104,12 @@ class ChangeAccountDatagridListener
         $configuration->offsetAddToArrayByPath(
             '[sorters][columns]', $customSorters
         );
+
+        $configuration->offsetSetByPath(
+            '[sorters][default]', [
+                'updatedAt' => 'DESC'
+            ]
+        );
     }
 
     /**
