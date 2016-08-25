@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ErpOrderItemsType extends AbstractType
+class ErpCartItemsType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,11 +16,11 @@ class ErpOrderItemsType extends AbstractType
     {
         $builder
             ->add(
-                'order_item_number',
+                'cart_item_number',
                 'number',
                 [
                     'required' => true,
-                    'label'    => 'Original Order Item ID'
+                    'label'    => 'Original Cart Item ID'
                 ]
             )
             ->add(
@@ -80,11 +80,11 @@ class ErpOrderItemsType extends AbstractType
                 ]
             )
             ->add(
-                'order',
+                'cart',
                 null,
                 [
                     'required' => true,
-                    'label' => 'Order ID'
+                    'label' => 'Cart ID'
                 ]
             )
             ->add(
@@ -106,7 +106,7 @@ class ErpOrderItemsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class'           => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpOrderItems',
+                'data_class'           => 'DemacMedia\Bundle\ErpBundle\Entity\OroErpCartItems',
                 'csrf_protection'      => false,
                 'cascade_validation'   => false,
                 'extra_fields_message' => 'EXTRA FIELDS DETECTED! "{{ extra_fields }}"',
@@ -119,6 +119,6 @@ class ErpOrderItemsType extends AbstractType
      */
     public function getName()
     {
-        return 'demacmedia_erp_orderitems';
+        return 'demacmedia_erp_cartitems';
     }
 }

@@ -227,7 +227,7 @@ class ErpCartsType extends AbstractType
             )
             ->add(
                 'erpaccount',
-                'number',
+                null,
                 [
                     'required' => true,
                     'label' => 'Erp Account ID'
