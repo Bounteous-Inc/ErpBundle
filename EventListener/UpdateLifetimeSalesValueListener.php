@@ -21,6 +21,19 @@ class UpdateLifetimeSalesValueListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
+        $this->executeOrderTasks($args);
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $this->executeOrderTasks($args);
+    }
+
+    public function executeOrderTasks(LifecycleEventArgs $args)
+    {
         $entity = $args->getEntity();
 
         if (!$entity instanceof OroErpOrders) {

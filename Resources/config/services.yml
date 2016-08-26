@@ -81,13 +81,21 @@ services:
         arguments:
           - @doctrine.orm.entity_manager
 
-    # EventListener to update Lifetime Sales Value on every update/insert (orders)
-    demacmedia_erp.update_lifetime.listener:
+    # EventListener to update Lifetime Sales Value on every insert (orders)
+    demacmedia_erp.insert_lifetime.listener:
         class: %demacmedia_erp.update_lifetime.listener.class%
         arguments:
             - @service_container
         tags:
             - { name: doctrine.event_listener, event: postPersist, connection: default }
+
+    # EventListener to update Lifetime Sales Value on every update (orders)
+    demacmedia_erp.update_lifetime.listener:
+        class: %demacmedia_erp.update_lifetime.listener.class%
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate, connection: default }
 
     # Change Accounts datagrid Adding lifetimeValueHistory on it's columns
     demacmedia_erp.change_account_datagrid.listener:
