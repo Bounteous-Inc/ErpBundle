@@ -115,7 +115,7 @@ class ChangeAccountDatagridListener
 
         $configuration->offsetSetByPath(
             '[sorters][default]', [
-                'updatedAt' => 'DESC'
+                'id' => 'DESC'
             ]
         );
     }
