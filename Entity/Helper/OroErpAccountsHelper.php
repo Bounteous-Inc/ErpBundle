@@ -26,12 +26,14 @@ class OroErpAccountsHelper
         }
 
         $lifetimeSalesValue = $this->getLifetimeSalesValue($accountId, $totalPaid);
+
         $this->setLifetimeSalesValue($accountId, $lifetimeSalesValue);
+        $lifetimeAllSalesValue = $this->getLifetimeAllSalesValue($originalEmail);
         $this->setLifetimeAllSalesValue(
             $originalEmail,
-            $this->getLifetimeAllSalesValue($originalEmail)
+            $lifetimeAllSalesValue
         );
-        $this->setOroLifetimeValueHistory($accountId, $lifetimeSalesValue);
+        $this->setOroLifetimeValueHistory($accountId, $lifetimeAllSalesValue);
         $this->setNumberOfOrdersInAccounts($accountId);
 
         return $lifetimeSalesValue;
@@ -114,6 +116,17 @@ class OroErpAccountsHelper
 
     public function setOroLifetimeValueHistory($accountId, $lifetimeSalesValue) {
         if ($lifetimeSalesValue) {
+
+            $erpAccount = $this->em
+                ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+                ->find($accountId);
+
+            $oroAccountId = $erpAccount->getAccount()->getId();
+
+            $account = $this->em
+                ->getRepository('OroCRM\Bundle\AccountBundle\Entity\Account')
+                ->find($oroAccountId);
+
             $qb = $this->em
                 ->getRepository('OroCRMChannelBundle:LifetimeValueHistory')
                 ->createQueryBuilder('h');
@@ -121,13 +134,9 @@ class OroErpAccountsHelper
             $qb->set('h.status', '0');
             $qb->where('h.account = :account_id');
             $qb->setParameters([
-                'account_id' => $accountId
+                'account_id' => $oroAccountId
             ]);
             $qb->getQuery()->execute();
-
-            $account = $this->em
-                ->getRepository('OroCRM\Bundle\AccountBundle\Entity\Account')
-                ->find($accountId);
 
             $dataChannel = $this->em
                 ->getRepository('OroCRM\Bundle\ChannelBundle\Entity\Channel')
