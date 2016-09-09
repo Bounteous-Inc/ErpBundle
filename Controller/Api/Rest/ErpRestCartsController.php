@@ -138,6 +138,8 @@ class ErpRestCartsController extends RestController implements ClassResourceInte
      */
     public function postAction()
     {
+        $foo = 10;
+
         return $this->handleCreateRequest();
     }
 

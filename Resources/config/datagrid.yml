@@ -617,15 +617,12 @@ datagrid:
                 select:
                     - erp_carts.id
                     - erp_carts.cartNumber
+                    - erp_carts.cartStatus
                     - IDENTITY(erp_carts.erpaccount) as erpaccount
                     - erp_carts.totalPaid
                     - erp_carts.createdAt
                     - erp_carts.updatedAt
-                    - erp_carts.billFirstname
-                    - erp_carts.billLastname
                     - erp_carts.billCompany
-                    - erp_carts.shipFirstname
-                    - erp_carts.shipLastname
                     - erp_carts.shipCompany
                     - erp_carts.shipCity
                     - erp_carts.created
@@ -652,16 +649,10 @@ datagrid:
                 label: demacmedia_erp.accounts.firstName.label
             lastName:
                 label: demacmedia_erp.accounts.lastName.label
-            billFirstname:
-                label: demacmedia_erp.carts.billFirstname.label
-            billLastname:
-                label: demacmedia_erp.carts.billLastname.label
+            cartStatus:
+                label: demacmedia_erp.carts.cartStatus.label
             billCompany:
                 label: demacmedia_erp.carts.billCompany.label
-            shipFirstname:
-                label: demacmedia_erp.carts.shipFirstname.label
-            shipLastname:
-                label: demacmedia_erp.carts.shipLastname.label
             shipCompany:
                 label: demacmedia_erp.carts.shipCompany.label
             shipCity:
@@ -684,14 +675,12 @@ datagrid:
                     data_name: erp_carts.cartNumber
                 totalPaid:
                     data_name: erp_carts.totalPaid
+                cartStatus:
+                    data_name: erp_carts.cartStatus
                 firstName:
                     data_name: erp_accounts.firstName
                 lastName:
                     data_name: erp_accounts.lastName
-                billFirstname:
-                    data_name: erp_carts.billFirstname
-                billLastname:
-                    data_name: erp_carts.billFirstname
                 billCompany:
                     data_name: erp_carts.billFirstname
                 shipCompany:
@@ -735,15 +724,12 @@ datagrid:
                 firstName:
                     type: string
                     data_name: erp_accounts.firstName
+                cartStatus:
+                    type: string
+                    data_name: erp_carts.cartStatus
                 lastName:
                     type: string
                     data_name: erp_accounts.lastName
-                billFirstname:
-                    type: string
-                    data_name: erp_carts.billFirstname
-                billLastname:
-                    type: string
-                    data_name: erp_carts.billFirstname
                 billCompany:
                     type: string
                     data_name: erp_carts.billFirstname

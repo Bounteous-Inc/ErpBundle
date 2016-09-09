@@ -39,15 +39,6 @@ services:
         - %demacmedia_erp_orders.entity.class%
         - @doctrine.orm.entity_manager
 
-
-    # ORDER ITEMS
-    demacmedia_erp_orderitems.manager.api:
-        class: %demacmedia_erp.manager.api.class%
-        parent: oro_soap.manager.entity_manager.abstract
-        arguments:
-        - %demacmedia_erp_orderitems.entity.class%
-        - @doctrine.orm.entity_manager
-
     # CARTS
     demacmedia_erp_carts.manager.api:
         class: %demacmedia_erp.manager.api.class%
@@ -56,6 +47,13 @@ services:
         - %demacmedia_erp_carts.entity.class%
         - @doctrine.orm.entity_manager
 
+    # ORDER ITEMS
+    demacmedia_erp_orderitems.manager.api:
+        class: %demacmedia_erp.manager.api.class%
+        parent: oro_soap.manager.entity_manager.abstract
+        arguments:
+        - %demacmedia_erp_orderitems.entity.class%
+        - @doctrine.orm.entity_manager
 
     # CART ITEMS
     demacmedia_erp_cartitems.manager.api:

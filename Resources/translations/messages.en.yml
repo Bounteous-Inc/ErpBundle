@@ -83,6 +83,7 @@ demacmedia_erp:
 
 
     carts:
+        cartStatus.label: 'Status'
         entity.label: 'WebStore Cart'
         entity_plural.label: 'WebStore Carts'
         originalCartId.label: 'Original Cart ID'

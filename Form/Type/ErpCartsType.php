@@ -29,7 +29,7 @@ class ErpCartsType extends AbstractType
                 'total_paid',
                 'oro_money',
                 [
-                    'required'    => false,
+                    'required'    => true,
                     'label'       => 'Total Paid',
                 ]
             )
@@ -37,7 +37,7 @@ class ErpCartsType extends AbstractType
                 'created_at',
                 'oro_datetime',
                 [
-                    'required'    => true,
+                    'required'    => false,
                     'label'       => 'Created At',
                 ]
             )
@@ -45,7 +45,7 @@ class ErpCartsType extends AbstractType
                 'updated_at',
                 'oro_datetime',
                 [
-                    'required'    => true,
+                    'required'    => false,
                     'label'       => 'Updated At',
                 ]
             )
@@ -205,7 +205,7 @@ class ErpCartsType extends AbstractType
                 'original_email',
                 'text',
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'Original Email'
                 ]
             )

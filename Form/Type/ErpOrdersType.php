@@ -2,12 +2,9 @@
 
 namespace DemacMedia\Bundle\ErpBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
 
 class ErpOrdersType extends AbstractType
 {

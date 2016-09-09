@@ -9,10 +9,20 @@ parameters:
     demacmedia_erp_orders.form.handler.orders.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrdersHandler
     demacmedia_erp_orders.form.handler.orders_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrdersApiHandler
 
+    demacmedia_erp_carts.form.type.carts.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpCartsType
+    demacmedia_erp_carts.form.type.carts_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpCartsApiType
+    demacmedia_erp_carts.form.handler.carts.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpCartsHandler
+    demacmedia_erp_carts.form.handler.carts_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpCartsApiHandler
+
     demacmedia_erp_orderitems.form.type.orderitems.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrderItemsType
     demacmedia_erp_orderitems.form.type.orderitems_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpOrderItemsApiType
     demacmedia_erp_orderitems.form.handler.orderitems.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrderItemsHandler
     demacmedia_erp_orderitems.form.handler.orderitems_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpOrderItemsApiHandler
+
+    demacmedia_erp_cartitems.form.type.cartitems.class:         DemacMedia\Bundle\ErpBundle\Form\Type\ErpCartItemsType
+    demacmedia_erp_cartitems.form.type.cartitems_api.class:     DemacMedia\Bundle\ErpBundle\Form\Type\ErpCartItemsApiType
+    demacmedia_erp_cartitems.form.handler.cartitems.class:      DemacMedia\Bundle\ErpBundle\Form\Handler\ErpCartItemsHandler
+    demacmedia_erp_cartitems.form.handler.cartitems_api.class:  DemacMedia\Bundle\ErpBundle\Form\Handler\ErpCartItemsApiHandler
 
 services:
     # ACCOUNTS
@@ -109,6 +119,51 @@ services:
             - @doctrine.orm.entity_manager
             - @oro_entity_config.config_manager
 
+    # carts:
+    demacmedia_erp_carts.form.type.carts:
+        class: %demacmedia_erp_carts.form.type.carts.class%
+        tags:
+            - { name: form.type, alias: demacmedia_erp_carts }
+
+    demacmedia_erp_carts.form.type.carts_api:
+        class: %demacmedia_erp_carts.form.type.carts_api.class%
+        arguments:
+            - @oro_entity_config.config_manager
+        tags:
+            - { name: form.type, alias: demacmedia_erp_carts_api }
+
+    demacmedia_erp_carts.form.carts:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - 'demacmedia_erp_carts'
+            - 'demacmedia_erp_carts'
+
+    demacmedia_erp_carts.form.carts.api:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - ~
+            - 'demacmedia_erp_carts_api'
+
+    demacmedia_erp_carts.form.handler.carts:
+        class: %demacmedia_erp_carts.form.handler.carts.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_carts.form.carts
+            - @request
+            - @doctrine.orm.entity_manager
+
+    demacmedia_erp_carts.form.handler.carts_api:
+        class: %demacmedia_erp_carts.form.handler.carts_api.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_carts.form.carts.api
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_entity_config.config_manager
 
     # ORDERITEMS:
     demacmedia_erp_orderitems.form.type.orderitems:
@@ -155,3 +210,52 @@ services:
             - @request
             - @doctrine.orm.entity_manager
             - @oro_entity_config.config_manager
+
+
+    # cartITEMS:
+    demacmedia_erp_cartitems.form.type.cartitems:
+        class: %demacmedia_erp_cartitems.form.type.cartitems.class%
+        tags:
+            - { name: form.type, alias: demacmedia_erp_cartitems }
+
+    demacmedia_erp_cartitems.form.type.cartitems_api:
+        class: %demacmedia_erp_cartitems.form.type.cartitems_api.class%
+        arguments:
+            - @oro_entity_config.config_manager
+        tags:
+            - { name: form.type, alias: demacmedia_erp_cartitems_api }
+
+    demacmedia_erp_cartitems.form.cartitems:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - 'demacmedia_erp_cartitems'
+            - 'demacmedia_erp_cartitems'
+
+    demacmedia_erp_cartitems.form.cartitems.api:
+        class: Symfony\Component\Form\Form
+        factory_method: createNamed
+        factory_service: form.factory
+        arguments:
+            - ~
+            - 'demacmedia_erp_cartitems_api'
+
+    demacmedia_erp_cartitems.form.handler.cartitems:
+        class: %demacmedia_erp_cartitems.form.handler.cartitems.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_cartitems.form.cartitems
+            - @request
+            - @doctrine.orm.entity_manager
+
+    demacmedia_erp_cartitems.form.handler.cartitems_api:
+        class: %demacmedia_erp_cartitems.form.handler.cartitems_api.class%
+        scope: request
+        arguments:
+            - @demacmedia_erp_cartitems.form.cartitems.api
+            - @request
+            - @doctrine.orm.entity_manager
+            - @oro_entity_config.config_manager
+
+
