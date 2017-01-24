@@ -30,7 +30,7 @@ class ChangeAccountDatagridListener
             'erp_accounts.numberOfOrders'
         ];
 
-        $joinPath = '[source][query][join][left]';
+        $joinPath = '[source][query][join][inner]';
         $customJoin = [
             'join' => 'DemacMediaErpBundle:OroErpAccounts',
             'alias' => 'erp_accounts',
