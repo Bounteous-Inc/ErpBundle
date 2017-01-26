@@ -2,35 +2,67 @@ definitions:
     instore_customer_creation:
         label:   'Create Account and Contact for WebStore Customer'
         enabled: true
-        entity:  DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts
+        entity:  DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts # Entity the data is comming from.
         order:   10
-        exclude_definitions: [instore_customer_creation]
+        exclude_definitions: [instore_customer_creation] # Protect from overlapping triggering before this finish.
         actions_configuration:
-            - @tree: # set Contact
+            - @tree: # Main Process Logic lives inside here
+
+                # Same email, different names:
+                # It must share the same OroAccount and OroContact
+                #
+                # A@A.com   website-1   name-A
+                # A@A.com   website-2   name-B
+                #
+                # -----------------------------------------------------------
+                # Different email and different name,
+                # It must create a new account for each one
+                #
+                # A@A.com   website-1   name-A
+                # B@B.com   website-2   name-B
+                #
+                # -----------------------------------------------------------
+                # Same email, same names:
+                # It must share the same OroAccount and OroContact
+                #
+                # A@A.com   website-1   name-A
+                # A@A.com   website-2   name-A
+
                 actions:
                     - @assign_value:
-                        attribute: $.emailToMatch
+                        attribute: $.emailToMatch # Now any reference to email will be using this variable name
                         value: $email
                     - @format_string:
-                        attribute: $.contactName
+                        attribute: $.contactName # Contact Name now is referenced by this variable
                         string: '%first_name% %last_name%'
                         arguments:
                             first_name: $firstName
                             last_name: $lastName
-                    #------ Try to find any Contact with the same $email present on entity ----
+
+
+                    # Try to find any Contact with the same $email from WebAccounts
                     - @find_entity:
                         parameters:
                             class: OroCRM\Bundle\ContactBundle\Entity\Contact
-                            attribute: $.findContactByEmail
+                            attribute: $.findContactByEmail  # Stores the result if the "find_entity" here.
                             where:
                                 email: $.emailToMatch
-                    #------ Try to find any Account with the same name present on entity ----
+
+
+                    # Tries to find OroAccount from the contact above ^
                     - @find_entity:
+                        conditions:
+                        # If the previous "find_entity" found a contact with the same email,
+                        # It gets the AccountId from this contact.
+                            @not_empty: $.findContactByEmail
                         parameters:
                             class: OroCRM\Bundle\AccountBundle\Entity\Account
-                            attribute: $.findAccountByName
+                            attribute: $.findAccountByContactEmail  # Store the result here
                             where:
-                                name: $.contactName
+                                # name: $.contactName # If there is no contactName, gets
+                                defaultContact: $.findContactByEmail.id
+
+                    ################################################################
                     - @find_entity:
                         parameters:
                             class: OroCRM\Bundle\ContactBundle\Entity\Source
@@ -42,7 +74,9 @@ definitions:
                         conditions:
                             @and:
                                 - @empty: $.findContactByEmail
-                                - @empty: $.findAccountByName
+                                - @empty: $.findAccountByContactEmail
+                            # If there are no
+
                         actions:
                             - @create_entity: # create Contact
                                 class:     OroCRM\Bundle\ContactBundle\Entity\Contact
@@ -100,7 +134,7 @@ definitions:
 
                         # actions:
                             - @create_entity: # create Account
-                                conditions: # if Account not exists
+                                conditions: # if Account does not exist
                                    @empty: $account
                                 parameters:
                                     class:     OroCRM\Bundle\AccountBundle\Entity\Account
@@ -119,11 +153,11 @@ definitions:
                             method_parameters: [$.findContactByEmail]
                     - @call_method: # connect in-Store Customer with Account by Name
                         conditions:
-                            @not_empty: $.findAccountByName
+                            @not_empty: $.findAccountByContactEmail
                         parameters:
                             object: $.data # this is the current entity!
                             method: setAccount
-                            method_parameters: [$.findAccountByName]
+                            method_parameters: [$.findAccountByContactEmail]
 triggers:
     instore_customer_creation:
         -
@@ -134,3 +168,4 @@ triggers:
             event:    update
             priority: 5
             queued:   true  # put it on job queue!
+
