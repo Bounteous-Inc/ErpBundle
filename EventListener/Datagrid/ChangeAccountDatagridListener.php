@@ -14,8 +14,8 @@ class ChangeAccountDatagridListener
     public function onBuildBefore(BuildBefore $event)
     {
         $configuration = $event->getDatagrid()->getConfig();
-        $this->addColumns($configuration);
         $this->delColumns($configuration);
+        $this->addColumns($configuration);
         return $event;
     }
 
@@ -25,6 +25,8 @@ class ChangeAccountDatagridListener
     public function addColumns(DatagridConfiguration $configuration)
     {
         $customSelect = [
+            'erp_accounts.originalEmail',
+            'erp_accounts.websiteId',
             'erp_accounts.lifetime',
             'erp_accounts.lifetimeall',
             'erp_accounts.numberOfOrders'
@@ -39,6 +41,14 @@ class ChangeAccountDatagridListener
         ];
 
         $customColumns = [
+            'originalEmail' => [
+                'label' => 'Email',
+                'frontend_type' => 'string'
+            ],
+            'websiteId' => [
+                'label' => 'WebsiteID',
+                'frontend_type' => 'string'
+            ],
             'lifetime' => [
                 'label' => 'Lifetime',
                 'frontend_type' => 'currency'
@@ -54,6 +64,14 @@ class ChangeAccountDatagridListener
         ];
 
         $customFilters = [
+            'originalEmail' => [
+                'type' => 'string',
+                'data_name' => 'erp_accounts.originalEmail'
+            ],
+            'websiteId' => [
+                'type' => 'string',
+                'data_name' => 'erp_accounts.websiteId'
+            ],
             'lifetime' => [
                 'type' => 'currency',
                 'data_name' => 'erp_accounts.lifetime'
@@ -69,6 +87,12 @@ class ChangeAccountDatagridListener
         ];
 
         $customSorters = [
+            'originalEmail' => [
+                'data_name' => 'erp_accounts.originalEmail'
+            ],
+            'websiteId' => [
+                'data_name' => 'erp_accounts.websiteId'
+            ],
             'lifetime' => [
                 'data_name' => 'erp_accounts.lifetime'
             ],
@@ -128,13 +152,42 @@ class ChangeAccountDatagridListener
         $configuration->offsetUnsetByPath(
             '[columns][contactPhone]'
         );
+        $configuration->offsetUnsetByPath(
+            '[columns][contactName]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[columns][ownerName]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[columns][contactEmail]'
+        );
+
 
         $configuration->offsetUnsetByPath(
             '[sorters][columns][contactPhone]'
         );
+        $configuration->offsetUnsetByPath(
+            '[sorters][columns][contactName]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[sorters][columns][ownerName]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[sorters][columns][contactEmail]'
+        );
+
 
         $configuration->offsetUnsetByPath(
+            '[filters][columns][contactName]'
+        );
+        $configuration->offsetUnsetByPath(
             '[filters][columns][contactPhone]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[filters][columns][ownerName]'
+        );
+        $configuration->offsetUnsetByPath(
+            '[filters][columns][contactEmail]'
         );
     }
 }
