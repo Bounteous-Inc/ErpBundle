@@ -10,13 +10,14 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use JMS\JobQueueBundle\Entity\Job;
+
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
 class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
 {
     const COMMAND_NAME = 'demacmedia:oro:erp:lifetime:recalculate';
     protected $em;
-
 
     public function configure()
     {
@@ -28,7 +29,7 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $batchSize = 500;
+        $batchSize = 1000;
 
         $i = 0;
         $this->getEntityManager();
@@ -37,7 +38,8 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
         $firstWebAccountId = $this->findFirstWebAccountId();
         $lastWebAccountId = $this->findLastWebAccountId();
 
-		for ($x = $firstWebAccountId; $x <= $lastWebAccountId; $x = $x + $batchSize) {
+		// for ($x = $firstWebAccountId; $x <= $lastWebAccountId; $x = $x + $batchSize) {
+		for ($x = $lastWebAccountId; $x >= $firstWebAccountId; $x = $x - $batchSize) {        
             $dql = "SELECT a FROM DemacMediaErpBundle:OroErpAccounts AS a";
             $query = $this->em->createQuery($dql)
                 ->setFirstResult($x)
@@ -64,14 +66,13 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
 
                 /*
                 ********************************************
-                    Call method adding it to JobQueue()
+                    Call method adding it to Job Queue
                 ********************************************
-
-                
-                    
                 */
+                $this->addFixLifetimeToJobQueue($deaEntity);
 
-                $i++;
+
+                ++$i;
             }
 
             if (($i > 1) && ($i % $batchSize) === 0) {
@@ -82,20 +83,25 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
     }
 
 
-    protected function calculateCustomerLifetime(EntityManager $em, $erpaccount)
-    {
-        /** @var OroErpAccounts $webaccountsRepo */
-        $webaccountsRepo = $em->getRepository('DemacMediaErpBundle:OroErpAccounts');
-
-        // $lifetimeValue = $webaccountsRepo->calculateLifetimeValue($erpaccount);
-        // return $lifetimeValue;
-
-        return true;
-    }
-
-
-
 /************* PRIVATE METHODS ***********************/
+
+
+    private function addFixLifetimeToJobQueue(OroErpAccounts $entity)
+    {
+        if (!$entity instanceof OroErpAccounts) {
+            return;
+        }
+
+        $entity->getAccount();
+
+        $job = new Job('demacmedia:oro:erp:lifetime:update', [
+            $entity->getId(),
+            $entity->getOriginalEmail(),
+            0
+        ]);
+
+        $this->em->persist($job);
+    }
 
 
     private function findFirstWebAccountId() {
