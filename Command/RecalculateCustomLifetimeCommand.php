@@ -29,7 +29,7 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $batchSize = 1000;
+        $batchSize = 100;
 
         $i = 0;
         $this->getEntityManager();
@@ -38,9 +38,8 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
         $firstWebAccountId = $this->findFirstWebAccountId();
         $lastWebAccountId = $this->findLastWebAccountId();
 
-		// for ($x = $firstWebAccountId; $x <= $lastWebAccountId; $x = $x + $batchSize) {
-		for ($x = $lastWebAccountId; $x >= $firstWebAccountId; $x = $x - $batchSize) {        
-            $dql = "SELECT a FROM DemacMediaErpBundle:OroErpAccounts AS a";
+		for ($x = 0; $x <= $lastWebAccountId; $x = $x + $batchSize) {
+		    $dql = "SELECT a FROM DemacMediaErpBundle:OroErpAccounts AS a ORDER BY a.id DESC";
             $query = $this->em->createQuery($dql)
                 ->setFirstResult($x)
                 ->setMaxResults($batchSize);
