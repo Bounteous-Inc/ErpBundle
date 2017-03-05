@@ -10,35 +10,62 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Oro\Bundle\CronBundle\Command\CronCommandInterface;
+
 use JMS\JobQueueBundle\Entity\Job;
 
 use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
-class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
+class RecalculateCustomLifetimeCommand extends ContainerAwareCommand implements CronCommandInterface
 {
     const COMMAND_NAME = 'demacmedia:oro:erp:lifetime:recalculate';
+    const MAX_TIME_EXECUTION = 1800; /* Maximum execution time in seconds. 1800 = 30 minutes */
+    const LOCK_FILENAME = 'lifetime_running.lock';
     protected $em;
+    protected $x;
+    protected $startedAt;
+
+    public function getDefaultDefinition()
+    {
+        return '*/1 * * * *';
+    }
+
 
     public function configure()
     {
         $this
             ->setName(self::COMMAND_NAME)
+            ->addArgument('execution_type', InputArgument::OPTIONAL, 'Is it Cron or Manual execution? (DONT CHANGE. INTERNAL PARAMETER)')
             ->setDescription('Perform re-calculation of lifetime values for WebAccounts channel.');
     }
 
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->setStartedAt();
         $batchSize = 100;
 
-        $i = 0;
-        $this->getEntityManager();
+        if ($input->getArgument('execution_type') == 'cronjob'){
+            // Automatic execution
+            if (!file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
+                return 0;
+                // If wasn't started manually, LOCK_FILENAME doesn't exist.
+                // That means, exit from this execution right now!
+            }
+        } else {
+            // Manual execution
+            if (!file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
+                $this->createRunningLock(); // Creates running.lock
+            }
+        }
 
+        $i = $this->getX();
+        $this->getEntityManager();
 		$totalAccounts = $this->getTotalAccounts();
         $firstWebAccountId = $this->findFirstWebAccountId();
         $lastWebAccountId = $this->findLastWebAccountId();
 
-		for ($x = 0; $x <= $lastWebAccountId; $x = $x + $batchSize) {
+		for ($x = $this->getX(); $x <= $lastWebAccountId; $x = $x + $batchSize) {
 		    $dql = "SELECT a FROM DemacMediaErpBundle:OroErpAccounts AS a ORDER BY a.id DESC";
             $query = $this->em->createQuery($dql)
                 ->setFirstResult($x)
@@ -77,13 +104,55 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand
             if (($i > 1) && ($i % $batchSize) === 0) {
                 $this->em->flush(); // Executes all updates.
                 $this->em->clear(); // Detaches all objects from Doctrine!
+                $this->setX($i); // Saves the last batch executed to LOCK_FILENAME
+
+                if (time() >= ($this->startedAt + self::MAX_TIME_EXECUTION)) {
+                    $output->writeln('Maximum time of execution reached. Exiting command.');
+                    exit;
+                }
             }
         }
+
+        // Finished execution!
+        $output->writeln('Finished. Removing LOCK_FILENAME and sending email...');
+        unlink(sys_get_temp_dir(). '/' .self::LOCK_FILENAME); // Remove lifetime_running.lock
+        $output->writeln('Done.');
     }
 
 
 /************* PRIVATE METHODS ***********************/
 
+    private function setX($x)
+    {
+        $fp = fopen(sys_get_temp_dir(). '/' .self::LOCK_FILENAME, 'w+');
+        fputs($fp, $x);
+        fclose($fp);
+        $this->x = $x;
+    }
+
+    private function getX()
+    {
+        if (file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
+            $fp = fopen(sys_get_temp_dir(). '/' .self::LOCK_FILENAME, 'r');
+            $x = fread($fp, 32);
+            fclose($fp);
+            return $x;
+        }
+        return $this->x;
+    }
+
+    private function createRunningLock()
+    {
+        $this->x = 0;
+        $fp = fopen(sys_get_temp_dir(). '/' .self::LOCK_FILENAME, 'w+');
+        fputs($fp, $this->x);
+        fclose($fp);
+    }
+
+    private function setStartedAt()
+    {
+        $this->startedAt = time();
+    }
 
     private function addFixLifetimeToJobQueue(OroErpAccounts $entity)
     {
