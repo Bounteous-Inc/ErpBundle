@@ -18,8 +18,8 @@ use DemacMedia\Bundle\ErpBundle\Entity\OroErpAccounts;
 
 class RecalculateCustomLifetimeCommand extends ContainerAwareCommand implements CronCommandInterface
 {
-    const COMMAND_NAME = 'demacmedia:oro:erp:lifetime:recalculate';
-    const MAX_TIME_EXECUTION = 1800; /* Maximum execution time in seconds. 1800 = 30 minutes */
+    const COMMAND_NAME = 'oro:cron:demacmedia:erp:lifetime:recalculate';
+    const MAX_TIME_EXECUTION = 120; /* Maximum execution time in seconds. 120 = 2 minutes */
     const LOCK_FILENAME = 'lifetime_running.lock';
     protected $em;
     protected $x;
@@ -45,17 +45,17 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand implements 
         $this->setStartedAt();
         $batchSize = 100;
 
-        if ($input->getArgument('execution_type') == 'cronjob'){
+        if ($input->getArgument('execution_type') == 'manualrun'){
+            // Manual execution
+            if (!file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
+                $this->createRunningLock(); // Creates running.lock
+            }
+        } else {
             // Automatic execution
             if (!file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
                 return 0;
                 // If wasn't started manually, LOCK_FILENAME doesn't exist.
                 // That means, exit from this execution right now!
-            }
-        } else {
-            // Manual execution
-            if (!file_exists(sys_get_temp_dir(). '/' .self::LOCK_FILENAME)) {
-                $this->createRunningLock(); // Creates running.lock
             }
         }
 
@@ -166,7 +166,11 @@ class RecalculateCustomLifetimeCommand extends ContainerAwareCommand implements 
             $entity->getId(),
             $entity->getOriginalEmail(),
             0
-        ]);
+        ],
+        true,
+        Job::DEFAULT_QUEUE,
+        Job::PRIORITY_LOW
+        );
 
         $this->em->persist($job);
     }
