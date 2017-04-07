@@ -35,6 +35,7 @@ class OroErpAccountsHelper
         );
         $this->setOroLifetimeValueHistory($accountId, $lifetimeAllSalesValue);
         $this->setNumberOfOrdersInAccounts($accountId);
+        $this->setNumberOfOrdersAllInAccounts($originalEmail);
 
         return $lifetimeSalesValue;
     }
@@ -178,6 +179,37 @@ class OroErpAccountsHelper
             'number_of_orders' => $numberOfOrders
         ]);
         $qb->getQuery()->setMaxResults(1);
+        $qb->getQuery()->execute();
+    }
+
+
+/*
+    This method sets Quantity of orders this email has across all websites.
+*/
+    public function setNumberOfOrdersAllInAccounts($originalEmail) {
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpOrders')
+            ->createQueryBuilder('o');
+        $qb->select('COUNT(o.id)');
+        $qb->where('o.originalEmail = :original_email');
+        $qb->setParameters([
+            'original_email' => $originalEmail
+        ]);
+
+        $numberOfOrders = (int)$qb->getQuery()->getSingleScalarResult();
+
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+            ->createQueryBuilder('a');
+        $qb->update('DemacMediaErpBundle:OroErpAccounts', 'a');
+        $qb->set('a.numberOfOrdersAll', ':number_of_orders_all');
+        $qb->where('a.original_email = :original_email');
+        $qb->setParameters([
+            'original_email' => $originalEmail,
+            'number_of_orders_all' => $numberOfOrders
+        ]);
+        // No more max results since I could have more than 1 accounts with the same email
+        // $qb->getQuery()->setMaxResults(1);
         $qb->getQuery()->execute();
     }
 }

@@ -365,6 +365,23 @@ class OroErpAccounts extends ExtendOroErpAccounts
 
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="number_of_orders_all", type="integer")
+     * @ConfigField(
+     *      defaultValues={
+     *          "entity"={
+     *              "label"="Number of Orders All",
+     *              "plural_label"="Number of Orders All",
+     *              "description"="Number of Orders across all websites for this account"
+     *          }
+     *      }
+     * )
+     */
+    protected $numberOfOrdersAll = 0;
+
+
+    /**
      * @var float
      *
      * @ORM\Column(name="lifetimeall", type="money", nullable=true)
@@ -378,11 +395,11 @@ class OroErpAccounts extends ExtendOroErpAccounts
      */
     protected $lifetimeall = 0;
 
-    
+
     public function __construct() {
         $this->orders = new ArrayCollection();
     }
-    
+
 
     /**
      * @return int
@@ -399,7 +416,7 @@ class OroErpAccounts extends ExtendOroErpAccounts
     {
         $this->id = $id;
     }
-    
+
 
     /**
      * @return string
@@ -804,4 +821,21 @@ class OroErpAccounts extends ExtendOroErpAccounts
     {
         $this->numberOfOrders = $numberOfOrders;
     }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfOrdersAll()
+    {
+        return $this->numberOfOrdersAll;
+    }
+
+    /**
+     * @param int $numberOfOrdersAll
+     */
+    public function setNumberOfOrdersAll($numberOfOrdersAll)
+    {
+        $this->numberOfOrdersAll = $numberOfOrdersAll;
+    }
+
 }

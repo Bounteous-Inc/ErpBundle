@@ -19,6 +19,7 @@ demacmedia_erp:
         lifetime.label: 'Lifetime'
         lifetimeall.label: 'Lifetime All'
         numberOfOrders.label: 'Number of Orders'
+        numberOfOrdersAll.label: 'Number of Orders All'
     oroerpaccounts:
         contact.label: 'Oro Contact'
         orders.label: 'WebStore Orders'
@@ -58,6 +59,7 @@ demacmedia_erp:
         shipPhone.label: 'Ship Phone'
         orderNumber.label: 'Order Number'
         erpaccount.label: 'Web Account'
+        numberOfOrdersAll.label: 'Number of Orders All'
     oroerporders:
         items.label: 'WebStore Order Items'
 
@@ -166,6 +168,7 @@ demacmedia:
             source.label: 'Source'
             title.label: 'Title'
             lifetime.label: 'Lifetime Value'
+            numberOfOrdersAll.label: 'Number of Orders All'
 
         oroerporders:
             items.label: 'WebStore Order Items'
@@ -218,6 +221,7 @@ demacmedia:
             ponum.label: 'Ponum'
             owner.label: 'Owner'
             original_order_id.label: 'Original Order ID'
+            numberOfOrdersAll.label: 'Number of Orders All'
 
         oroerporderitems:
             owner.label: 'Owner'
