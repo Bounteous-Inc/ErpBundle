@@ -203,7 +203,7 @@ class OroErpAccountsHelper
             ->createQueryBuilder('a');
         $qb->update('DemacMediaErpBundle:OroErpAccounts', 'a');
         $qb->set('a.numberOfOrdersAll', ':number_of_orders_all');
-        $qb->where('a.original_email = :original_email');
+        $qb->where('a.originalEmail = :original_email');
         $qb->setParameters([
             'original_email' => $originalEmail,
             'number_of_orders_all' => $numberOfOrders
