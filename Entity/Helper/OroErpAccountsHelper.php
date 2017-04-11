@@ -214,9 +214,8 @@ class OroErpAccountsHelper
         $qb->setParameters([
             'original_email' => $originalEmail
         ]);
-        $qb->getQuery()->setMaxResults(1);
-
-        return (int)$qb->getQuery()->getSingleScalarResult();
+        
+        return (int) $qb->getQuery()->setMaxResults(1)->getSingleScalarResult();
     }
 
     public function calculateNumberOfOrdersAll($originalEmail) {
