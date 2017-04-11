@@ -187,16 +187,8 @@ class OroErpAccountsHelper
     This method sets Quantity of orders this email has across all websites.
 */
     public function setNumberOfOrdersAllInAccounts($originalEmail) {
-        $qb = $this->em
-            ->getRepository('DemacMediaErpBundle:OroErpOrders')
-            ->createQueryBuilder('o');
-        $qb->select('COUNT(o.id)');
-        $qb->where('o.originalEmail = :original_email');
-        $qb->setParameters([
-            'original_email' => $originalEmail
-        ]);
-
-        $numberOfOrders = (int)$qb->getQuery()->getSingleScalarResult();
+        
+        $numberOfOrders = calculateNumberOfOrdersAll($originalEmail);
 
         $qb = $this->em
             ->getRepository('DemacMediaErpBundle:OroErpAccounts')
@@ -211,5 +203,31 @@ class OroErpAccountsHelper
         // No more max results since I could have more than 1 accounts with the same email
         // $qb->getQuery()->setMaxResults(1);
         $qb->getQuery()->execute();
+    }
+
+    public function getNumberOfOrdersAll($originalEmail) {
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpAccounts')
+            ->createQueryBuilder('a');
+        $qb->select('a.numberOfOrdersAll');
+        $qb->where('a.originalEmail = :original_email');
+        $qb->setParameters([
+            'original_email' => $originalEmail
+        ]);
+
+        return (int)$qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function calculateNumberOfOrdersAll($originalEmail) {
+        $qb = $this->em
+            ->getRepository('DemacMediaErpBundle:OroErpOrders')
+            ->createQueryBuilder('o');
+        $qb->select('COUNT(o.id)');
+        $qb->where('o.originalEmail = :original_email');
+        $qb->setParameters([
+            'original_email' => $originalEmail
+        ]);
+
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 }

@@ -24,6 +24,8 @@ demacmedia_erp:
         contact.label: 'Oro Contact'
         orders.label: 'WebStore Orders'
         account.label: 'Oro Account'
+        lifetimeall.label: 'Lifetime All'
+        
 
     orders:
         entity.label: 'WebStore Order'

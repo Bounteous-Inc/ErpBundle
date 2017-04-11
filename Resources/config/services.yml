@@ -14,6 +14,8 @@ parameters:
     demacmedia_erp.update_lifetime.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\UpdateLifetimeSalesValueListener
     demacmedia_erp.change_account_datagrid.listener.class: DemacMedia\Bundle\ErpBundle\EventListener\Datagrid\ChangeAccountDatagridListener
 
+# TWIG
+    demacmedia_erp.twig.number_of_orders_value_extension.class: DemacMedia\Bundle\ErpBundle\Twig\NumberOfOrdersValueExtension
 
 services:
     # CHANNEL REGISTRATION PROVIDER
@@ -100,3 +102,12 @@ services:
          class: %demacmedia_erp.change_account_datagrid.listener.class%
          tags:
              - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.accounts-grid, method: onBuildBefore }
+
+
+    demacmedia_erp.twig.number_of_orders_value_extension:
+        class: %demacmedia_erp.twig.number_of_orders_value_extension.class%
+        arguments:
+            - @demacmedia_erp.lifetime_helper
+        tags:
+            - { name: twig.extension }
+            
