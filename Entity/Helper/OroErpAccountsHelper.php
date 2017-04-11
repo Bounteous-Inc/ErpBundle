@@ -188,7 +188,7 @@ class OroErpAccountsHelper
 */
     public function setNumberOfOrdersAllInAccounts($originalEmail) {
         
-        $numberOfOrders = calculateNumberOfOrdersAll($originalEmail);
+        $numberOfOrders = $this->calculateNumberOfOrdersAll($originalEmail);
 
         $qb = $this->em
             ->getRepository('DemacMediaErpBundle:OroErpAccounts')
