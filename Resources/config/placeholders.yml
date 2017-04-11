@@ -5,10 +5,21 @@ placeholders:
 #                order: 1
 #            demacmedia_trackedevents_view:
 #                order: 2
+
+    page_header_stats_after:
+        items:
+            account_lifetime_value:
+                order: 20
+
 items:
     demacmedia_instore_orders:
         template: DemacMediaErpBundle:Default:orders-specific-view-accounts.html.twig
         applicable: @oro_ui.placeholder.filter->isInstanceOf($entity$, %orocrm_account.account.entity.class%)
+
+    account_lifetime_value:
+        template: DemacMediaErpBundle:Account:customLifetimeValue.html.twig
+        applicable: @oro_ui.placeholder.filter->isInstanceOf($entity$, %orocrm_account.account.entity.class%)
+#        applicable: "@demacmedia_erp.placeholder.filter->isApplicable($entity$)"
 
 #    demacmedia_trackedevents_view:
 #        template: DemacMediaErpBundle:TrackedEvents:events.html.twig

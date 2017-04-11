@@ -104,7 +104,7 @@
                         <label class="control-label">Lifetime Sales:</label>
                         <div class="controls">
                             <div class="control-label">
-                                <span class="label label-success">
+                                <span class="label label-info">
                                     {{ entity.lifetime ? entity.lifetime|oro_format_currency : 'N/A'|trans }}
                                 </span>
                             </div>
@@ -115,8 +115,30 @@
                         <label class="control-label">Lifetime Sales <br />(All Websites):</label>
                         <div class="controls">
                             <div class="control-label">
-                                <span class="label label-info">
+                                <span class="label label-warning">
                                     {{ entity.lifetimeall ? entity.lifetimeall|oro_format_currency : entity.lifetime|oro_format_currency }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Number of Orders:</label>
+                        <div class="controls">
+                            <div class="control-label">
+                                <span class="label label-info">
+                                    {{ entity.numberOfOrders|default('0') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Number of Orders <br />(All Websites):</label>
+                        <div class="controls">
+                            <div class="control-label">
+                                <span class="label label-warning">
+                                    {{ entity.numberOfOrdersAll|default('0') }}
                                 </span>
                             </div>
                         </div>

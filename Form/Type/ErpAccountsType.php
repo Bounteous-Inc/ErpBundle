@@ -80,6 +80,14 @@ class ErpAccountsType extends AbstractType
                 ]
             )
             ->add(
+                'number_of_orders_all',
+                'text',
+                [
+                    'required'    => false,
+                    'label'       => 'Number of Orders All Websites',
+                ]
+            )
+            ->add(
                 'created_at',
                 'oro_datetime',
                 [
