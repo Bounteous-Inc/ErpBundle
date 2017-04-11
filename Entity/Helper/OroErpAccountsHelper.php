@@ -214,6 +214,7 @@ class OroErpAccountsHelper
         $qb->setParameters([
             'original_email' => $originalEmail
         ]);
+        $qb->getQuery()->setMaxResults(1);
 
         return (int)$qb->getQuery()->getSingleScalarResult();
     }
